@@ -1,0 +1,40 @@
+{
+  "name": "MWGroup Info",
+  "description": "Get Info",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": [
+    "downloads","declarativeContent","storage", "activeTab", "scripting","webNavigation","webRequest","tabs","notifications" 
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "https://www.facebook.com/",
+    "*://*/*"
+  ],
+
+  "background": {
+    "service_worker": "script/background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "/images/get_started16.png",
+      "32": "/images/get_started32.png",
+      "48": "/images/get_started48.png",
+      "128": "/images/get_started128.png"
+    }
+  },
+  "icons": {
+    "16": "/images/get_started16.png",
+    "32": "/images/get_started32.png",
+    "48": "/images/get_started48.png",
+    "128": "/images/get_started128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["data/*.csv","*.css","*.js"],
+      "matches": ["https://*/*"],      
+      "extension_ids": []
+    }
+  ]
+}

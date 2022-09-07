@@ -1,0 +1,226 @@
+html,
+body {
+   height: auto;
+   min-width: 500px;
+   max-height: 600px;
+   border-radius:5px;
+   max-width: 500px !important;
+   width: auto !important;
+   height: auto !important;
+}
+#fb-LinkProcess{
+	overflow-x:auto;
+	
+	
+}
+.footer{
+   background-color: #004169;
+   text-align: center; 
+   font-weight: bolder; 
+   padding-bottom: 5px;
+   padding-right: 20px;
+   color: white; 
+}
+
+.container {
+   /*
+   padding-top:20px;
+   margin: 15px;*/
+   height: auto !important;
+
+}
+
+#main {
+   width: 65%;
+   display: flex;
+}
+
+#formContainer {
+   width: 33%;
+   margin-right: 20rem;
+}
+
+#tasksForm {
+   display: block;
+}
+
+#listContainer {
+   max-height: 500px;
+   border: none;
+   width: 40%;
+}
+
+#tasksList {
+   list-style: none;
+}
+
+#tasksList li {
+   height: 30px;
+   padding-left: 15px;
+   line-height: 2;
+   border: 1px solid snow;
+   margin-bottom: 8px;
+   box-shadow: 1px 1px;
+   font-size: 0.9rem;
+}
+
+.complete {
+   background-color: #e9c686;
+   color: rgb(255, 255, 255);
+   text-decoration: line-through;
+}
+
+button {
+   background-color: #e9a830;
+   height: auto !important;
+   color: white;
+   width: 80px;
+   padding: 3px;
+   border: 1px solid snow;
+   border-radius: 25px !important; 
+}
+
+label {
+   font-size: 1em;
+   font-weight: 500;
+   display: block;
+   margin-bottom: 1em;
+}
+
+input {
+   width: 100%;
+   height: auto !important;
+   margin: 10px;
+   border-radius: 5px; 
+}
+
+span {
+   float: right;
+   margin-right: 12px;
+}
+
+bold {
+   text-align: right;
+}
+
+#version {
+   text-align: right;
+   font-weight: bolder;
+   padding-top: 5px;
+}
+ .contairner-extensions ul{
+   list-style: none;
+}
+
+.contairner-extensions ul.list-inline li{
+   float: left !important;
+   margin: 5px;
+}
+
+
+.contairner-extensions li {
+   background-color: #ffff; 
+   border-radius: 25px; 
+   padding-right: 15px;
+   padding-left: 0px;
+   color: #70706e;
+   cursor: pointer;
+   font-weight: bolder;
+       border: 2px solid #00416961;
+}
+
+.contairner-extensions li:hover{
+   box-shadow: 0 6px 3px -2px #004169fa !important;
+   color: #004169;
+   font-weight: bolder;
+   border: 2px solid #004169;
+}
+
+
+/*IMAGEN CHECKBOX*/
+
+ .badgebox
+{
+    opacity: 0;
+}
+
+.badgebox + .badge
+{
+    /* Move the check mark away when unchecked */
+    text-indent: -999999px;
+    /* Makes the badge's width stay the same checked and unchecked */
+   width: 27px;
+}
+
+.badgebox:focus + .badge
+{
+    /* Set something to make the badge looks focused */
+    /* This really depends on the application, in my case it was: */
+    
+    /* Adding a light border */
+    box-shadow: inset 0px 0px 5px;
+    /* Taking the difference out of the padding */
+}
+
+.badgebox:checked + .badge
+{
+    /* Move the check mark back when checked */
+   text-indent: 0;
+}
+input[type="checkbox"] {
+   width: 0% !important;
+}
+
+.btn-black {
+    color: #fff !important;
+    background-color: #242726 !important;
+    border-color: #242726 !important;
+}
+.btn-purple {
+    color: #fff !important;
+    background-color: #690597 !important;
+    border-color: #690597 !important;
+}
+.badge-check{
+   font-size: 1em !important;
+   background: #fff !important;
+} 
+.badge-black{
+   color:#242726 !important;
+}
+.badge-purple{
+   color:#690597 !important;
+}
+.badge-succes{
+   color:#198754 !important;
+}
+.badge-warning{
+   color:#ffca2c !important;
+}
+.badge-danger{
+   color:#b02a37 !important;
+}
+
+.contairner-extensions li.active{
+  /*background-color: #d1d0d0 !important;*/
+    box-shadow: 0 6px 3px -2px #004169fa !important;
+    color: #222222 !important;
+    font-weight: bolder !important;
+       border: 2px solid #004169;
+   border-radius: 25px; 
+   padding-right: 15px;
+ }
+
+body{background-color: #ffffff !important;}
+
+div.process{
+   box-shadow: 0 6px 3px -2px grey !important;
+   border-radius: 10px;
+   border: solid 1px #fff;
+   padding: 20px;
+}
+
+#errorDtTr{
+   color: red;
+   
+}

@@ -14,14 +14,225 @@ let contentCSVLoaded ="";
 var urlBase="http://3.129.70.158:8100/V1/api";
 
 
-let mapOption={fb:"Facebook", mw:"Meltwater", xp:"MWGroup", tr:"Trendinalia"}
+let mapOption={fb:"Facebook", mw:"Meltwater", xp:"MWGroup", tr:"Trendinalia",cl:"Clasificador"}
 
 console.log("Archivo dunctions");
 pathname = window.location.pathname.slice(1).replace("popup.html","").replaceAll("/","\\");
 console.log(pathname);
 console.log(window.location.host);
 
+//datos del clasificador
+var urlDB = "https://docs.google.com/spreadsheets/d/1k4r9mTcIl5FAsSCV7jNeIqXpcxuI-FvxHdIYJjOmDvg/edit#gid=0";
+var urlBySheet ="https://docs.google.com/spreadsheets/d/1k4r9mTcIl5FAsSCV7jNeIqXpcxuI-FvxHdIYJjOmDvg/gviz/tq?&sheet={{sheetName}}&tq=Select *"
+var arrThems=[];
+var themsEval =[];
+var thems =[];
 
+function clasificador(urlsTrProcess, themsEval, column){
+    try{
+        //Agregando columnas de las clasificaciones
+        if(typeof(column) == "number"){
+            for (var t = 0; t < themsEval.length; t++) {
+                let sh = themsEval[t];
+                urlsTrProcess[0].push(sh.desc);            
+            }
+        }
+        let countColumns = urlsTrProcess[0].length;
+
+        //Clasificando tendencia por tendencia 
+         for (var i = (typeof(column) == "number")?1:0; i < urlsTrProcess.length; i++) {
+
+            
+            //Lista de tipos de clasificaciones
+            for (var t = 0; t < themsEval.length; t++) {
+                let sh = themsEval[t];
+                let inClasificator = sh.desc
+                //Temas del clasificador
+                let lThems = sh.data;
+                let inThems ="";
+
+                for (var o = 0; o < lThems.length; o++) {
+
+                    //{them:tema, items:["",""]}
+                    let objThem = lThems[o];
+                    //let trend = urlsTrProcess[i][1];
+                    let trend = urlsTrProcess[i][column];
+                    console.log("clasificando la tendencia: "+trend);
+                    
+                    for (var z= 0; z < objThem.items.length; z++) { 
+
+                        let item = clearText(objThem.items[z]).trim();
+                        let size = item.split(' ');
+                        
+                        let arThem = trend.trim().split(' ');
+                        let arItem = item.trim().split(' ');
+                        
+
+                        if(validateInclude(arThem, arItem, 0)){
+
+                            if(inThems==""){
+                                inThems= objThem.them;
+                            }else{
+                                inThems += ", "+objThem.them;
+                            }
+                            break;
+                        }
+                       
+                    }
+
+                }
+                
+                if(typeof(column) == "number"){
+                    urlsTrProcess[i].push(inThems);
+                }else{
+                    let obj = urlsTrProcess[i];
+                    obj[sh.desc] = inThems
+                    urlsTrProcess[i]= obj;
+                }
+
+            }
+
+        }
+
+    }catch(error){
+        console.log(error);
+    }
+
+    return urlsTrProcess;
+}
+
+function validateInclude(_them,_item, index){
+    let _i = index;
+    console.log("_i: "+_i);
+    let coincidencia = false;
+    
+    if(_them.length >= _i +_item.length){
+    
+      if(_them.length == _item.length){
+        if(clearText(_them.join(' ')) == clearText(_item.join(' '))){
+          coincidencia = true;
+        }
+      }
+      else{
+        let construct = "";
+        for(var w = 0; w < _them.length; w++){
+            if(w >= _i && w < _i+_item.length){
+            construct+= " "+_them[w];
+          }
+        }
+        console.log("Texto formado: "+construct);
+        if(clearText(construct.trim()) ==  clearText(_item.join(' '))){
+            coincidencia = true;
+        }else{
+            _i++;
+            coincidencia = validateInclude(_them, _item, _i);
+        }
+    
+      }
+    
+    }
+        
+    return coincidencia;    
+}
+
+function loadThemes(contenedor){
+    console.log("loadThemes.... "+contenedor);
+    arrThems=[];
+    $.get(urlDB).then(
+        function(data, status){
+
+        let colors=["success","danger","black","purple","warning","primary"];
+        
+        getSheets(data);
+        let htmlT = '<h3>Selecciona que clasificaci&oacute;n deseas hacer</h3>';
+        for (var i = 0; i < arrThems.length; i++) {
+            htmlT+='<label for="'+option+arrThems[i].desc+'" class="btn btn-'+colors[getRandomInt(colors.length)]+'">'+arrThems[i].desc+' <input type="checkbox" id="'+option+arrThems[i].desc+'" class="badgebox"><span class="'+option+'evaluation-check badge badge-check badge-succes">&check;</span></label>&nbsp&nbsp&nbsp';
+
+        }
+        $(contenedor).html("");
+        $(contenedor).html(htmlT);        
+    });
+}
+
+function getSheets(data){
+        
+    try{
+        var textStart = 'var bootstrapData = ';
+        var textEnd = "; mergedConfig['appConfig']['cosmoId']";
+        var start = data.indexOf(textStart)+textStart.length;
+        var end = data.indexOf(textEnd);
+        var content = data.substr(start,(end-start));
+        arrThems=[];
+        let obj = JSON.parse(content);
+        console.log(obj);
+        let processSh = -1;
+        for (var i = 0; i < obj.changes.topsnapshot.length; i++) {
+            try{
+                //console.log(obj.changes.topsnapshot[i]);
+                let item = obj.changes.topsnapshot[i][1];
+                if(item.includes("null,null")){
+                    break;
+                }
+                if(item.includes('\"],[{\"')){
+                    processSh++;
+                
+                    //console.log(item.split('\"],[{\"')[0]);
+                    let idDescription = item.split('\"],[{\"')[0];
+                    let indexStart = idDescription.lastIndexOf(',\"')+2;
+
+                    let th = {id:0,desc:""};
+                    let desc = idDescription.substring(indexStart,idDescription.length);
+                    //console.log(desc);
+                    th.desc = desc;
+                    //console.log(idDescription.split('\",')[0]+" Replace => "+'['+i+',0,\"');
+                    let id = idDescription.split('\",')[0].replaceAll('['+i+',0,\"');
+                    //console.log(id);
+                    th.id = id.replace('undefined','');
+                    arrThems.push(th);
+                }
+
+            }catch(error){
+                console.log(error);
+            }
+
+        }
+
+        //console.log(arrThems);
+
+    }catch(error){
+        console.log(error);
+    }
+}
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+
+function getDataThems(data, index){
+
+    try{
+
+        var rows = data.table.rows;
+        thems =[];
+     
+        for (var i = 0; i < rows.length; i++) {
+            let r = rows[i]["c"];
+            
+            thems.push({                        
+                them:r[0]["v"],
+                items:r[1]["v"].split(',')
+            });
+        
+        }
+        
+        themsEval[index]["data"] =thems;
+        //console.log(thems);
+        //console.log(status)
+    }catch(error){
+        console.log(error);
+    }
+}
+    
 
 /*FUNCIONES GENERALES*/
 
@@ -186,7 +397,12 @@ function showProcess(evt){
           case "tr-":
             // code block
             clearTrendinalia();
+            loadThemes("#tr-themes");
             break;
+            case "cl-":
+              // code block              
+              loadThemes("#cl-themes");            
+              break;
           default:
             // code block
             restart();

@@ -63,6 +63,10 @@
                   <img style="border-radius: 50%; max-width: 30px " src="images/mwgroup.png" /> 
                   MWGroup 
                 </li>
+                <li class="list-inline-item" id="cl-">
+                  <img style="border-radius: 50%; max-width: 30px " src="images/clasificator.png" /> 
+                  Clasificador 
+                </li>
               </ul> 
             </div>
           </div>
@@ -451,7 +455,7 @@
                 </div>
                 <p id="errorDtTr"></p>
                 <br>
-                <div id="themes"></div>
+                <div id="tr-themes"></div>
                 <br>
                 <div class="row">
 
@@ -504,6 +508,78 @@
           </div>
         </div>
 
+        <div class="process cl-">
+          <div class="row">
+            <div class="col-md-12">
+              <h2 style="color: #f36e4d;">Clasificador</h2>
+            </div>
+            <div class="tab-content">
+              <form id="formTcl" class="was-validated form-inline">  
+                
+                <div class="form-group">
+                  <label for="cl-file-selector">Carga el archivo a clasificar:</label>
+                  <input type="file" id="cl-file-selector" class="form-control-file border" accept=".csv, .xlsx">
+                  <br>
+                </div> 
+
+                <div class="form-group">
+                  <label for="column">Selecciona la columna donde se encuentra la información a clasificar:</label>
+                  <!--
+                  <input type="text" class="form-control" id="column" placeholder="Nombre del la columna" name="column" required="">
+                  -->
+                  <select id="columns" name="columns" class="form-select" aria-label="Default select example" required>
+                    <option value="">--Seleccione--</option>
+                  </select>
+                
+                  <br>
+                </div> 
+
+                <p id="errorDtCl"></p>
+                <br>
+                <div id="cl-themes"></div>
+                <br>
+                <div class="row">
+
+                  <div class="col-md-12" style="text-align: left;">
+                    <button type="button" id="clstart" class="btn btn-success" style="width: 100px;border-radius: 5px !important;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                      <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                    </svg> Start</button>
+                  </div>
+                  <div class="col-md-4"></div>
+                </div>
+              </form>
+            </div>                
+
+          </div>          
+
+          <div class="row cl-contairner-actions">
+            <br>
+            <p class="col-md-6 btn-group">
+
+              <button id="clstart" type="button" class="btn btn-success">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                  <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                </svg>
+                Start
+              </button>
+            </p>
+          </div>
+
+          <div class="row process tr-contairner-process">
+            <br>
+            <div class="col-md-12">
+
+              <label id="tr-lbState"></label>        
+              <div id="tr-LinkProcess"></div>
+              <br>
+              <div id="tr-description"></div>       
+            </div>
+          </div>
+        </div>
+
       </div>
       
    
@@ -512,6 +588,7 @@
     <script src="script/xlsx.full.min.js?62736232564237" charset="utf-8"></script> 
     <script src="script/bootstrap.min.js?62736232564237" charset="utf-8"></script>
     <script src="script/functions.js?62736232564237" charset="utf-8"></script>
+    <script src="script/clasificator.js?62736232564237" charset="utf-8"></script>
     <script src="script/popup.js?62736232564237" charset="utf-8"></script>    
     <script src="script/meltwater.js?62736232564237" charset="utf-8"></script>
     <script src="script/mwgroup.js?62736232564237" charset="utf-8"></script>

@@ -1,6 +1,4 @@
 var urlTr = "http://www.trendinalia.com/twitter-trending-topics/mexico/mexico-{{date}}.html";
-var urlDB = "https://docs.google.com/spreadsheets/d/1k4r9mTcIl5FAsSCV7jNeIqXpcxuI-FvxHdIYJjOmDvg/edit#gid=0";
-var urlBySheet ="https://docs.google.com/spreadsheets/d/1k4r9mTcIl5FAsSCV7jNeIqXpcxuI-FvxHdIYJjOmDvg/gviz/tq?&sheet={{sheetName}}&tq=Select *"
 
 var urlsTrProcess=[];
 var urlsTrProcessTemp=[];
@@ -10,12 +8,10 @@ var minutesInSeg = 20;
 var seg = -1; 
 var fechatr = "";
 var stringDate ="";
-var themsEval =[];
-var arrThems=[];
 
-$("#dbUrl").html('<a href="'+urlDB+'">aquí</a>');
 
-loadThemes();
+
+$("#dbUrl").html('<a href="'+urlDB+'">aquí</a>');  
 
 var flagTr = new observableTr(2);
 flagTr.onChange(function(v){
@@ -48,7 +44,8 @@ flagTr.onChange(function(v){
                     }
 
                     console.log("clasificando...");
-                    clasificador();
+                    //clasificador();
+                    urlsTrProcess = clasificador(urlsTrProcess, themsEval,1);
 
                     console.log("Listo para descargar");
                     wb = XLSX.utils.book_new();                    
@@ -357,104 +354,8 @@ function clearTrendinalia(){
 
 
 
-function getDataThems(data, index){
 
-    try{
 
-        var rows = data.table.rows;
-        thems =[];
-     
-        for (var i = 0; i < rows.length; i++) {
-            let r = rows[i]["c"];
-            
-            thems.push({                        
-                them:r[0]["v"],
-                items:r[1]["v"].split(',')
-            });
-        
-        }
-        
-        themsEval[index]["data"] =thems;
-        console.log(thems);
-        console.log(status)
-    }catch(error){
-        console.log(error);
-    }
-}
-    
-function getSheets(data){
-        
-    try{
-        var textStart = 'var bootstrapData = ';
-        var textEnd = "; mergedConfig['appConfig']['cosmoId']";
-        var start = data.indexOf(textStart)+textStart.length;
-        var end = data.indexOf(textEnd);
-        var content = data.substr(start,(end-start));
-
-        let obj = JSON.parse(content);
-        console.log(obj);
-        let processSh = -1;
-        for (var i = 0; i < obj.changes.topsnapshot.length; i++) {
-            try{
-                //console.log(obj.changes.topsnapshot[i]);
-                let item = obj.changes.topsnapshot[i][1];
-                if(item.includes("null,null")){
-                    break;
-                }
-                if(item.includes('\"],[{\"')){
-                    processSh++;
-                
-                    console.log(item.split('\"],[{\"')[0]);
-                    let idDescription = item.split('\"],[{\"')[0];
-                    let indexStart = idDescription.lastIndexOf(',\"')+2;
-
-                    let th = {id:0,desc:""};
-                    let desc = idDescription.substring(indexStart,idDescription.length);
-                    console.log(desc);
-                    th.desc = desc;
-                    console.log(idDescription.split('\",')[0]+" Replace => "+'['+i+',0,\"');
-                    let id = idDescription.split('\",')[0].replaceAll('['+i+',0,\"');
-                    console.log(id);
-                    th.id = id.replace('undefined','');
-                    arrThems.push(th);
-                }
-
-            }catch(error){
-                console.log(error);
-            }
-
-        }
-
-        console.log(arrThems);
-
-    }catch(error){
-        console.log(error);
-    }
-}
-
-function loadThemes(){
-
-$.get(urlDB).then(
-        function(data, status){
-        console.log(data); 
-
-        let colors=["success","danger","black","purple","warning","primary"];
-
-        getSheets(data);
-        let htmlT = '<h3>Selecciona que clasificaci&oacute;n deseas hacer</h3>';
-        for (var i = 0; i < arrThems.length; i++) {
-            htmlT+='<label for="'+arrThems[i].desc+'" class="btn btn-'+colors[getRandomInt(colors.length)]+'">'+arrThems[i].desc+' <input type="checkbox" id="'+arrThems[i].desc+'" class="badgebox"><span class="tr-evaluation-check badge badge-check badge-succes">&check;</span></label>&nbsp&nbsp&nbsp';
-
-        }
-        $("#themes").html(htmlT);
-        
-    });
-
-}
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-}
 
 
 
@@ -469,7 +370,7 @@ $(document).on(('click','change'), function(e) {
             if(checks[i].checked){
                 let add = true;
                 for (var s = 0; s < themsEval.length; s++) {
-                  if(themsEval[s].desc == checks[i].id){
+                  if(themsEval[s].desc == checks[i].id.split("-")[1]){
                     add = false;
                     break;
                   }
@@ -477,7 +378,7 @@ $(document).on(('click','change'), function(e) {
 
                 if(add){
                     for (var l = 0; l < arrThems.length; l++) {
-                        if(arrThems[l].desc == checks[i].id){
+                        if(arrThems[l].desc == checks[i].id.split("-")[1]){
                             themsEval.push(arrThems[l]);
                                 break;
                         }
@@ -505,69 +406,6 @@ $(document).on(('click','change'), function(e) {
 
 var shExist ="VERDADERO";
 var shDontExist ="FALSO";
-function clasificador(){
-    try{
-        //Agregando columnas de las clasificaciones
-        for (var t = 0; t < themsEval.length; t++) {
-            let sh = themsEval[t];
-            urlsTrProcess[0].push(sh.desc);            
-        }
-        let countColumns = urlsTrProcess[0].length;
-
-        //Clasificando tendencia por tendencia 
-         for (var i = 1; i < urlsTrProcess.length; i++) {
-
-            
-            //Lista de tipos de clasificaciones
-            for (var t = 0; t < themsEval.length; t++) {
-                let sh = themsEval[t];
-                let inClasificator = sh.desc
-                //Temas del clasificador
-                let lThems = sh.data;
-                let inThems ="";
-
-                for (var o = 0; o < lThems.length; o++) {
-
-                    //{them:tema, items:["",""]}
-                    let objThem = lThems[o];
-                    
-                    let trend = urlsTrProcess[i][1];
-                    console.log("clasificando la tendencia: "+trend);
-                    
-                    for (var z= 0; z < objThem.items.length; z++) { 
-
-                        let item = clearText(objThem.items[z]).trim();
-                        let size = item.split(' ');
-                        
-                        let arThem = trend.trim().split(' ');
-                        let arItem = item.trim().split(' ');
-                        
-
-                        if(validateInclude(arThem, arItem, 0)){
-
-                            if(inThems==""){
-                                inThems= objThem.them;
-                            }else{
-                                inThems += ", "+objThem.them;
-                            }
-                            break;
-                        }
-                       
-                    }
-
-                }
-
-                urlsTrProcess[i].push(inThems);
-
-            }
-
-        }
-
-    }catch(error){
-        console.log(error);
-    }
-
-}
 
 
 

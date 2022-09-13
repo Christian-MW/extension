@@ -1,7 +1,12 @@
-
+var urlConfig = "https://docs.google.com/spreadsheets/d/1yQ41kTP39D9y7Eh3pM7yDQyLxhI-5H6-3YjbgbfD98I/gviz/tq?&sheet=Facebook&tq=Select *"
 var minutesInSeg = 10;
 var seg = 0;
-
+var xpaths =[];
+var div_contenedor_mg = "";
+var div_post_principal = "";
+var likes = "";
+var span_likes = "";
+var likes_video = "";
 
 //sleep(sleepSeconds);
 let page_title = document.title,
@@ -78,7 +83,64 @@ var timer = function (){
 timer();
 
 
+function loadConfiguration(){
+    $.ajax({
+        async: false,
+        type: 'GET',
+        url: urlConfig,
+        success: function(data) {
+        	console.log("########################___LoadConfiguration: ")
+        	getDataConfiguration(JSON.parse(data.substr(47).slice(0,-2)));
+        }
+   });
+}
 
+loadConfiguration();
+
+function getDataConfiguration(data){
+    try{
+        var rows = data.table.rows;
+     
+        for (var i = 0; i < rows.length; i++) {
+            let r = rows[i]["c"];
+            xpaths.push({                        
+                them:r[0]["v"],
+                items:r[1]["v"].split(',')
+            });
+        }
+        console.log("###=> Xpaths: " + JSON.stringify(xpaths));
+        console.log("###=> Xpaths.length: " + JSON.stringify(xpaths.length));
+
+        div_contenedor_mg = xpaths[0].items;
+        div_post_principal = xpaths[1].items;
+        likes = xpaths[2].items;
+        span_likes = xpaths[3].items;
+        likes_video = xpaths[4].items;
+
+        console.log("###=> div_contenedor_mg " + div_contenedor_mg);
+        console.log("###=> div_post_principal " + div_post_principal);
+        console.log("###=> likes " + likes);
+        console.log("###=> span_likes " + span_likes);
+        console.log("###=> likes_video " + likes_video);
+
+        /*for (var t = 0; t < xpaths.length; t++) {
+            let elementXpathFace = xpaths[t];
+            console.log("###############=> elementXpathFace_them_ " + JSON.stringify(elementXpathFace.them));
+            console.log("###=> elementXpathFace.items.length: " + JSON.stringify(elementXpathFace.items.length));
+            console.log("###=> elementXpathFace.items: " + elementXpathFace.items);
+
+            div_contenedor_mg = elementXpathFace.items;
+            for (var i = 0; i < elementXpathFace.items.length; i++) {
+                var itemElement = elementXpathFace.items[i];
+                console.log("#=> itemElement_ " + elementXpathFace.items[i]);
+                div_contenedor_mg += elementXpathFace.items[i];
+            }
+        }*/
+        
+    }catch(error){
+        console.log(error);
+    }
+}
 
 function waitForElm(selector) {
 
@@ -147,7 +209,7 @@ if(document.documentElement.innerText.includes("contenido no está disponible en
 		Grupos: div.tpvapw4o.j0k7ypqs
 		*/
 
-		waitForElm('div.tpvapw4o.j0k7ypqs, div.ramewbz7.k1z55t6l.cgu29s5g.jl2a5g8c.alzwoclg.pbevjfx6.i85zmo3j')		
+		waitForElm(div_contenedor_mg)		
 		.then((elm) => {		    
 		    console.log('Reacciones cargadas!!!');
 		    console.log(elm);
@@ -165,17 +227,7 @@ if(document.documentElement.innerText.includes("contenido no está disponible en
 					   //div[@class="alzwoclg cqf1kptm q367e8p0 a6oyxcnl"]
 
 		    */
-		    let xpath = "div.gvxzyvdx.r6ydv39a.imjq5d63.flv4y0wt.cbwvpmhb, "+
-		    "div.rq0escxv.l9j0dhe7.du4w35lb.hpfvmrgz.g5gj957u.aov4n071.oi9244e8.bi6gxh9e.h676nmdw.aghb5jc5.gile2uim.pwa15fzy.fhuww2h9, "+
-		    "div.qublvx3c.oh7imozk.cbu4d94t.j83agx80.bp9cbjyn, "+
-		    "div.du4w35lb.k4urcfbm.l9j0dhe7.sjgh65i0, "+
-		    "div.d2edcug0.tr9rh885.oh7imozk.abvwweq7.ejjq64ki, "+
-		    "div.g4tp4svg.mfclru0v.om3e55n1.p8bdhjjv, "+
-		    "div.alzwoclg.cqf1kptm.ktovzxj4.g1smwn4j, "+
-		    "div.mfclru0v.h4m39qi9.pytsy3co, "+
-		    "div.anf3k8p9.r26s8xbz.gug11x0k, "+
-		    "div.z6erz7xo.bdao358l.on4d8346.s8sjc6am.myo4itp8.ekq1a7f9.fsf7x5fv, "+
-		    "div.alzwoclg.cqf1kptm.q367e8p0.a6oyxcnl";
+		    let xpath = div_post_principal;
 		    waitForElm(xpath)
 		    .then((elm) => {
 		    	console.log('Contendor cargado!!!');
@@ -249,7 +301,7 @@ function getReactions(element){
 
 	//Extraccion de los likes
 	
-	let lk = element.querySelector('span.f7rl1if4.adechonz.f6oz4yja.dahkl6ri.axrg9lpx.rufpak1n.qtovjlwq.qbmienfq.rfyhaz4c.rdmi1yqr.ohrdq8us.nswx41af.fawcizw8.l1aqi3e3.sdu1flz4');
+	let lk = element.querySelector(likes);
 
 	//console.log(lk.textContent);
 	if(lk !== null && lk.textContent != "" && !lk.textContent.includes(' d') && !lk.textContent.includes(' las')){
@@ -260,7 +312,7 @@ function getReactions(element){
 		}
 	}else{
 		lk= null;
-		let spanLk =element.querySelectorAll('span.nnzkd6d7');
+		let spanLk =element.querySelectorAll(span_likes);
 		spanLk.forEach(function(spn) {
 			console.log(spn.textContent);
 		  if(!spn.textContent.includes(' d') && !spn.textContent.includes(' las')){
@@ -276,7 +328,7 @@ function getReactions(element){
 			}
 		}else{
 			lk= null;
-			let spanLk =element.querySelectorAll('span.f7rl1if4.adechonz.f6oz4yja.dahkl6ri.axrg9lpx.rufpak1n.qtovjlwq.qbmienfq.rfyhaz4c.rdmi1yqr.ohrdq8us.nswx41af.fawcizw8.l1aqi3e3.sdu1flz4');
+			let spanLk =element.querySelectorAll(likes_video);
 			console.log("Likes video");
 			for (var s = 0; s < spanLk.length; s++) {
 				let spn = spanLk[s];

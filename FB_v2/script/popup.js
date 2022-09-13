@@ -111,7 +111,15 @@ async function goToPage(url, url_index, tab_id) {
                 // remove tab onUpdate event as it may get duplicated
                 chrome.tabs.onUpdated.removeListener(openPage);
                 
-                
+                chrome.scripting.executeScript(
+                    {
+                        target: { tabId: tab_id},
+                        files: ['script/jquery.min.js'],
+
+                    }, function () { 
+                     resolve(); }
+                    
+                );        
                 // execute content script
                 chrome.scripting.executeScript(
                     {

@@ -1,0 +1,144 @@
+
+var publications =[{link:"link1",post:"Mientras el país se estanca sin una estrategia de seguridad",comunidad:"DenunciaMexicana.AC", alcance:0,interacciones:0,reacciones:0,comentarios:0,compartidos:0},
+{link:"link2",post:"Ahora presumen tanto amor pero procesos electorales antes estuvieron a punto de",comunidad:"DenunciaMexicana.AC", alcance:0,interacciones:0,reacciones:0,comentarios:0,compartidos:0},
+{link:"link3",post:"Las desapariciones y extorsión han aumentado como en ninguna",comunidad:"DenunciaMexicana.AC", alcance:0,interacciones:0,reacciones:0,comentarios:0,compartidos:0},
+{link:"link4",post:"Guanajuato es uno de los estados más golpeados por la extorsión",comunidad:"DenunciaMexicana.AC", alcance:0,interacciones:0,reacciones:0,comentarios:0,compartidos:0},
+{link:"link5",post:"Las alternativas al cigarro reducen 90% la exposición a sustancias",comunidad:"DenunciaMexicana.AC", alcance:0,interacciones:0,reacciones:0,comentarios:0,compartidos:0}];
+var communities=[];
+var scroll = true;
+var secondsRemaining = 60;
+var lastPosition = 0;
+document.body.attributeStyleMap.set("zoom","25%");
+var htmlPost = document.createElement("div");
+
+getCommunity();
+
+function getCommunity(){
+    publications.forEach(element => {
+        const found = communities.find(f => f == element.comunidad);
+        if(found === undefined){
+            communities.push(element.comunidad);
+        }else{
+            console.log("Y existe la comunidad");
+        }
+    });
+}
+
+
+function setPositionScroll() {
+    let sc = document.getElementsByClassName("ReactVirtualized__Grid _1zmk");
+    if(sc.length > 0){
+        console.log("lastPosition: "+lastPosition);
+        console.log("scrollHeight: "+sc[0].scrollHeight);
+        
+        if (lastPosition < sc[0].scrollHeight) {
+
+            console.log("scroleando...");
+            sc[0].scrollTop  = sc[0].scrollHeight;
+            lastPosition = sc[0].scrollHeight;
+            //console.log(sc[0].innerHTML);
+            htmlPost.innerHTML +=sc[0].innerHTML;
+        }else{
+            console.log("El scroll se encuentra en la parte final!!!");
+            scroll = false;
+            secondsRemaining = -1;
+            console.log(htmlPost.innerHTML);
+            document.body.attributeStyleMap.set("zoom","100%");
+            processPost();
+        }    
+        
+    }else{
+        console.log("NO se encontro el contenedor :(");
+    }
+ }
+
+ 
+function startScroll(duration) {
+    secondsRemaining = duration
+    let min = 0;
+    let sec = 0;
+    let countInterval = setInterval(function () {
+        min = parseInt(secondsRemaining / 60);
+        sec = parseInt(secondsRemaining % 60);
+        if(scroll)
+            setPositionScroll();
+        secondsRemaining = secondsRemaining - 1;
+        console.log("secondsRemaining: "+secondsRemaining);
+        if (secondsRemaining < 0 || !scroll) { 
+            console.log("Tiempo finalizado!!!");
+            clearInterval(countInterval);
+        };
+    
+    }, 5000);
+ }
+
+ function processPost(){
+  
+    let classdiv = "_2e42 _2yi0 _2yia";
+
+    let listaPublic = htmlPost.getElementsByClassName(classdiv);
+
+    //Ciclando las publicaciones
+    for(var p = 0; p<publications.length; p++){
+        let datos = 5;
+        let top = 0;
+        //Buscando la publicación en el html
+        for(var f = 0; f < listaPublic.length; f++){
+            //verificar que el contenido de la publicación sea la misma 
+            let innerText = listaPublic[f].innerText.toLowerCase();
+            if(top == 0 && (publications[p].post.toLowerCase() == innerText || innerText.startsWith(publications[p].post.toLowerCase()))){
+                console.log("width: "+listaPublic[f].style.width);
+                console.log("top: "+listaPublic[f].style.top);
+                top = listaPublic[f].attributeStyleMap.get("top").value;
+            }
+            if(top > 0 && datos > 0 && listaPublic[f].attributeStyleMap.get("top").value == top){
+                if(innerText.includes("alcanzadas")){
+                    datos--;
+                    publications[p].alcance = innerText.replace(/\D/g, "");
+                }
+                if(innerText.includes("interacciones")){
+                    datos--;
+                    publications[p].interacciones = innerText.replace(/\D/g, "");
+                }
+                if(innerText.includes("reaccion")){
+                    datos--;
+                    publications[p].reacciones = innerText.replace(/\D/g, "");
+                }
+                if(innerText.includes("comentario")){
+                    datos--;
+                    publications[p].comentarios = innerText.replace(/\D/g, "");
+                }
+                if(innerText.includes("compartido")){
+                    datos--;
+                    publications[p].compartidos = innerText.replace(/\D/g, "");
+                }
+            }
+            if(datos <= 0)
+                break;
+        }
+    }
+
+    console.log(publications);
+
+ }
+
+
+
+
+ startScroll(60);
+/*
+ descripcion corta
+ id:js_r3
+ class:j1p9ls3c hmv1tv54 tes86rjd kr054jk4 i6uybxyu qm54mken lq84ybu9 hf30pyar oshhggmv nnmaouwa aeinzg81
+
+ --Alcance
+personans alcanzadas
+
+--Interacciones
+Interacciones con la publicidad
+
+--Reacciones
+--Comentarios
+--Veces que se ha compartido
+
+ */

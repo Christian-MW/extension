@@ -11,7 +11,7 @@ var stringDate ="";
 
 
 
-$("#dbUrl").html('<a href="'+urlDB+'">aquí</a>');  
+$("#dbUrl").html('La Base la puedes ver: <a href="'+urlDB+'" target="_blank">aquí</a>');  
 
 var flagTr = new observableTr(2);
 flagTr.onChange(function(v){

@@ -1,0 +1,97 @@
+
+var scroll = true;
+var secondsRemaining = 60;
+var lastPosition = 0;
+document.body.attributeStyleMap.set("zoom","25%");
+var htmlPost = document.createElement("div");
+let href = window.location.href;
+
+//jQuery(document).ready(function() {
+    console.log(href);
+    if(href.includes('business.facebook.com')){
+        console.log("es business");
+        startScroll(60);
+
+		chrome.runtime.sendMessage(null, htmlPost.innerHTML);
+    }else{
+        console.log("es comunidad");
+        let anchor = document.getElementsByTagName("a");
+        let link="";
+        for (let index = 0; index < anchor.length; index++) {
+            const element = array[index];
+            link= element.attributes.href.value;
+            if(link.startsWith("https://business.facebook.com/latest/posts/published_posts")){
+                break;
+            }
+        }
+		chrome.runtime.sendMessage(null, link);
+    }
+
+//});
+
+function setPositionScroll() {
+    let sc = document.getElementsByClassName("ReactVirtualized__Grid _1zmk");
+    if(sc.length > 0){
+        console.log("lastPosition: "+lastPosition);
+        console.log("scrollHeight: "+sc[0].scrollHeight);
+        
+        if (lastPosition < sc[0].scrollHeight) {
+
+            console.log("scroleando...");
+            sc[0].scrollTop  = sc[0].scrollHeight;
+            lastPosition = sc[0].scrollHeight;
+            //console.log(sc[0].innerHTML);
+            htmlPost.innerHTML +=sc[0].innerHTML;
+        }else{
+            console.log("El scroll se encuentra en la parte final!!!");
+            scroll = false;
+            secondsRemaining = -1;
+            console.log(htmlPost.innerHTML);
+            document.body.attributeStyleMap.set("zoom","100%");
+        }    
+        
+    }else{
+        console.log("NO se encontro el contenedor :(");
+    }
+ }
+
+ 
+function startScroll(duration) {
+    secondsRemaining = duration
+    let min = 0;
+    let sec = 0;
+    let countInterval = setInterval(function () {
+        min = parseInt(secondsRemaining / 60);
+        sec = parseInt(secondsRemaining % 60);
+        if(scroll)
+            setPositionScroll();
+        secondsRemaining = secondsRemaining - 1;
+        console.log("secondsRemaining: "+secondsRemaining);
+        if (secondsRemaining < 0 || !scroll) { 
+            console.log("Tiempo finalizado!!!");
+            clearInterval(countInterval);
+        };
+    
+    }, 5000);
+ }
+
+
+
+
+ 
+/*
+ descripcion corta
+ id:js_r3
+ class:j1p9ls3c hmv1tv54 tes86rjd kr054jk4 i6uybxyu qm54mken lq84ybu9 hf30pyar oshhggmv nnmaouwa aeinzg81
+
+ --Alcance
+personans alcanzadas
+
+--Interacciones
+Interacciones con la publicidad
+
+--Reacciones
+--Comentarios
+--Veces que se ha compartido
+
+ */

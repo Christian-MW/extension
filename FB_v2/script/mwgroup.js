@@ -26,6 +26,8 @@ var toProcess = 0;
 var processed = 0;
 var descriptionEvaluation="";
 
+
+
 var flagEvaluation = new observable("");
 flagEvaluation.onChange(function(v){
   if(v!=""){

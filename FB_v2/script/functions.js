@@ -14,7 +14,7 @@ let contentCSVLoaded ="";
 var urlBase="http://3.129.70.158:8100/V1/api";
 
 
-let mapOption={fb:"Facebook", mw:"Meltwater", xp:"MWGroup", tr:"Trendinalia",cl:"Clasificador"}
+let mapOption={fb:"Facebook", mw:"Meltwater", xp:"MWGroup", tr:"Trendinalia",cl:"Clasificador", mtbs:"Meta Business Suite"}
 
 console.log("Archivo dunctions");
 pathname = window.location.pathname.slice(1).replace("popup.html","").replaceAll("/","\\");
@@ -393,6 +393,7 @@ function showProcess(evt){
           case "xp-":
             // code block
             clearMwgroup();
+            document.getElementById('ldTypeProcess').value = '1';
             break;
           case "tr-":
             // code block

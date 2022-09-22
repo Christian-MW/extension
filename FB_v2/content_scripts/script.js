@@ -328,19 +328,37 @@ function getReactions(element){
 			}
 		}else{
 			lk= null;
-			let spanLk =element.querySelectorAll(likes_video);
-			console.log("Likes video");
-			for (var s = 0; s < spanLk.length; s++) {
-				let spn = spanLk[s];
-			  console.log(spn.textContent);
-			  if(!spn.textContent.includes(' d') && !spn.textContent.includes(' las') && !spn.textContent.includes(' rep') && spn.textContent != ""){
-			  	lk = spn;
-			  	console.log("LIKES: " + lk.textContent);
-				if(lk.textContent.match(/^\d/)){
-					post.likes = lk.textContent.replace(",",".").replace(/&nbsp;/g, ' ');
+
+			let lkArr = Array.prototype.slice.call(element.querySelectorAll('span')).filter(function (el) {
+				return el.textContent.endsWith(' personas más');
+			  });
+			if(lkArr.length> 0){
+				console.log("endsWith: "+lkArr[0].outerText);
+				//if(lkArr[0].outerText.match(/^\d/)){
+					lk = lkArr[0].outerText.replace(",",".").replace(" personas más","").replace("Â ",' ').replace(/&nbsp;/g, ' ');
+					if(lk.split(' y ').length> 1)
+						post.likes = lk.split(' y ')[1];
+				//}  
+			}
+			if(lk == null){
+
+				let spanLk =element.querySelectorAll(likes_video);
+				console.log("Likes video");
+				for (var s = 0; s < spanLk.length; s++) {
+					let spn = spanLk[s];
+				  console.log(spn.outerText);
+				  if(!spn.outerText.includes(' d') && !spn.outerText.includes(' las') && !spn.outerText.includes(' rep') && spn.outerText != ""){
+					  lk = spn;
+					  console.log("LIKES: " + lk.outerText);
+					if(lk.outerText.match(/^\d/)){
+						post.likes = lk.outerText.replace(",",".").replace(" personas más","").replace("Â ",' ').replace(/&nbsp;/g, ' ');
+						if(post.likes.split(' y ').length> 1)
+							post.likes = post.likes.split(' y ')[1];
+					}
+					break;
+				  }
 				}
-				break;
-			  }
+
 			}
 		}
 	}
@@ -354,7 +372,7 @@ function getReactions(element){
   	console.log(shared);
   	if(shared.length > 0){
   		if(shared[0].textContent.match(/^\d/)){
-			post.shared = shared[0].textContent.replace(",",".").replace("vez compartido","").replace("vez compartida","").replace(/&nbsp;/g, ' ');
+			post.shared = shared[0].textContent.replace(",",".").replace("vez compartido","").replace("vez compartida","").replace("Â ",' ').replace(/&nbsp;/g, ' ');
 		}  		
   	}
   	else{
@@ -364,7 +382,7 @@ function getReactions(element){
 	  	console.log(shared);
 	  	if(shared.length > 0){
 	  		if(shared[0].textContent.match(/^\d/)){
-				post.shared = shared[0].textContent.replace(",",".").replace("veces compartida","").replace("veces compartido","").replace(/&nbsp;/g, ' ');
+				post.shared = shared[0].textContent.replace(",",".").replace("veces compartida","").replace("veces compartido","").replace("Â ",' ').replace(/&nbsp;/g, ' ');
 			} 
   			
   		}
@@ -376,7 +394,7 @@ function getReactions(element){
 	console.log(shared);
   	if(comments.length > 0){
   		if(comments[0].textContent.match(/^\d/)){
-			post.comments = comments[0].textContent.replace(",",".").replace("comentarios","").replace("comentario","").replace(/&nbsp;/g, ' ');
+			post.comments = comments[0].textContent.replace(",",".").replace("comentarios","").replace("comentario","").replace("Â ",' ').replace(/&nbsp;/g, ' ');
 		}   			
   	}
 
@@ -387,7 +405,7 @@ function getReactions(element){
   	console.log(reproducc);
   	if(reproducc.length > 0){
   		if(reproducc[0].textContent.match(/^\d/)){
-			post.reproductions = reproducc[0].textContent.replace(",",".").replace("reproducciones","").replace("reproducción","").replace("reproduccion","").replace(/&nbsp;/g, ' ');
+			post.reproductions = reproducc[0].textContent.replace(",",".").replace("reproducciones","").replace("reproducción","").replace("reproduccion","").replace("Â ",' ').replace(/&nbsp;/g, ' ');
 		}  		
   	}
 

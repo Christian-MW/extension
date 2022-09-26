@@ -612,7 +612,7 @@ function hashCode(s){
 function clearText(txt){
     try{
         txt = txt.toLowerCase().replaceAll('á','a').replaceAll('é','e').replaceAll('í','i').replaceAll('ó','o').replaceAll('ú','u')
-        .replaceAll(/[,-;+.:_*/!¡'$%&=?¿<>|"]/g, "");
+        .replaceAll(/[,'$%&=?¿>|"_*/<!¡;+.:-]/g, "");
     }catch(error){
         console.log(error);
     }

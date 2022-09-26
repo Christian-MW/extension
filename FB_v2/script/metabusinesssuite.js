@@ -33,7 +33,14 @@ flagmtbs.onChange(function(v){
               currentComunidad = communities[pos];
               //goToPageMt(urlComunidad.replace("{{comunidad}}",communities[pos]), tabs[0].id);  
               console.log("xpathUrl[comunidad]: "+xpathUrl[communities[pos]]);
-              goToPageMt(xpathUrl[communities[pos]][0], tabs[0].id);  
+
+              if(xpathUrl[communities[pos]] === undefined || xpathUrl[communities[pos]] == null ||
+                xpathUrl[communities[pos]] == ""){
+                  //La counidad no se encuentra registrada en el archivo de urls                  
+                flagmtbs.setValue(0); 
+              }else{
+                goToPageMt(xpathUrl[communities[pos]][0], tabs[0].id);  
+              }
           });
       }
       else{  
@@ -269,7 +276,7 @@ function processPost(htmlPost){
   //Ciclando las publicaciones
   for(var p = 0; p<jsonFile.length; p++){
       
-      if(currentComunidad != jsonFile[p].comunidad){
+      if(currentComunidad != jsonFile[p].comunidad || jsonFile[p].post =="" || jsonFile[p].post == null){
         continue;
       }
 
@@ -280,6 +287,10 @@ function processPost(htmlPost){
       for(var f = 0; f < listaPublic.length; f++){
           //verificar que el contenido de la publicación sea la misma 
           let innerText = listaPublic[f].innerText.toLowerCase();
+          if(innerText ==""){
+            continue;
+          }
+
           if(top == 0 && (jsonFile[p].post.toLowerCase() == innerText || innerText.startsWith(jsonFile[p].post.toLowerCase()))){
               console.log("width: "+listaPublic[f].style.width);
               console.log("top: "+listaPublic[f].style.top);
@@ -325,6 +336,9 @@ function clearMtbs(){
   $('#dtmtbs').prop('disabled', false);
   $(".mtbs-contairner-process").hide();
   $("#mtbsstart").hide();
+  
+  
+
   urlsMtbsList =[];
   jsonFile=[];
   pos = -1;
@@ -338,7 +352,8 @@ function clearMtbs(){
 
   try{
     //Limpiar campos de alcance      
-    document.getElementById("formmtbs").value="";
+    //document.getElementById("formmtbs").value="";
+    document.getElementById("mtbs-file-selector").value ="";
     document.getElementById("errorDtMtbs").value ="";
     document.getElementById("dtMtbs").value ="";  
   }

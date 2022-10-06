@@ -457,7 +457,7 @@
                   <label for="dtTr">Ingresa la(s) fecha(s):</label>
                   <textarea class="form-control" id="dtTr" name="dtTr" rows="3" required></textarea>
                 </div>
-                <p id="errorDtTr"></p>
+                <div id="errorDtTr"></div>
                 <br>
                 <div id="tr-themes"></div>
                 <br>
@@ -538,7 +538,7 @@
                   <br>
                 </div> 
 
-                <p id="errorDtCl"></p>
+                <div id="errorDtCl"></div>
                 <br>
                 <div id="cl-themes"></div>
                 <br>
@@ -572,16 +572,16 @@
             </p>
           </div>
 
-          <div class="row process tr-contairner-process">
+          
             <br>
             <div class="col-md-12">
 
-              <label id="tr-lbState"></label>        
-              <div id="tr-LinkProcess"></div>
+              <label id="cl-lbState"></label>        
+              <div id="cl-LinkProcess"></div>
               <br>
-              <div id="tr-description"></div>       
+              <div id="cl-description"></div>       
             </div>
-          </div>
+          
         </div>
 
         <div class="process mtbs-">
@@ -593,12 +593,38 @@
               <form id="formmtbs" class="was-validated form-inline">  
                 
                 <div class="form-group">
-                  <label for="mtbs-file-selector">Cargar archivo:</label>
-                  <input type="file" id="mtbs-file-selector" class="form-control-file border" accept=".csv, .xlsx">
+
+                  
+                  <ul class="nav nav-tabs" id="tabMeta" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link-meta nav-link active " id="metaXlsx-tab" data-toggle="tab" href="#metaXlsx" role="tab" aria-controls="metaXlsx" aria-selected="false">Local</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link-meta nav-link" id="metaSheet-tab" data-toggle="tab" href="#metaSheet" role="tab" aria-controls="metaSheet" aria-selected="true">Google Sheets</a>
+                    </li>
+                  </ul>
+                  
+                  <div class="tab-content" id="myTabContentMeta">
+                    <div class="tab-pane fade show active" id="metaXlsx" role="tabpanel" aria-labelledby="metaXlsx-tab">  
+                      <label for="mtbs-file-selector">Cargar archivo:</label>
+                      <input type="file" id="mtbs-file-selector" class="form-control-file border" accept=".csv, .xlsx">
+
+                    </div> 
+                    
+                    <div class="tab-pane fade show" id="metaSheet" role="tabpanel" aria-labelledby="metaSheet-tab">
+                      
+                      <div class="form-group">
+                        <label for="urlGoogleSheet">Link del google sheet </label>
+                        <input type="text"  class="form-control" id="urlGoogleSheet" placeholder="Link del google sheet" name="urlGoogleSheet" required> 
+                        <br>
+                      </div> 
+                      
+                    </div> 
+                  </div> 
                   <br>
                 </div> 
 
-                <p id="errorDtmtbs"></p>
+                <div id="errorDtmtbs"></div>
 
                 <div class="row">
 

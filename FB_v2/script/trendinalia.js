@@ -24,10 +24,10 @@ flagTr.onChange(function(v){
             if(pos < urlsTrList.length ){
                 seg = 0;
 
-                console.log("pos: " + pos +" de "+urls_list.length ); 
+                console.log("pos: " + pos +" de "+urlsTrList.length ); 
                 chrome.tabs.query({active: true, currentWindow: true}, async function(tabs) {
-                    document.getElementById(option+"lbState").innerHTML = "Procesando " + (pos + 1) + " de " + urls_list.length;
-                    document.getElementById(option+"LinkProcess").innerHTML = urls_list[pos];
+                    document.getElementById(option+"lbState").innerHTML = "Procesando " + (pos + 1) + " de " + urlsTrList.length;
+                    document.getElementById(option+"LinkProcess").innerHTML = urlsTrList[pos];
                     flagTr.setValue(1);
                      goToPageTr(urlTr.replace("{{date}}",urlsTrList[pos]), pos+1, tabs[0].id);  
                 });
@@ -152,7 +152,10 @@ $("#trstart").click(function(event){
 console.log("Iniciando trandinlania...");
 $('#trstart').prop('disabled', true);
 $('#dtTr').prop('disabled', true);
+$(".tr-contairner-process").show();
+$("#trstart").hide();
 
+window.setTimeout(function(){
     thems=[];
     
     if(validateDts() && themsEval.length > 0){
@@ -216,23 +219,7 @@ $('#dtTr').prop('disabled', true);
 
         });   
 
-/*      }
 
-      , function(data, status) {
-        console.log(data);
-        console.log(status);
-        $('#trstart').prop('disabled', false);
-        $('#dtTr').prop('disabled', false);
-        if(data.status == 403){
-            $("#errorDtTr").show();
-            $("#errorDtTr").html("No se pudo acceder a la base de datos de los temas.");
-        }else{
-            console.log("NO hay temas cargados");
-            $("#errorDtTr").show();
-            $("#errorDtTr").html("No se encontraron temas para hacer la clasificación.");
-        }
-      }
-      */
      
     }else{
         console.log("La información ingresada no cumple con las reglas. Verifica tu información.");
@@ -240,8 +227,9 @@ $('#dtTr').prop('disabled', true);
         $("#errorDtTr").html("La información ingresada no cumple con las reglas. Verifica tu información.");
         $('#trstart').prop('disabled', false);
         $('#dtTr').prop('disabled', false);
+        $("#trstart").show();
     }
-
+    }, 100);
 });
 
 $("#trcancel").click(function(event){
@@ -335,6 +323,7 @@ function clearTrendinalia(){
   console.log("Reiniciando variables.....");
   $('#trstart').prop('disabled', false);
   $('#dtTr').prop('disabled', false);
+  $("#trstart").show();
   thems =[];
   urlsTrProcess=[];
   urlsTrList = [];

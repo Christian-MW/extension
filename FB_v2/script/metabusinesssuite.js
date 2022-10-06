@@ -1,6 +1,4 @@
 'use strict';
-var urlComunidades = "https://docs.google.com/spreadsheets/d/1yQ41kTP39D9y7Eh3pM7yDQyLxhI-5H6-3YjbgbfD98I/gviz/tq?&sheet={{sheetN}}&tq=Select *"
-let xpathUrl={};
 let urlsMtbsList =[];
 jsonFile=[];
 pos = -1;
@@ -12,6 +10,13 @@ let communities=[];
 let currentComunidad = "";
 let urlMetaBusiness ="";
 let urlComunidad = "https://www.facebook.com/{{comunidad}}";
+let urlApiSheet = "";
+let reqGetLinks = {
+  columns:"",
+  range:"",
+  spreadsheet_id:""
+}
+let datetime ="";
 
 let flagmtbs = new observable(3);
 
@@ -49,16 +54,26 @@ flagmtbs.onChange(function(v){
           console.log("Preparando para descargar");
           console.log("urlsTrProcess: "+urlsTrProcess);                
           console.log("urlsTrProcessTemp: "+urlsTrProcessTemp);
-          var date = new Date();
+          let date = new Date();
+          
           stringDate = date.getFullYear().toString() + pad2(date.getMonth() + 1) + pad2(date.getDate()) + pad2(date.getHours()) + pad2(date.getMinutes()) + pad2(date.getSeconds());
 
           if(stringDate !=""){
+            
+            let columns =[];
+
+            if(getIsActiveMetaLink() != "local"){
+              
+              let colP =["ALCANCE"+datetime,"INTERACCIONES"+datetime,"REACCIONES"+datetime,"COMENTARIOS"+datetime,"COMPARTIDOS"+datetime];
+              columns = xpathUrl["columnsbase"].concat(colP);
+
+            }else{              
+              columns =["LINK","POST","COMUNIDAD","ALCANCE","INTERACCIONES","REACCIONES","COMENTARIOS","COMPARTIDOS"];
+            }
 
             let data =[];  
-            let columns =[];
-            Object.keys(jsonFile[0]).forEach( function(key) {
-                columns.push(key);
-              });
+            
+
             //agregando columnas
             data.push(columns);
 
@@ -67,13 +82,19 @@ flagmtbs.onChange(function(v){
                 let dataR = [];
 
                 for (var key in columns) {
+                  if(row[columns[key]] === undefined){
+                    dataR.push("");
+                  }else{
                     dataR.push(row[columns[key]]);
+                  }
+                    
                 }
 
                 data.push(dataR);
                 
             } 
 
+            if(getIsActiveMetaLink() == "local"){
               console.log("Listo para descargar");
               wb = XLSX.utils.book_new();                    
               addSheet("Alcance", data);
@@ -82,8 +103,39 @@ flagmtbs.onChange(function(v){
 
               //download("trendinalia_"+stringDate+".csv",urlsTrProcess);
               alert("Se han procesado las publicaciones, el resultado lo puedes consultar en tus descargas. \n\n Carpeta: "+dirBase+'/'+currentDirectory+"  \n Archivo: Alcance_"+stringDate+".xlsx");
+              clearMtbs(); 
+            }else{
+
+              
+              document.getElementById(option+"lbState").innerHTML = "Actualizando las publicaciones";
+              document.getElementById(option+"LinkProcess").innerHTML = "Actualizando....";
+              
+              reqGetLinks.objectResult = jsonFile;
+              console.log(JSON.stringify(reqGetLinks));
+              
+              let endponit = xpathUrl["update_sheet"][0];
+              fetch(urlApiSheet+endponit, {
+                method: 'POST',
+                body: JSON.stringify(reqGetLinks),
+                headers: { 'Content-Type': 'application/json',  }
+              })
+              .then((response) => response.json())
+              .then(function(response){
+                if(response.code == 200){
+                  alert("Las publicaciones se encuentran actualizadas en el google sheet");
+                }else if(response.code == 500){
+                  alert("Algo salio mal en la actualización del google sheet");
+                }
+                clearMtbs(); 
+               })             
+              .catch(function(error){
+                console.log(error);                          
+                alert("Problemas al actualizar las publicaciones");
+                clearMtbs(); 
+              });
+            }
           }
-          clearMtbs();                
+                         
       }
     }
     else if(v==1){
@@ -207,12 +259,22 @@ var ExcelToJSON = function() {
         workbook.SheetNames.forEach(function(sheetName) {
           // Here is your object
           var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-          jsonFile = XL_row_object;
-          if(jsonFile.length > 0){
+          //jsonFile = XL_row_object;
+          if(XL_row_object.length > 0){
 
             let columns = [];
+            for (let i = 0; i < XL_row_object.length; i++) {
+              let r = XL_row_object[i];
+              let result = {};
+              Object.keys(r).forEach( function(key) {
+                let c = key.toUpperCase();
+                result[c] = r[key];
+              });
+              jsonFile.push(result);
+            }
+            
             Object.keys(jsonFile[0]).forEach( function(key) {
-                columns.push(key);
+              columns.push(key.toUpperCase());
                 });
             var select = document.getElementById('columns');
   
@@ -222,6 +284,7 @@ var ExcelToJSON = function() {
                 opt.innerHTML = columns[i];
                 select.appendChild(opt);      
             }
+ 
             $("#mtbsstart").show();
           }else{$("#mtbsstart").hide();}
           console.log(jsonFile);
@@ -245,22 +308,94 @@ var ExcelToJSON = function() {
 
 
 $("#mtbsstart").click(function(event){
+  document.getElementById(option+"lbState").innerHTML = "";
+  document.getElementById(option+"LinkProcess").innerHTML = "";
+  urlApiSheet = xpathUrl["api_java_sheet"][0];
     console.log("Starting clstart");
     let col  = $("#columns").val();
-    if(jsonFile.length > 0){   
-      getCommunity();
-      $(".mtbs-contairner-process").show();
-      $("#mtbsstart").hide();
-      flagmtbs.setValue(0);
+
+    if(getIsActiveMetaLink()== "local"){
+      intMetaProcess();
+    }else{
+      //Consumir 
+      let url = $("#urlGoogleSheet").val();
+      if(url != "" && url.startsWith("https://docs.google.com/spreadsheets/d/")){
+        url = url.replace("https://docs.google.com/spreadsheets/d/","");
+        url = url.split('/')[0];
+        
+        reqGetLinks.columns = xpathUrl["columnsbase"].join();
+        reqGetLinks.range = xpathUrl["sheetname"][0];
+        reqGetLinks.spreadsheet_id = url;
+
+        document.getElementById(option+"lbState").innerHTML = "Obteniendo las publicaciones";
+        document.getElementById(option+"LinkProcess").innerHTML = "Consultando al google sheet....";
+        console.log(JSON.stringify(reqGetLinks));
+        let endponit = xpathUrl["get_sheet"][0];
+        fetch(urlApiSheet+endponit, {
+          method: 'POST',
+          body: JSON.stringify(reqGetLinks),
+          headers: { 'Content-Type': 'application/json',  }
+       })
+       
+      /*
+       fetch("http://localhost/GoogleData/getData/sheet.json", {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json',  }
+     })
+     */
+       .then((resp) => resp.json())
+       .then(function(resp){ 
+        console.log(resp);
+          try {
+
+            if(resp.code == 200){
+              let date = new Date();
+              datetime = "_"+date.getDate()+"-"+(date.getMonth() + 1)+"-"+date.getFullYear().toString()+"_"+date.getHours()+":00";
+              convertData(resp.objectResult);
+              intMetaProcess();
+
+            }else if(resp.code == 409){
+              document.getElementById(option+"LinkProcess").innerHTML = "El archivo sheet tiene inconsitencia en la información";
+            
+            }else if(resp.code == 500){
+              document.getElementById(option+"LinkProcess").innerHTML = "No existe hoja "+xpathUrl["sheetname"][0];
+            
+            }
+
+          } catch (error) {
+            document.getElementById(option+"LinkProcess").innerHTML = "Problemas al obtener las publicaciones";
+          }
+
+        })
+       .catch(function(error){
+          console.log(error);          
+          document.getElementById(option+"LinkProcess").innerHTML = "Problemas al obtener las publicaciones";
+       });
+
+
+      }else{ 
+        document.getElementById(option+"LinkProcess").innerHTML = "Ingresa una url valida de google sheets";
+      }
+
     }
+     
+    
 });
 
+function intMetaProcess(){
+  if(jsonFile.length > 0){  
+    getCommunity();
+    $(".mtbs-contairner-process").show();
+    $("#mtbsstart").hide();
+    flagmtbs.setValue(0);
+  }
+}
 
 function getCommunity(){
   jsonFile.forEach(element => {
-      const found = communities.find(f => f == element.comunidad);
+      const found = communities.find(f => f == element.COMUNIDAD);
       if(found === undefined){
-          communities.push(element.comunidad);
+          communities.push(element.COMUNIDAD);
       }else{
           console.log("Y existe la comunidad");
       }
@@ -276,7 +411,7 @@ function processPost(htmlPost){
   //Ciclando las publicaciones
   for(var p = 0; p<jsonFile.length; p++){
       
-      if(currentComunidad != jsonFile[p].comunidad || jsonFile[p].post =="" || jsonFile[p].post == null){
+      if(currentComunidad != jsonFile[p].COMUNIDAD || jsonFile[p].POST =="" || jsonFile[p].POST == null){
         continue;
       }
 
@@ -286,12 +421,13 @@ function processPost(htmlPost){
       //Buscando la publicación en el html
       for(var f = 0; f < listaPublic.length; f++){
           //verificar que el contenido de la publicación sea la misma 
-          let innerText = listaPublic[f].innerText.toLowerCase();
-          if(innerText ==""){
+          let innerText = listaPublic[f].innerText;
+          if(innerText =="" || innerText === undefined ){
             continue;
           }
+          innerText = innerText.toLowerCase();
 
-          if(top == 0 && (jsonFile[p].post.toLowerCase() == innerText || innerText.startsWith(jsonFile[p].post.toLowerCase()))){
+          if(top == 0 && (jsonFile[p].POST.toLowerCase() == innerText || innerText.startsWith(jsonFile[p].POST.toLowerCase()))){
               console.log("width: "+listaPublic[f].style.width);
               console.log("top: "+listaPublic[f].style.top);
               top = listaPublic[f].attributeStyleMap.get("top").value;
@@ -299,23 +435,23 @@ function processPost(htmlPost){
           if(top > 0 && datos > 0 && listaPublic[f].attributeStyleMap.get("top").value == top){
               if(innerText.includes("alcanzadas")){
                   datos--;
-                  jsonFile[p].alcance = innerText.replace(/\D/g, "");
+                  jsonFile[p]["ALCANCE"+datetime] = innerText.replace(/\D/g, "");
               }
               if(innerText.includes("interacciones")){
                   datos--;
-                  jsonFile[p].interacciones = innerText.replace(/\D/g, "");
+                  jsonFile[p]["INTERACCIONES"+datetime] = innerText.replace(/\D/g, "");
               }
               if(innerText.includes("reaccion")){
                   datos--;
-                  jsonFile[p].reacciones = innerText.replace(/\D/g, "");
+                  jsonFile[p]["REACCIONES"+datetime] = innerText.replace(/\D/g, "");
               }
               if(innerText.includes("comentario")){
                   datos--;
-                  jsonFile[p].comentarios = innerText.replace(/\D/g, "");
+                  jsonFile[p]["COMENTARIOS"+datetime] = innerText.replace(/\D/g, "");
               }
               if(innerText.includes("compartido")){
                   datos--;
-                  jsonFile[p].compartidos = innerText.replace(/\D/g, "");
+                  jsonFile[p]["COMPARTIDOS"+datetime] = innerText.replace(/\D/g, "");
               }
           }
           if(datos <= 0)
@@ -335,9 +471,6 @@ function clearMtbs(){
   $('#trstart').prop('disabled', false);
   $('#dtmtbs').prop('disabled', false);
   $(".mtbs-contairner-process").hide();
-  $("#mtbsstart").hide();
-  
-  
 
   urlsMtbsList =[];
   jsonFile=[];
@@ -349,13 +482,21 @@ function clearMtbs(){
   communities=[];
   currentComunidad = "";
   urlMetaBusiness ="";
+  reqGetLinks = {
+    columns:"",
+    range:"",
+    spreadsheet_id:""
+  }
+  datetime ="";
 
   try{
     //Limpiar campos de alcance      
     //document.getElementById("formmtbs").value="";
+    document.getElementById("urlGoogleSheet").value ="";  
     document.getElementById("mtbs-file-selector").value ="";
     document.getElementById("errorDtMtbs").value ="";
-    document.getElementById("dtMtbs").value ="";  
+    document.getElementById("dtMtbs").value ="";     
+    
   }
   catch(error){
     console.log(error);
@@ -366,32 +507,42 @@ function clearMtbs(){
 }
 
 
-function loadLinkCommunities(sheetN){
-  $.ajax({
-      async: false,
-      type: 'GET',
-      url: urlComunidades.replace("{{sheetN}}",sheetN),
-      success: function(data) {
-        console.log("#LoadConfiguration: ")
-        getDataLinksCommunity(JSON.parse(data.substr(47).slice(0,-2)));
+loadSheet("MetaBusiness");
+loadSheet("Comunidades");
+loadSheet("MetaBusinessGoogle");
+
+
+
+function getIsActiveMetaLink(){
+  let links = jQuery(".nav-link-meta");
+  let response = "local"
+
+  $(".nav-link-meta").each(function() {
+    let classList = $( this ).attr("class");
+
+    if(classList.includes("active")){
+      if(this.innerText.toLowerCase().includes("google"))
+      {
+        response ="googleSheet";
       }
- });
+    }
+  });
+  return response;
 }
 
-loadLinkCommunities("MetaBusiness");
-loadLinkCommunities("Comunidades");
+function convertData(objectResult){
+  
+  let columns = objectResult[0];
 
-function getDataLinksCommunity(data){
-  try{
-      let rows = data.table.rows;
-   
-      for (var i = 0; i < rows.length; i++) {
-          let r = rows[i]["c"];
-          xpathUrl[r[0]["v"]]= r[1]["v"].split(',');
-      }
-      console.log("xpathUrl: " + JSON.stringify(xpathUrl));
+  for (let r = 1; r < objectResult.length; r++) {
+    let row = objectResult[r];
+    let obj = {};
 
-  }catch(error){
-      console.log(error);
+    for (let index = 0; index < columns.length; index++) {
+      obj[columns[index].toUpperCase()] = row[index];    
+    }
+    jsonFile.push(obj);
+
   }
+
 }

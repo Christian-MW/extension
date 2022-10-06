@@ -11,12 +11,14 @@ let nameFileLoaded = "";
 let myTimeout;
 let contentCSVLoaded ="";
 
-var urlBase="http://3.129.70.158:8100/V1/api";
+var urlComunidades = "https://docs.google.com/spreadsheets/d/1yQ41kTP39D9y7Eh3pM7yDQyLxhI-5H6-3YjbgbfD98I/gviz/tq?&sheet={{sheetN}}&tq=Select *"
+var xpathUrl={};
+var urlBase= ""//"http://3.129.70.158:8100/V1/api";
 
 
 let mapOption={fb:"Facebook", mw:"Meltwater", xp:"MWGroup", tr:"Trendinalia",cl:"Clasificador", mtbs:"Meta Business Suite"}
 
-console.log("Archivo dunctions");
+console.log("Archivo functions");
 pathname = window.location.pathname.slice(1).replace("popup.html","").replaceAll("/","\\");
 console.log(pathname);
 console.log(window.location.host);
@@ -668,4 +670,50 @@ function init(){
     });
 }
 
+*/
+
+loadSheet("API");
+
+function loadSheet(sheetN){
+    $.ajax({
+        async: false,
+        type: 'GET',
+        url: urlComunidades.replace("{{sheetN}}",sheetN),
+        success: function(data) {
+          console.log("loadSheet: ")
+          getDataSheet(JSON.parse(data.substr(47).slice(0,-2)));
+          urlBase = xpathUrl["api_unexplored"][0];
+        }
+   });
+  }
+function getDataSheet(data){
+    try{
+        let rows = data.table.rows;
+     
+        for (var i = 0; i < rows.length; i++) {
+            try {
+                
+            let r = rows[i]["c"];
+            xpathUrl[r[0]["v"]]= r[1]["v"].split(',');
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        console.log("xpathUrl: " + JSON.stringify(xpathUrl));
+  
+    }catch(error){
+        console.log(error);
+    }
+  }
+
+
+  /*
+  var strComputer = ".";
+var objWMIService = GetObject("winmgmts:\\\\" + strComputer + "\\root\\cimv2");
+var e = new Enumerator(objWMIService.ExecQuery("Select * from Win32_NetworkAdapter","WQL",48));
+
+for (;!e.atEnd();e.moveNext())
+{   objItem = e.item();
+    WScript.Echo ("MACAddress: " + objItem.MACAddress)
+}
 */

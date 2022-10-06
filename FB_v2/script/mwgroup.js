@@ -105,7 +105,8 @@ function getToken(){
   secret.append('email', 'prueba@prueba.com');
   secret.append('password', '#admincaronte1');
  
-  return fetch(urlBase+'/token', {
+  let endponit = xpathUrl["authenticate"][0];
+  return fetch(urlBase+endponit, {
      method: 'POST',
      body: secret
   })
@@ -117,18 +118,19 @@ function getEvaluation(evaluacion ="", token=""){
 
   let request = new FormData();
   let url = "";
-
+  let endponit = "";
   switch(evaluacion){
     case "Actitud":
+      endponit = xpathUrl["api_actitud"][0];
         request.append('id', 'christian.garcia');
         request.append('file_train', $('#'+option+'file-selector-trainning')[0].files[0]);
         request.append('file_rate', $('#'+option+'file-selector-clasification')[0].files[0]);
         //secret.append('file_rate', $('input[type=file]')[0].files[0]);
-         url = urlBase+"/actitud";
+         
       break;
 
     case "Alcance":
-        
+      endponit = xpathUrl["api_alcance"][0];
         //let epoch = Math.floor((d).getTime() / 1000)-(3600*5);
         let dtstart = document.getElementById("dtStart").value;
         let d = new Date(dtstart.split('-')[0] , dtstart.split('-')[1], dtstart.split('-')[2], "00", "00", "00");
@@ -159,10 +161,10 @@ function getEvaluation(evaluacion ="", token=""){
         request.append('datestart', epochStart);
         request.append('dateend', epochEnd);
         
-         url = urlBase+"/alcance";
       break;
     
     case "WordCloud":
+      endponit = xpathUrl["api_wordcloud"][0];
         let file= $('#'+option+'file-selector-wc')[0].files[0];
         let stopfile=$('#'+option+'file-selector-wc-stop')[0].files[0];
         let id= "pruebasdir";
@@ -176,10 +178,11 @@ function getEvaluation(evaluacion ="", token=""){
         request.append('p', p);
         request.append('forma', forma);
         request.append('color', color);
-         url = urlBase+"/wordcloud";
+
       break;
 
     case "LineasDiscursivas":
+      
         let fileLd= $('#'+option+'file-selector-ld')[0].files[0];        
         let publicaciones=document.getElementById("ldNPublications").value;
 
@@ -187,15 +190,17 @@ function getEvaluation(evaluacion ="", token=""){
         request.append('publicaciones', publicaciones);
         let type=document.getElementById("ldTypeProcess").value;
         if(type=="0"){
-          url = urlBase+"/linea";
+          //url = urlBase+"/linea";
+          endponit = xpathUrl["api_lineas"][0];
         }
         else  if(type=="1"){
-          url = urlBase+"/lineatopicoall";
+          //url = urlBase+"/lineatopicoall";
+          endponit = xpathUrl["api_lineas_all"][0];
         }
       break;
 
   }
-
+  url = urlBase+endponit;
   if(evaluacion != ""){
  
     return fetch(url, {

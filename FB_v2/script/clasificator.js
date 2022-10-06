@@ -117,8 +117,19 @@ var ExcelToJSON = function() {
 
 $("#clstart").click(function(event){
     console.log("Starting clstart");
+    $(".cl-contairner-process").show();
+    $("#clstart").hide();   
+    document.getElementById(option+"lbState").innerHTML = "Clasificando";
+
+    window.setTimeout(function(){
+
+      
+    
     let col  = $("#columns").val();
     if(jsonFile.length > 0){   
+      
+  
+  
         /*
         let obj = jsonFile[0]; 
         */
@@ -130,7 +141,8 @@ $("#clstart").click(function(event){
                 for (var s = 0; s < themsEval.length; s++) {
                     
                     let sh = themsEval[s];
-                    console.log("Obteniendo el contenido de la Hojo "+ sh.desc);
+                    console.log("Obteniendo el contenido de la Hoja "+ sh.desc);
+                    document.getElementById(option+"LinkProcess").innerHTML = "Obteniendo  "+sh.desc;
                     let waitData = true;                
 
                     let url = urlBySheet.replace('{{sheetName}}',sh.desc);
@@ -151,7 +163,7 @@ $("#clstart").click(function(event){
 
                 }
             
-
+                document.getElementById(option+"LinkProcess").innerHTML = "Clasificando los items";
                 jsonFile = clasificador(jsonFile, themsEval,co);
 
                 var date = new Date();
@@ -181,8 +193,14 @@ $("#clstart").click(function(event){
                 addSheet("Tendencias", data);
                 downloadBook("Clasificación_"+stringDate);
                 alert("Se han procesado las fechas ingesadas, el resultado lo puedes consultar en tus descargas. \n\n Carpeta: "+dirBase+'/'+currentDirectory+"  \n Archivo: Clasificación_"+stringDate+".xlsx");
+               
+                $("#clstart").show();
+                document.getElementById(option+"lbState").innerHTML = "";
+                document.getElementById(option+"LinkProcess").innerHTML = "";
             }
         }
-    }
+    
+      }
+    }, 100);
 });
 

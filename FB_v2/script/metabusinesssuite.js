@@ -356,25 +356,33 @@ $("#mtbsstart").click(function(event){
 
             }else if(resp.code == 409){
               document.getElementById(option+"LinkProcess").innerHTML = "El archivo sheet tiene inconsitencia en la información";
-            
+              alert("El archivo sheet tiene inconsitencia en la información");
+              clearMtbs();
             }else if(resp.code == 500){
               document.getElementById(option+"LinkProcess").innerHTML = "No existe hoja "+xpathUrl["sheetname"][0];
-            
+              alert("No existe hoja "+xpathUrl["sheetname"][0]);
+              clearMtbs();
             }
 
           } catch (error) {
             document.getElementById(option+"LinkProcess").innerHTML = "Problemas al obtener las publicaciones";
+            alert("Problemas al obtener las publicaciones");
+            clearMtbs();
           }
 
         })
        .catch(function(error){
           console.log(error);          
           document.getElementById(option+"LinkProcess").innerHTML = "Problemas al obtener las publicaciones";
+          alert("Problemas al obtener las publicaciones");
+          clearMtbs();
        });
 
 
       }else{ 
         document.getElementById(option+"LinkProcess").innerHTML = "Ingresa una url valida de google sheets";
+        alert("Ingresa una url valida de google sheets");
+        clearMtbs();
       }
 
     }

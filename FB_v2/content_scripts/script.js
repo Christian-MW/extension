@@ -296,14 +296,14 @@ function observable(v){
 }
 
 function getReactions(element){
-	console.log("Obteniendo las reacciones.... de querySelector");
-	console.log(querySelector);
+	console.log("Obteniendo las reacciones.... de element");
+	console.log(element);
 
 	//Extraccion de los likes
 	
 	let lk = element.querySelector(likes);
 
-	//console.log(lk.textContent);
+	console.log(lk);
 	if(lk !== null && lk.textContent != "" && !lk.textContent.includes(' d') && !lk.textContent.includes(' las')){
 
 		console.log("LIKES: " + lk.textContent);

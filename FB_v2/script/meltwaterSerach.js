@@ -203,7 +203,7 @@ let reqMeltSearch = {
                     
                     reqMeltSearch.objectResult = listSearchResult;
                     let endponit = xpathUrl["mws_update_sheet"][0];
-                    reqMeltSearch.range = "Resultado";
+                    reqMeltSearch.range = xpathUrl["ms_sheetname_update"][0];
                     console.log(reqMeltSearch);   
                     console.log(JSON.stringify(reqMeltSearch));  
                     fetch(urlApiSheet+endponit, {

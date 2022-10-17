@@ -16,7 +16,7 @@ var xpathUrl={};
 var urlBase= ""//"http://3.129.70.158:8100/V1/api";
 
 
-let mapOption={fb:"Facebook", mw:"Meltwater", xp:"MWGroup", tr:"Trendinalia",cl:"Clasificador", mtbs:"Meta Business Suite"}
+let mapOption={fb:"Facebook", mw:"Meltwater", xp:"MWGroup", tr:"Trendinalia",cl:"Clasificador", mtbs:"Meta Business Suite", mws:"Meltwater Search"}
 
 console.log("Archivo functions");
 pathname = window.location.pathname.slice(1).replace("popup.html","").replaceAll("/","\\");
@@ -706,6 +706,78 @@ function getDataSheet(data){
     }
   }
 
+  var resultReadFile = "";
+  var pathFilnameGlobal = "";
+function readTextFile(){
+    pathFilnameGlobal="";
+    //En el llamado de la función getFiles agregar el sleep para que espere a que encuentre el archivo y lo lea
+    //Y esperar a por que si descarga primero el archivo de trendinalia cambia la ruta
+    //var pathFileGC = getFiles();
+    //getFiles();
+    var pathFileGC = pathFilnameGlobal;
+    if(pathFileGC === undefined){
+        console.log("pathFileGC no esta definido");
+        resultReadFile = "";
+        pathFilnameGlobal="";
+    }else{
+        var file = "file:///"+pathFileGC;
+        console.log(file);
+        pathFilnameGlobal = file;
+        var rawFile = new XMLHttpRequest();
+        var allTextLines = [];
+        rawFile.open("GET", file, false);
+        rawFile.onreadystatechange = function ()
+        {
+            if(rawFile.readyState === 4)
+            {
+                if(rawFile.status === 200 || rawFile.status == 0)
+                {
+                    var allText = rawFile.responseText;
+                    console.log(allText)
+                    allTextLines = allText.split(/\r\n|\n/);
+                    //console.log(allTextLines);
+                    resultReadFile = allTextLines;
+                    //console.log(resultReadFile);
+                }
+            }
+        }
+        rawFile.send(null);
+    }
+
+}
+
+function getFiles(){
+    chrome.downloads.search({orderBy: ['-startTime']}, function(data) {
+        data.forEach(function(item, i) {
+            //console.log(item.filename);
+            var pathAll = item.filename.split("mw_group_extension");
+            var pathBase = "";
+            if(pathFilnameGlobal ==""){
+                if(pathBase.length >= 2){
+                    pathBase = pathBase[0];
+                    var pathItemArr = item.filename.split("\\");
+                    console.log(pathItemArr[pathItemArr.length -1].startsWith("explore-csv"));
+                    if(pathItemArr[pathItemArr.length -1].startsWith("explore-csv")){
+                        console.log("Este es el archivo a procesar")
+                        console.log(pathBase[0] + athItemArr[pathItemArr.length -1]);
+                        pathFilnameGlobal = pathBase[0] + athItemArr[pathItemArr.length -1];
+                        //return pathBase[0] + athItemArr[pathItemArr.length -1];
+                        readTextFile();
+                    }
+                }
+                else if(pathBase.length <= 1){
+                    var pathItemArr = item.filename.split("\\");
+                    console.log(pathItemArr[pathItemArr.length -1].startsWith("explore-csv"));
+                    if(pathItemArr[pathItemArr.length -1].startsWith("explore-csv")){
+                        pathFilnameGlobal = item.filename;
+                        //return item.filename
+                        readTextFile();
+                    }
+                }
+            }
+        });
+    });
+}
 
   /*
   var strComputer = ".";
@@ -717,3 +789,4 @@ for (;!e.atEnd();e.moveNext())
     WScript.Echo ("MACAddress: " + objItem.MACAddress)
 }
 */
+

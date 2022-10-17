@@ -224,3 +224,8 @@ div.process{
    color: red;
    
 }
+
+.contairner-extensions{
+   height: auto !important;
+   min-height: 80px;
+}

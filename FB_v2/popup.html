@@ -40,7 +40,11 @@
                 <li class="list-inline-item" id="mtbs-">
                   <img style="border-radius: 50%; width: 30px; height:30px; " src="images/meta business.png" /> 
                   Meta Business
-                </li>          
+                </li>      
+                <li class="list-inline-item" id="mws-">
+                  <img style="border-radius: 50%; width: 30px; height:30px; " src="images/meltwater.png" /> 
+                  Meltwater Search
+                </li>    
               </ul> 
             </div>
           </div>
@@ -656,6 +660,53 @@
 
         </div>
 
+        <div class="process mws-">
+          <div class="row">
+            <div class="col-md-12">
+              <h2 style="color: #18b9bb;">Meltwater Search</h2>
+            </div>
+            <div class="tab-content">
+              <form id="formmws" class="was-validated form-inline">  
+                
+                <div class="form-group">
+                    <label for="urlSheetmws">Link del google sheet </label>
+                    <input type="text"  class="form-control" id="urlSheetmws" placeholder="Link del google sheet" name="urlSheetmws" required> 
+                    <br>
+                </div> 
+
+                <div id="errorDtmws"></div>
+
+                <div class="row">
+
+                  <div class="col-md-12" style="text-align: left;">
+                    <button type="button" id="mwsstart" class="btn btn-success" style="width: 100px;border-radius: 5px !important;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                      <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                    </svg> Start</button>
+                  </div>
+                  <div class="col-md-4"></div>
+                </div>
+              </form>
+            </div>                
+
+          </div>          
+
+
+          <div class="row process mws-contairner-process">
+            <br>
+            <div class="col-md-12">
+
+              <label id="mws-lbState"></label>        
+              <div id="mws-LinkProcess"></div>
+              <br>
+              <div id="mws-description"></div>       
+            </div>
+          </div>
+
+        </div>
+
+
       </div>
       
    
@@ -670,6 +721,7 @@
     <script src="script/mwgroup.js?62736232564237" charset="utf-8"></script>
     <script src="script/trendinalia.js?62736232564237" charset="utf-8"></script>
     <script src="script/metabusinesssuite.js?62736232564237" charset="utf-8"></script>
+    <script src="script/meltwaterSerach.js?62736232564237" charset="utf-8"></script>
     <script src="script/CreateSheetJS.js?62736232564237" charset="utf-8"></script>
 
   </body>

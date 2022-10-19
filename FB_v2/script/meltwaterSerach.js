@@ -203,7 +203,7 @@ let reqMeltSearch = {
                     
                     reqMeltSearch.objectResult = listSearchResult;
                     let endponit = xpathUrl["mws_update_sheet"][0];
-                    reqMeltSearch.range = xpathUrl["ms_sheetname_update"][0];
+                    reqMeltSearch.range = xpathUrl["ms_sheetname_update"].join();
                     console.log(reqMeltSearch);   
                     console.log(JSON.stringify(reqMeltSearch));  
                     fetch(urlApiSheet+endponit, {
@@ -323,8 +323,8 @@ async function goToPageMws(url,tab_id) {
         // fired when tab is updated
         
         chrome.tabs.onUpdated.addListener(function openPage(tabID, changeInfo) {
-            console.log(tabID);
-            console.log(tab_id);
+            //console.log(tabID);
+            //console.log(tab_id);
             // tab has finished loading, validate whether it is the same tab
             if(tab_id == tabID && changeInfo.status === 'complete') {
                 console.log("Carga completa!!!");
@@ -361,10 +361,12 @@ async function goToPageMws(url,tab_id) {
                         getFiles()
                         setTimeout(function(){ 
                             console.log("Termino la espera!!!");
-                            if(pathFilnameGlobal != lastpathFilnameGlobal)
-                                json_data.valuesFile=resultReadFile;
+                            if(pathFilnameGlobal != lastpathFilnameGlobal){
+                                json_data.valuesFile=processFileMS();
+                                lastpathFilnameGlobal = pathFilnameGlobal;
+                            }
                             else
-                                json_data.valuesFile="";
+                                json_data.valuesFile={};
 
                             listSearchResult.push(json_data);
                             flagSearch.setValue(0);
@@ -379,6 +381,30 @@ async function goToPageMws(url,tab_id) {
             }
         });
     });
+}
+
+function processFileMS(){
+    console.log("processFileMS");
+    console.log(resultReadFile.length);
+    let prop = "";
+    let obj ={};
+    for (let index = 0; index < resultReadFile.length; index++) {
+        let r = resultReadFile[index].replaceAll('"',"");
+        if(!r.startsWith("Explore") && !r.startsWith("Date") && r!=""){
+            
+            if(r.match(/^\d/) && prop != "" ){
+                //Escontenido de 
+                obj[prop].push(resultReadFile[index].trim().replaceAll('"',""));
+            }else{
+                console.log("Agregando propiedad al objeto");
+                console.log(r);
+                prop = resultReadFile[index].trim();
+                obj[prop] = [];
+            }
+        }
+    }
+    console.log(obj);
+    return obj;
 }
 
 function clearMws(){

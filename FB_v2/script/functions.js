@@ -709,13 +709,13 @@ function getDataSheet(data){
   var resultReadFile = "";
   var pathFilnameGlobal = "";
 function readTextFile(){
-    pathFilnameGlobal="";
+    
     //En el llamado de la función getFiles agregar el sleep para que espere a que encuentre el archivo y lo lea
     //Y esperar a por que si descarga primero el archivo de trendinalia cambia la ruta
     //var pathFileGC = getFiles();
     //getFiles();
     var pathFileGC = pathFilnameGlobal;
-    if(pathFileGC === undefined){
+    if(pathFileGC === undefined || pathFileGC == ""){
         console.log("pathFileGC no esta definido");
         resultReadFile = "";
         pathFilnameGlobal="";
@@ -733,7 +733,7 @@ function readTextFile(){
                 if(rawFile.status === 200 || rawFile.status == 0)
                 {
                     var allText = rawFile.responseText;
-                    console.log(allText)
+                    //console.log(allText)
                     allTextLines = allText.split(/\r\n|\n/);
                     //console.log(allTextLines);
                     resultReadFile = allTextLines;
@@ -747,7 +747,57 @@ function readTextFile(){
 }
 
 function getFiles(){
+    console.log("Fecha de consulta");
+    console.log(new Date().toDateString());
     chrome.downloads.search({orderBy: ['-startTime']}, function(data) {
+        pathFilnameGlobal="";
+        let dt = new Date();
+        let m = (1+dt.getUTCMonth()).toString();
+        let d = dt.getUTCDate().toString();
+        let dtStr = dt.getUTCFullYear()+"-"+((m.length>1?m:"0"+m))+"-"+((d.length>1?d:"0"+d));
+        console.log("Genarndo la fecha utc");
+        console.log(dtStr);
+        //let dtStr = dt.getUTCFullYear()+"-"+(1+)+"-"
+        for (let index = 0; index < data.length; index++) {
+                      //console.log(item.filename);
+            let item = data[index];
+            console.log(item.startTime.substr(0,10));
+            if(item.startTime.substr(0,10) == dtStr){
+
+                var pathAll = item.filename.split("mw_group_extension");
+                var pathBase = "";
+                if(pathFilnameGlobal ==""){
+                    if(pathBase.length >= 2){
+                        pathBase = pathBase[0];
+                        var pathItemArr = item.filename.split("\\");
+                        console.log(pathItemArr[pathItemArr.length -1].startsWith("explore-csv"));
+                        if(pathItemArr[pathItemArr.length -1].startsWith("explore-csv")){
+                            console.log("Este es el archivo a procesar")
+                            console.log(pathBase[0] + athItemArr[pathItemArr.length -1]);
+                            pathFilnameGlobal = pathBase[0] + athItemArr[pathItemArr.length -1];
+                            //return pathBase[0] + athItemArr[pathItemArr.length -1];
+                            readTextFile();
+                            break;
+                        }
+                    }
+                    else if(pathBase.length <= 1){
+                        var pathItemArr = item.filename.split("\\");
+                        console.log(pathItemArr[pathItemArr.length -1].startsWith("explore-csv"));
+                        if(pathItemArr[pathItemArr.length -1].startsWith("explore-csv")){
+                            pathFilnameGlobal = item.filename;
+                            console.log(pathFilnameGlobal);
+                            //return item.filename
+                            readTextFile();
+                            break;
+                        }
+                    }
+                }
+            }else{
+                console.log("Ya no hay archivos de la fecha: de hoy "+dtStr);
+                break;
+            }
+        }
+        /*
         data.forEach(function(item, i) {
             //console.log(item.filename);
             var pathAll = item.filename.split("mw_group_extension");
@@ -770,12 +820,14 @@ function getFiles(){
                     console.log(pathItemArr[pathItemArr.length -1].startsWith("explore-csv"));
                     if(pathItemArr[pathItemArr.length -1].startsWith("explore-csv")){
                         pathFilnameGlobal = item.filename;
+                        console.log(pathFilnameGlobal);
                         //return item.filename
                         readTextFile();
                     }
                 }
             }
         });
+        */
     });
 }
 

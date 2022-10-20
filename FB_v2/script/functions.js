@@ -140,6 +140,45 @@ function validateInclude(_them,_item, index){
 function loadThemes(contenedor){
     console.log("loadThemes.... "+contenedor);
     arrThems=[];
+    let urlApiSheet = xpathUrl["api_java_sheet"][0];
+    let reqGetLinks ={spreadsheet_id:xpathUrl["spreadsheet_db"][0]};
+    let endponit = xpathUrl["get_list_sheets"][0];
+        fetch(urlApiSheet+endponit, {
+          method: 'POST',
+          body: JSON.stringify(reqGetLinks),
+          headers: { 'Content-Type': 'application/json',  }
+       })
+       .then((resp) => resp.json())
+       .then(function(resp){ 
+            console.log(resp);
+            arrThems=[];
+            try {
+                if(resp.code == 200){
+                    let colors=["success","danger","black","purple","warning","primary"];
+                    for (let index = 0; index < resp.listSheets.length; index++) {
+                        let itm = resp.listSheets[index];
+                        let th = {id:index,desc:itm};
+                        arrThems.push(th);
+                        
+                    }
+
+                    let htmlT = '<h3>Selecciona que clasificaci&oacute;n deseas hacer</h3>';
+                    for (var i = 0; i < arrThems.length; i++) {
+                        htmlT+='<label for="'+option+arrThems[i].desc+'" class="btn btn-'+colors[getRandomInt(colors.length)]+'">'+arrThems[i].desc+' <input type="checkbox" id="'+option+arrThems[i].desc+'" class="badgebox"><span class="'+option+'evaluation-check badge badge-check badge-succes">&check;</span></label>&nbsp&nbsp&nbsp';
+
+                    }
+                    $(contenedor).html("");
+                    $(contenedor).html(htmlT); 
+                    
+                }
+            } catch (error) {
+                console.log(error);  
+            }
+        })
+       .catch(function(error){
+          console.log(error);   
+       });
+/*
     $.get(urlDB).then(
         function(data, status){
 
@@ -154,6 +193,7 @@ function loadThemes(contenedor){
         $(contenedor).html("");
         $(contenedor).html(htmlT);        
     });
+    */
 }
 
 function getSheets(data){

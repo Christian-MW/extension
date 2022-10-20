@@ -1,169 +1,30 @@
 loadSheet("MeltwterSearch");
 //let searchs=[];
 
-let searchs = [
-    {"NOMBRE":'Rendichicas','FECHAINICIO':'10/01/2022','FECHAFIN':'10/08/2022','BUSQUEDA':'("Rendichicas" OR #Rendichicas OR @RendiChicasGas) AND NOT ("https://t.co/W2K00OiwUf" OR "quisiera vivir abrazada de las rendichicas" OR "2 moods en el gc" OR "HOME EN HONOR" OR from:starlightofhobi OR "bts" OR from:lovserhsk OR from:Canarybangtan OR "qué hacía antes de rendichicas" OR from:starlightofhobi OR "free rendichicas" OR "rendichicas best gc" OR "disband" OR "morras de rendichicas" OR from:aritzell OR from:eversincehobi OR "What if we kissed" OR "para qué ir hasta los ángeles a la pink wall cuando puedo ir a un rendichicas" OR "me quiero casar" OR "ODA" OR "t olvidas de las" OR "minions" OR @starlightofhobi OR from:starlightofhobi OR @goldrushjm OR from:goldrushjm OR "prueba de la dictadura" OR "unique" OR "diamond" OR "bities" OR "mas perfect" OR @jimenavmin OR from:jimenavmin OR "concert" OR @kookieslys OR from:kookieslys OR @lovserhsk OR from:lovserhsk OR "Tammy" OR @rendichica OR from:rendichica OR "discography" OR @moonlightskjn OR from:w0nderxhttp OR @w0nderxhttp OR "BTS" OR #BTS OR "girlband" OR @mulberryxmin OR from:mulberryxmin OR @eversincehobi OR from:eversincehobi OR @beomgyusivy OR from:beomgyusivy OR from:goldrushjm OR @goldrushjm OR @moonlightskjn OR from:moonlightskjn)'},
-    {"NOMBRE":'Chevron (filtro MX/Español)','FECHAINICIO':'10/01/2022','FECHAFIN':'10/08/2022','BUSQUEDA':'("Chevron Havoline México" OR "Chevron Havoline" OR #ChevronMx OR #ChevronHavoline OR "Chevron" OR #Chevron OR @HavolineMx OR #HavolineLoTiene) AND NOT ("Toros de Tijuana" OR "estadio" OR #YoCreoEnToros OR "juego" OR "beisbol" OR #SerieDelRey OR from:TorosDeTijuana OR from:septimaentrada_ OR from:LigaMexBeis OR "@TorosDeTijuana" OR "toros" OR "LMB" OR "Ecuador" OR "PetroPiar" OR "Alberto Baldonado" OR "Stevie Wilkerson" OR "YPF" OR "Pablo Fajardo" OR #JugadorDestacado OR "Barrick Gold")'}
-    ];
+let searchs = [];
     
-let ctrlsToFind = [
-       {
-          "step":2,
-          "name":"",
-          "tagName":"flux-button",
-          "className":"",
-          "id":"",
-          "attr":"data-test-id=update-results",
-          "text":"",
-          "html":"",
-          "finded":null,
-          "action":"",
-          "chil":[
-             {	"step":1,
-                "name":"btn_start_search",
-                "tagName":"button",
-                "className":"button dense hasLabel type-outline tint-primary",
-                "id":"",
-                "attr":"",
-                "text":"",
-                "html":"",
-                "chil":[],
-                "finded":null,
-                "action":"click",
-             }
-          ]
-       },
-       {
-          "step":4,
-          "name":"",
-          "tagName":"base-widget",
-          "className":"",
-          "id":"",
-          "attr":"",
-          "text":"",
-          "html":"Mentions Trend",
-          "finded":null,
-          "action":"",
-          "chil":[
-             {	"step":1,
-                "name":"btn_download_mentions_trend",
-                "tagName":"flux-list-item",
-                "className":"",
-                "id":"",
-                "attr":"ng-click=$ctrl.clickEvent(item.click)",
-                "text":"",
-                "html":"",
-                "chil":[],
-                "finded":null,
-                "action":"click"
-             }
-          ]
-       },
-       {
-          "step":1,
-          "name":"text_search",
-          "tagName":"div",
-          "className":"cm-activeLine cm-line",
-          "id":"",
-          "attr":"",
-          "text":"",
-          "html":"",
-          "finded":null,
-          "chil":[],
-          "action":"setText",
-       },
-       {
-          "step":3,
-          "name":"",
-          "tagName":"md-tab-item",
-          "className":"",
-          "id":"",
-          "attr":"",
-          "text":"",
-          "html":"Analytics",
-          "finded":null,
-          "action":"click",
-          "chil":[]
-       },
-       {
-          "step":5,
-          "name":"",
-          "tagName":"base-widget",
-          "className":"",
-          "id":"",
-          "attr":"",
-          "text":"",
-          "html":"Total Mentions",
-          "finded":null,
-          "action":"",
-          "chil":[
-             {	"step":1,
-                "name":"totalmentions",
-                "tagName":"span",
-                "className":"mw-label-formatted-number__value",
-                "id":"",
-                "attr":"",
-                "text":"",
-                "html":"",
-                "chil":[],
-                "finded":null,
-                "action":"getText"
-             }
-          ]
-       },
-       {
-          "step":6,
-          "name":"",
-          "tagName":"base-widget",
-          "className":"",
-          "id":"",
-          "attr":"",
-          "text":"",
-          "html":"Mentions/Day Average",
-          "finded":null,
-          "action":"",
-          "chil":[
-             {	"step":1,
-                "name":"mentionsdayaverage",
-                "tagName":"span",
-                "className":"mw-label-formatted-number__value",
-                "id":"",
-                "attr":"",
-                "text":"",
-                "html":"",
-                "chil":[],
-                "finded":null,
-                "action":"getText"
-             }
-          ]
-       },
-       {
-          "step":7,
-          "name":"",
-          "tagName":"base-widget",
-          "className":"",
-          "id":"",
-          "attr":"",
-          "text":"",
-          "html":"Total Engagement",
-          "finded":null,
-          "action":"",
-          "chil":[
-             {	"step":1,
-                "name":"totalengagement",
-                "tagName":"span",
-                "className":"mw-label-formatted-number__value",
-                "id":"",
-                "attr":"",
-                "text":"",
-                "html":"",
-                "chil":[],
-                "finded":null,
-                "action":"getText"
-             }
-          ]
-       },   
-    ];  
+let ctrlsToFind = [];  
+console.log("Consultando los controlsToFind");
+console.log(xpathUrl["controlsToFind"][0]);
+
+
+fetch(xpathUrl["controlsToFind"][0], {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json',  }
+})
+.then((resp) => resp.json())
+.then(function(resp){ 
+    try {
+        console.log(resp);
+        ctrlsToFind=resp;
+        console.log("controlsToFind obtenidos!!!");
+    } catch (error) {
+        console.log(error);  
+    }
+})
+.catch(function(error){
+console.log(error);   
+});
 
 let reqMeltSearch = {
     columns:"",
@@ -249,6 +110,7 @@ let reqMeltSearch = {
       }
 
   $("#mwsstart").click(function(event){
+
     let url = $("#urlSheetmws").val();
     if(url != "" && url.startsWith("https://docs.google.com/spreadsheets/d/")){
         url = url.replace("https://docs.google.com/spreadsheets/d/","");
@@ -370,7 +232,7 @@ async function goToPageMws(url,tab_id) {
 
                             listSearchResult.push(json_data);
                             flagSearch.setValue(0);
-                        }, 10000);
+                        }, 3000);
                         
                     
                     }catch(err){
@@ -440,7 +302,7 @@ function injectScript(_search, _ctrlsToFind) {
 	
 	let search = JSON.parse(_search);
     let ctrlsToFind = JSON.parse(_ctrlsToFind);
-    
+    let retryFoundCtrl = 2;
     function observableS(v){
         this.value = v;
         
@@ -494,6 +356,7 @@ function injectScript(_search, _ctrlsToFind) {
                     flag.setValue(-1);
                     
                     indexCtrl++;
+                    retryFind = 3;
                     processCtrls(ctrlsToFind, false);
                     
                 }
@@ -777,7 +640,9 @@ function injectScript(_search, _ctrlsToFind) {
 
     function processCtrls(_ctrlToFind, isChil){
         let ctrlToFind = [];
+        console.log(_ctrlToFind);
         if(isChil){
+            console.log("Buscando el hijo");
             ctrlToFind = _ctrlToFind.chil;		
         }
         else{
@@ -794,7 +659,7 @@ function injectScript(_search, _ctrlsToFind) {
             
             if(isChil){
                 console.log("Buscando en el padre el control");
-                console.log(ctrlToFind[f]);
+                console.log(_ctrlToFind.finded);
                 if(f > 0){
 					console.log("BUscando el siguiente hijo");
                     if(ctrlToFind.length > 1 && (ctrlToFind[f-1].finded != null && ctrlToFind[f-1].finded !== undefined )){
@@ -816,31 +681,42 @@ function injectScript(_search, _ctrlsToFind) {
                 ctrlToFind[f].finded = ctrl;
             }
             
+            if(isChil){
+                _ctrlToFind.chil = ctrlToFind;
+            }
+            else{
+                _ctrlToFind[indexCtrl] = ctrlToFind[0];
+                ctrlsToFind[indexCtrl] = ctrlToFind[0];
+            }
             
             if(finded){
-                                
+                retryFind = -1;      
                 if(ctrlToFind[f].chil !== undefined && ctrlToFind[f].chil != null && ctrlToFind[f].chil.length > 0){
-					
+					retryFind = 3;
                     processCtrls(ctrlToFind[f], true);
                 }else{
 					action(ctrlToFind[f]);
 				}
             }
             else{
-                console.log("No se logro encontrar el control del paso: "+ctrlToFind[f].step);
-                flag.setValue(3);
+
+                retryFind--;
+                if(retryFind > 0){
+                    console.log("No se encontro el control haciendo un intento más!!!");
+                    setTimeout(function(){ 
+                        //flag.setValue(-1);
+                        processCtrls(_ctrlToFind, isChil);                        
+                    }, 3000);
+                }else{
+                    console.log("No se logro encontrar el control del paso: "+ctrlToFind[f].step);
+                    flag.setValue(-1);
+                    flag.setValue(1);
+                }
+                    //console.log("No se logro encontrar el control del paso: "+ctrlToFind[f].step);
+                    //flag.setValue(3);
             }
             
-        }
-        
-        if(isChil){
-            _ctrlToFind.chil = ctrlToFind;
-        }
-        else{
-            _ctrlToFind[indexCtrl] = ctrlToFind[0];
-            ctrlsToFind[indexCtrl] = ctrlToFind[0];
-        }
-        
+        }        
     }
 
     function action(_ctrlA){ 
@@ -863,7 +739,7 @@ function injectScript(_search, _ctrlsToFind) {
                     console.log("Accionando un click");
                     console.log(_ctrl);
                     _ctrl.finded.click();
-                    sleep(10000);
+                    sleep(_ctrl.await);
                 }
                 else if(actions[a].trim() == "setText"){
                     console.log("Accionando un setText");
@@ -876,7 +752,14 @@ function injectScript(_search, _ctrlsToFind) {
                 }	
                 else if(actions[a].trim() == "getText"){
                     console.log("Accionando un getText");
-                    objSearchResult[_ctrl.name]= _ctrl.finded.innerText;
+                    let val = _ctrl.finded.innerText;
+                    if(!isNaN(val.trim()) && val.includes(".")){
+                        
+                        objSearchResult[_ctrl.name]= _ctrl.finded.innerText+" K";
+                    }else{
+                        objSearchResult[_ctrl.name]= _ctrl.finded.innerText;
+                    }
+                    
                     flag.setValue(1);
                 }
             
@@ -905,6 +788,6 @@ function injectScript(_search, _ctrlsToFind) {
                     
         ctrlsToFind.sort((a, b) => a.step - b.step);
         flag.setValue(1);
-    }, 10000);
+    }, 5000);
 
   }

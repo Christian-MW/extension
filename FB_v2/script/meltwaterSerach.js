@@ -92,7 +92,7 @@ let reqMeltSearch = {
         }     
     });
 
-    function convertData(objectResult){
+    function mwsconvertData(objectResult){
         searchs=[];
         let columns = objectResult[0];
       
@@ -137,7 +137,7 @@ let reqMeltSearch = {
 
             if(resp.code == 200){     
             document.getElementById(option+"description").innerHTML = "Búsquedas obtenidas";         
-              convertData(resp.objectResult);
+              mwsconvertData(resp.objectResult);
               console.log(searchs.length);
               flagSearch.setValue(0);
 

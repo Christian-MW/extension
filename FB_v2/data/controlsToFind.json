@@ -1,182 +1,210 @@
-[
-   {
-      "step":2,
-      "name":"",
-      "tagName":"flux-button",
-      "className":"",
-      "id":"",
-      "attr":"data-test-id=update-results",
-      "text":"",
-      "html":"",
-      "finded":null,
-      "action":"",
-	  "await":30,
-      "chil":[
-         {
-            "step":1,
-            "name":"btn_start_search",
-            "tagName":"button",
-            "className":"button dense hasLabel type-outline tint-primary",
-            "id":"",
-            "attr":"",
-            "text":"",
-            "html":"",
-            "chil":[
-               
-            ],
-            "finded":null,
-            "action":"click",
-			"await":10000
-         }
-      ]
-   },
-   {
-      "step":4,
-      "name":"",
-      "tagName":"base-widget",
-      "className":"",
-      "id":"",
-      "attr":"",
-      "text":"",
-      "html":"Mentions Trend",
-      "finded":null,
-      "action":"",
-	  "await":30,
-      "chil":[
-         {
-            "step":1,
-            "name":"btn_download_mentions_trend",
-            "tagName":"flux-list-item",
-            "className":"",
-            "id":"",
-            "attr":"ng-click=$ctrl.clickEvent(item.click)",
-            "text":"",
-            "html":"",
-            "chil":[
-               
-            ],
-            "finded":null,
-            "action":"click",
-			"await":5000
-         }
-      ]
-   },
-   {
-      "step":1,
-      "name":"text_search",
-      "tagName":"div",
-      "className":"cm-activeLine cm-line",
-      "id":"",
-      "attr":"",
-      "text":"",
-      "html":"",
-      "finded":null,
-      "chil":[
-         
-      ],
-      "action":"setText"
-   },
-   {
-      "step":3,
-      "name":"",
-      "tagName":"md-tab-item",
-      "className":"",
-      "id":"",
-      "attr":"",
-      "text":"",
-      "html":"Analytics",
-      "finded":null,
-      "action":"click",
-	  "await":3000,
-      "chil":[
-         
-      ]
-   },
-   {
-      "step":5,
-      "name":"",
-      "tagName":"base-widget",
-      "className":"",
-      "id":"",
-      "attr":"",
-      "text":"",
-      "html":"Total Mentions",
-      "finded":null,
-      "action":"",
-      "chil":[
-         {
-            "step":1,
-            "name":"totalmentions",
-            "tagName":"span",
-            "className":"mw-label-formatted-number__value",
-            "id":"",
-            "attr":"",
-            "text":"",
-            "html":"",
-            "chil":[
-               
-            ],
-            "finded":null,
-            "action":"getText"
-         }
-      ]
-   },
-   {
-      "step":6,
-      "name":"",
-      "tagName":"base-widget",
-      "className":"",
-      "id":"",
-      "attr":"",
-      "text":"",
-      "html":"Mentions/Day Average",
-      "finded":null,
-      "action":"",
-      "chil":[
-         {
-            "step":1,
-            "name":"mentionsdayaverage",
-            "tagName":"span",
-            "className":"mw-label-formatted-number__value",
-            "id":"",
-            "attr":"",
-            "text":"",
-            "html":"",
-            "chil":[
-               
-            ],
-            "finded":null,
-            "action":"getText"
-         }
-      ]
-   },
-   {
-      "step":7,
-      "name":"",
-      "tagName":"base-widget",
-      "className":"",
-      "id":"",
-      "attr":"",
-      "text":"",
-      "html":"Total Engagement",
-      "finded":null,
-      "action":"",
-      "chil":[
-         {
-            "step":1,
-            "name":"totalengagement",
-            "tagName":"span",
-            "className":"mw-label-formatted-number__value",
-            "id":"",
-            "attr":"",
-            "text":"",
-            "html":"",
-            "chil":[
-               
-            ],
-            "finded":null,
-            "action":"getText"
-         }
-      ]
-   }
+[	
+	{
+		"step": 1,
+		"name": "text_search",
+		"tagName": "div",
+		"className": "cm-activeLine cm-line",
+		"id": "",
+		"attr": "",
+		"text": "",
+		"html": "",
+		"finded": null,
+		"chil": [],
+		"action": "setText"
+	},
+	{
+		"step": 2,
+		"name": "",
+		"tagName": "flux-button",
+		"className": "",
+		"id": "",
+		"attr": "data-test-id=update-results",
+		"text": "",
+		"html": "",
+		"finded": null,
+		"action": "",
+		"await": 30,
+		"chil": [
+			{
+				"step": 1,
+				"name": "btn_start_search",
+				"tagName": "button",
+				"className": "button dense hasLabel type-outline tint-primary",
+				"id": "",
+				"attr": "",
+				"text": "",
+				"html": "",
+				"chil": [],
+				"finded": null,
+				"action": "click",
+				"await": 5000
+			}
+		]
+	},
+	{
+		"step": 3,
+		"name": "",
+		"tagName": "md-tab-item",
+		"className": "",
+		"id": "",
+		"attr": "",
+		"text": "",
+		"html": "Analytics",
+		"finded": null,
+		"action": "click",
+		"await": 5000,
+		"chil": []
+	},	
+	{
+		"step": 4,
+		"name": "",
+		"tagName": "base-widget",
+		"className": "",
+		"id": "",
+		"attr": "",
+		"text": "",
+		"html": "Mentions Trend",
+		"finded": null,
+		"action": "",
+		"await": 30,
+		"chil": [
+			{
+				"step": 1,
+				"name": "btn_download_mentions_trend",
+				"tagName": "flux-list-item",
+				"className": "",
+				"id": "",
+				"attr": "ng-click=$ctrl.clickEvent(item.click)",
+				"text": "",
+				"html": "",
+				"chil": [],
+				"finded": null,
+				"action": "click",
+				"await": 1000
+			}
+		]
+	},	
+	{
+		"step": 5,
+		"name": "",
+		"tagName": "md-tab-item",
+		"className": "",
+		"id": "",
+		"attr": "",
+		"text": "",
+		"html": "Twitter Insights",
+		"finded": null,
+		"action": "click",
+		"await": 15000,
+		"chil": []
+	},	
+	{
+		"step": 6,
+		"name": "base-widget-usuarios",
+		"tagName": "base-widget",
+		"className": "",
+		"id": "",
+		"attr": "",
+		"text": "",
+		"html": "Key Metrics For Twitter",
+		"finded": null,
+		"action": "",
+		"chil": [
+			{
+				"step": 1,
+				"name": "usuarios",
+				"tagName": "div",
+				"className": "ssa__visualization--metrics-toolgroup",
+				"id": "",
+				"attr": "",
+				"text": "",
+				"html": "Users",
+				"chil": [],
+				"finded": null,
+				"action": "getAttribute>aria-label"
+			}
+		]
+	},
+	{
+		"step": 7,
+		"name": "base-widget-menciones",
+		"tagName": "base-widget",
+		"className": "",
+		"id": "",
+		"attr": "",
+		"text": "",
+		"html": "Key Metrics For Twitter",
+		"finded": null,
+		"action": "",
+		"chil": [
+			{
+				"step": 1,
+				"name": "menciones",
+				"tagName": "div",
+				"className": "ssa__visualization--metrics-toolgroup",
+				"id": "",
+				"attr": "",
+				"text": "",
+				"html": "Mentions",
+				"chil": [],
+				"finded": null,
+				"action": "getAttribute>aria-label"
+			}
+		]
+	},
+	{
+		"step": 8,
+		"name": "base-widget-impresiones",
+		"tagName": "base-widget",
+		"className": "",
+		"id": "",
+		"attr": "",
+		"text": "",
+		"html": "Key Metrics For Twitter",
+		"finded": null,
+		"action": "",
+		"chil": [
+			{
+				"step": 1,
+				"name": "impresiones",
+				"tagName": "div",
+				"className": "ssa__visualization--metrics-toolgroup",
+				"id": "",
+				"attr": "",
+				"text": "",
+				"html": "Impressions",
+				"chil": [],
+				"finded": null,
+				"action": "getAttribute>aria-label"
+			}
+		]
+	},
+	{
+		"step": 9,
+		"name": "base-widget-alcance",
+		"tagName": "base-widget",
+		"className": "",
+		"id": "",
+		"attr": "",
+		"text": "",
+		"html": "Key Metrics For Twitter",
+		"finded": null,
+		"action": "",
+		"chil": [
+			{
+				"step": 1,
+				"name": "alcance",
+				"tagName": "div",
+				"className": "ssa__visualization--metrics-toolgroup",
+				"id": "",
+				"attr": "",
+				"text": "",
+				"html": "Reach",
+				"chil": [],
+				"finded": null,
+				"action": "getAttribute>aria-label"
+			}
+		]
+	}
+
 ]

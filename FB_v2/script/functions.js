@@ -871,6 +871,25 @@ function getFiles(){
     });
 }
 
+
+function sendPost(url, request){
+    try{
+        console.log("Ejecutando sendPost");
+        console.log(url);
+        console.log(request);
+        return fetch(url, {
+            method: 'POST',
+            body: request
+            //headers: { 'Authorization': token  }
+         })
+         .then((response) => response.json())
+         .catch((error) => error);
+    }catch(error){
+        console.log("Error en la funcion sendPost");
+        console.log(error);
+        return {status:210};
+    }  
+}
   /*
   var strComputer = ".";
 var objWMIService = GetObject("winmgmts:\\\\" + strComputer + "\\root\\cimv2");

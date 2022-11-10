@@ -616,6 +616,12 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                 //console.log(filterProcessed+ " >= "+ objSearch.filter.length);
                 //console.log("indexCtrl: "+indexCtrl);
                 //console.log("pos: "+pos);
+                
+                if(objSearch.filter.length <= 0 && inFilters){
+                    inFilterDate = true;
+                    inFilters = false;
+                    filterProcessed = 0;
+                }
 
                 if(inFilters && filterProcessed >= objSearch.filter.length){
                     console.log("Reiniciando los datos 1");
@@ -681,6 +687,8 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                                 processCtrls(ctrlsToFind, false);
                             }else{
                                 console.log("No se logro identificar que filtro aplicar para "+f);
+                                flag.setValue(-1);
+                                flag.setValue(1);
                             }
                         }
                     }                       
@@ -1653,7 +1661,13 @@ function getValueFilter(){
         objSearch.search = search.NOMBRE;
         objSearch.date_start = search.FECHA_INICIO;
         objSearch.date_end = search.FECHA_FIN;
-        objSearch.filter = search.FILTRO.trim().split("-");
+        objSearch.filter = [];
+        try{
+            objSearch.filter = search.FILTRO.trim().split("-");
+        }catch(error){
+            console.log("Se trabajara sin filtro de region y lenguaje!!!");
+        }
+        
         objSearchResult.search = search.NOMBRE;
         ctrlLanguajeFilter.sort((a, b) => a.step - b.step);
         ctrlLocationFilter.sort((a, b) => a.step - b.step);     

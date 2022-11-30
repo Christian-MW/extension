@@ -53,7 +53,19 @@ $(document).ready(function() {
 
 function setPositionScroll() {
     //let sc = document.getElementsByClassName("ReactVirtualized__Grid _1zmk");
+    let contenedoresS = xpath["list_publications"];
     let sc = document.getElementsByClassName(xpath["list_publications"][0]);
+    for (let index = 0; index < contenedoresS.length; index++) {
+        sc = document.getElementsByClassName(contenedoresS[index]);
+        if(sc.length > 0){
+            console.log("SE encontro el contenedor "+ contenedoresS[index]);
+            break;
+        }
+    }
+    
+    
+    console.log("Contenedor para hacerle scroll");
+    console.log(sc);
     if(sc.length > 0){
         console.log("lastPosition: "+lastPosition);
         console.log("scrollHeight: "+sc[0].scrollHeight);

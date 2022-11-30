@@ -413,8 +413,12 @@ function getCommunity(){
 function processPost(htmlPost){
   
   let classdiv = xpathUrl["columns_by_publications"][0] //"_2e42 _2yi0 _2yia";
-
+  let columnsOrRows = "C";
   let listaPublic = htmlPost.getElementsByClassName(classdiv);
+  if(listaPublic.length <= 0){
+    listaPublic = htmlPost.getElementsByClassName(xpathUrl["columns_in_table"][0]);
+    columnsOrRows = "R";
+  }
 
   //Ciclando las publicaciones
   for(var p = 0; p<jsonFile.length; p++){
@@ -427,43 +431,111 @@ function processPost(htmlPost){
       let top = 0;
 
       //Buscando la publicación en el html
-      for(var f = 0; f < listaPublic.length; f++){
+      
+      if(columnsOrRows=="R"){
+        //Cuando en metabusiness trabaja con tablas
+        let newRow = false;
+        let inRow = false;
+        for(var f = 0; f < listaPublic.length; f++){        
           //verificar que el contenido de la publicación sea la misma 
-          let innerText = listaPublic[f].innerText;
+          let innerText=""; 
+            //Cuando en metabusiness trabaja con tablas
+          let ctText = listaPublic[f].getElementsByClassName(xpathUrl["text_publication"][0]);
+          if(ctText.length > 0){
+            innerText = ctText[0].innerText;
+            inRow = false;
+            newRow = true;
+          } else{ 
+            innerText = listaPublic[f].innerText;
+            newRow = false;
+          }
+
           if(innerText =="" || innerText === undefined ){
             continue;
           }
+          
           innerText = innerText.toLowerCase();
 
-          if(top == 0 && (jsonFile[p].POST.toLowerCase() == innerText || innerText.startsWith(jsonFile[p].POST.toLowerCase()))){
-              console.log("width: "+listaPublic[f].style.width);
-              console.log("top: "+listaPublic[f].style.top);
-              top = listaPublic[f].attributeStyleMap.get("top").value;
+          if(newRow && (jsonFile[p].POST.toLowerCase() == innerText || innerText.startsWith(jsonFile[p].POST.toLowerCase()))){              
+              inRow = true;
           }
-          if(top > 0 && datos > 0 && listaPublic[f].attributeStyleMap.get("top").value == top){
-              if(innerText.includes("alcanzadas")){
+          if(inRow && datos > 0){
+              if(innerText.includes("personas alcanzadas")){
                   datos--;
-                  jsonFile[p]["ALCANCE"+datetime] = innerText.replace(/\D/g, "");
+                  let v = innerText.split("personas alcanzadas")[0];
+                  jsonFile[p]["ALCANCE"+datetime] = v;
+                  //jsonFile[p]["ALCANCE"+datetime] = v.replace(/\D/g, "");
               }
-              if(innerText.includes("interacciones")){
+              if(innerText.includes("interacciones con la")){
                   datos--;
-                  jsonFile[p]["INTERACCIONES"+datetime] = innerText.replace(/\D/g, "");
+                  let v = innerText.split("interacciones con la")[0];
+                  jsonFile[p]["INTERACCIONES"+datetime] = v;
+                  //jsonFile[p]["INTERACCIONES"+datetime] = v.replace(/\D/g, "");
               }
               if(innerText.includes("reaccion")){
                   datos--;
-                  jsonFile[p]["REACCIONES"+datetime] = innerText.replace(/\D/g, "");
+                  let v = innerText.split("reaccion")[0];
+                  jsonFile[p]["REACCIONES"+datetime] = v;
+                  //jsonFile[p]["REACCIONES"+datetime] = v.replace(/\D/g, "");
               }
               if(innerText.includes("comentario")){
                   datos--;
-                  jsonFile[p]["COMENTARIOS"+datetime] = innerText.replace(/\D/g, "");
+                  let v = innerText.split("comentario")[0];
+                  jsonFile[p]["COMENTARIOS"+datetime] = v;
+                  //jsonFile[p]["COMENTARIOS"+datetime] = v.replace(/\D/g, "");
               }
-              if(innerText.includes("compartido")){
+              if(innerText.includes("veces compartid")){
                   datos--;
-                  jsonFile[p]["COMPARTIDOS"+datetime] = innerText.replace(/\D/g, "");
+                  let v = innerText.split("veces compartid")[0];
+                  jsonFile[p]["COMPARTIDOS"+datetime] = v;
+                  //jsonFile[p]["COMPARTIDOS"+datetime] = v.replace(/\D/g, "");
               }
           }
           if(datos <= 0)
               break;
+      }
+    
+        
+      }else{
+
+        for(var f = 0; f < listaPublic.length; f++){        
+            //verificar que el contenido de la publicación sea la misma 
+            let innerText = listaPublic[f].innerText;
+            if(innerText =="" || innerText === undefined ){
+              continue;
+            }
+            innerText = innerText.toLowerCase();
+
+            if(top == 0 && (jsonFile[p].POST.toLowerCase() == innerText || innerText.startsWith(jsonFile[p].POST.toLowerCase()))){
+                console.log("width: "+listaPublic[f].style.width);
+                console.log("top: "+listaPublic[f].style.top);
+                top = listaPublic[f].attributeStyleMap.get("top").value;
+            }
+            if(top > 0 && datos > 0 && listaPublic[f].attributeStyleMap.get("top").value == top){
+                if(innerText.includes("alcanzadas")){
+                    datos--;
+                    jsonFile[p]["ALCANCE"+datetime] = innerText.replace(/\D/g, "");
+                }
+                if(innerText.includes("interacciones")){
+                    datos--;
+                    jsonFile[p]["INTERACCIONES"+datetime] = innerText.replace(/\D/g, "");
+                }
+                if(innerText.includes("reaccion")){
+                    datos--;
+                    jsonFile[p]["REACCIONES"+datetime] = innerText.replace(/\D/g, "");
+                }
+                if(innerText.includes("comentario")){
+                    datos--;
+                    jsonFile[p]["COMENTARIOS"+datetime] = innerText.replace(/\D/g, "");
+                }
+                if(innerText.includes("compartido")){
+                    datos--;
+                    jsonFile[p]["COMPARTIDOS"+datetime] = innerText.replace(/\D/g, "");
+                }
+            }
+            if(datos <= 0)
+                break;
+        }
       }
   }
 

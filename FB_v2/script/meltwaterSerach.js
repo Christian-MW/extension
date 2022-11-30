@@ -855,7 +855,8 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                         */
                         console.log("Aplicando el paso 4, 5 y 6");
                         console.log(stepFilterDate.title);
-                        if(stepFilterDate.title == ""){
+                        if(stepFilterDate.title == "" || search.FECHA_INICIO == "" || search.FECHA_INICIO === undefined
+                        || search.FECHA_FIN == "" || search.FECHA_FIN === undefined){
                             alert("No se logro obtener la fecha el proceso no puede continuar :(");
                         }else{
 

@@ -16,7 +16,7 @@ var xpathUrl={};
 var urlBase= ""//"http://3.129.70.158:8100/V1/api";
 
 
-let mapOption={fb:"Facebook", mw:"Meltwater", xp:"MWGroup", tr:"Trendinalia",cl:"Clasificador", mtbs:"Meta Business Suite", mws:"Meltwater Search"}
+let mapOption={fb:"Facebook", mw:"Meltwater", xp:"MWGroup", tr:"Trendinalia",cl:"Clasificador", mtbs:"Meta Business Suite", mws:"Meltwater Search", cp:"Campañas"}
 
 console.log("Archivo functions");
 pathname = window.location.pathname.slice(1).replace("popup.html","").replaceAll("/","\\");
@@ -715,6 +715,7 @@ function init(){
 loadSheet("API");
 
 function loadSheet(sheetN){
+    console.log("Obteniendo las variables de la hoja "+urlComunidades.replace("{{sheetN}}",sheetN));
     $.ajax({
         async: false,
         type: 'GET',
@@ -734,7 +735,7 @@ function getDataSheet(data){
             try {
                 
             let r = rows[i]["c"];
-            xpathUrl[r[0]["v"]]= r[1]["v"].split(',');
+            xpathUrl[r[0]["v"]]= (r[1]["v"]).toString().split(',');
             } catch (error) {
                 console.log(error);
             }

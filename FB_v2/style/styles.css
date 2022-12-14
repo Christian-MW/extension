@@ -84,7 +84,7 @@ label {
    font-size: 1em;
    font-weight: 500;
    display: block;
-   margin-bottom: 1em;
+   /*margin-bottom: 1em;*/
 }
 
 input {
@@ -228,4 +228,23 @@ div.process{
 .contairner-extensions{
    height: auto !important;
    min-height: 80px;
+}
+
+.tblCampañas{
+   font-size: 13px;
+}
+.table .thead-dark th {
+   color: #fff;
+   background-color: #212529;
+   border-color: #32383e;
+}
+
+.row-date{
+   width: 100%;
+   display: flex;
+}
+.col2{
+   width: 50%;
+   padding-right: 1.5%;
+    padding-left: 1.5%;
 }

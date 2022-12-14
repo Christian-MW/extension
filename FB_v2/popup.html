@@ -74,6 +74,10 @@
                 <li class="list-inline-item" id="cl-">
                   <img style="border-radius: 50%; width: 30px; height:30px; " src="images/clasificator.png" /> 
                   Clasificador 
+                </li>                
+                <li class="list-inline-item" id="cp-">
+                  <img style="border-radius: 50%; width: 30px; height:30px; " src="images/campaña.png" /> 
+                  Campañas 
                 </li>
               </ul> 
             </div>
@@ -90,6 +94,9 @@
           <div class="row">
             <div class="col-md-12">
               <h2 style="color: #385395;">Facebook</h2>
+              <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.f0xyj1r32nzr"
+               target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
+               <br>
               <input type="file" id="fb-file-selector" class="form-control-file border" accept=".csv">
             </div>
           </div>          
@@ -132,7 +139,8 @@
         <div class="process mw-">
 
           <div class="row">
-            <h2 style="color: #18b9bb;">Meltwater</h2>
+            <h2 style="color: #18b9bb;">Meltwater</h2>            
+            <br>
             <div class="col-md-12">
               <input type="file" id="mw-file-selector" class="form-control-file border" accept=".csv">
             </div>
@@ -448,7 +456,7 @@
         <div class="process tr-">
           <div class="row">
             <div class="col-md-12">
-              <h2 style="color: #30383b;">Trendinalia</h2>
+              <h2 style="color: #30383b;">Trendinalia</h2>              
             </div>
             <div class="tab-content">
               <form id="formTrendinalia" class="was-validated form-inline">  
@@ -519,7 +527,7 @@
         <div class="process cl-">
           <div class="row">
             <div class="col-md-12">
-              <h2 style="color: #f36e4d;">Clasificador</h2>
+              <h2 style="color: #f36e4d;">Clasificador</h2>              
             </div>
             <div class="tab-content">
               <form id="formTcl" class="was-validated form-inline">                  
@@ -592,6 +600,8 @@
           <div class="row">
             <div class="col-md-12">
               <h2 style="color: #0163de;">Meta Business</h2>
+              <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.yx28879b54qu"
+               target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
             </div>
             <div class="tab-content">
               <form id="formmtbs" class="was-validated form-inline">  
@@ -664,6 +674,8 @@
           <div class="row">
             <div class="col-md-12">
               <h2 style="color: #18b9bb;">Meltwater Search</h2>
+              <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.40r5f6lpv9f2"
+               target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
             </div>
             <div class="tab-content">
               <form id="formmws" class="was-validated form-inline">  
@@ -706,6 +718,117 @@
 
         </div>
 
+        <div class="process cp-">
+          <div class="row">
+            <div class="col-md-12">
+              <h2 style="color: #3cab5a;">Campañas</h2>
+              <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.nnebdx8azh9v" target="blank"
+              style="display: flex; margin-top: -32px; margin-left: 85%;"
+              >Ayuda</a>
+            </div>
+            <div class="tab-content">
+              <form id="formTcp" class="was-validated form-inline">                  
+                                
+                <ul class="nav nav-tabs" id="tabCampañas" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link-meta nav-link active " id="addCp-tab" data-toggle="tab" href="#addCp" role="tab" aria-controls="addCp" aria-selected="false">Registrar</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link-meta nav-link" id="showCP-tab" data-toggle="tab" href="#showCP" role="tab" aria-controls="showCP" aria-selected="true">Ver</a>
+                  </li>
+                </ul>
+                
+                
+                <div class="tab-content" id="myTabContentCampañas">
+                  <div class="tab-pane fade show active" id="addCp" role="tabpanel" aria-labelledby="addCp-tab">  
+                    <br>
+                    <div class="form-group">
+                      <label for="cp-name-campaign">Nombre:</label>
+                      <input type="text" id="cp_campaign" name="cp-name-campaign" class="cp-input form-control" placeholder="Nombre de la campaña" required>
+                      <br>
+                    </div>
+                    <div class="form-group">
+                      <label for="cp-user-campaign">Usuarios:</label>
+                      <input type="text" id="cp_spreadsheet_id" name="cp-user-campaign" class="cp-input form-control" 
+                      placeholder="Link del archivo de usuarios" required>
+                      <br>
+                    </div>
+                    <div class="form-group">
+                      <label for="cp-search-campaign">Búsqueda:</label>
+                      <input type="text" id="cp_search" name="cp-search-campaign" class="cp-input form-control" placeholder="Búsqueda" required>
+                      <br>
+                    </div>
+                    <div class="row-date">
+
+                      <div class="col2">
+                        <div class="form-group">
+                          <label for="cp-start-campaign">Inicia:</label>
+                          <input type="date" id="cp_date_start" name="cp-start-campaign" class="cp-input form-control" placeholder="Fecha de inicio" required>
+                        </div>
+                      </div>
+
+                      <div class="col2">
+                        <div class="form-group">
+                          <label for="cp-end-campaign">Termina:</label>
+                          <input type="date" id="cp_date_end" name="cp-end-campaign" class="cp-input form-control" placeholder="Fecha de inicio" required>
+                        </div>
+                      </div>
+
+                    </div>
+                    <br>
+                    <div class="row">
+                      <br>
+                      <p class="col-md-6">
+          
+                        <button id="cpstart" type="button" class="btn btn-success">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                            <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                          </svg>
+                          Start
+                        </button>
+                      </p>
+                    </div>
+                    
+                  </div> 
+                  
+                  <div class="tab-pane fade show" id="showCP" role="tabpanel" aria-labelledby="showCP-tab">
+                    
+                    <div class="form-group">
+                      <br>
+                      <table class="table tblCampañas">
+                        <thead class="thead-dark">
+                          <tr> 
+                            <th scope="col">Campaña</th>
+                            <th scope="col">Usuarios</th>
+                            <th scope="col">Inicia</th>
+                            <th scope="col">Termina</th>
+                          </tr>
+                        </thead>
+                        <tbody>  
+                        </tbody>
+                      </table>
+                    </div> 
+                    
+                  </div> 
+                </div> 
+
+              </form>
+            </div>                
+
+          </div>          
+         
+            <br>
+            <div class="col-md-12">
+
+              <label id="cp-lbState"></label>        
+              <div id="cp-LinkProcess"></div>
+              <br>
+              <div id="cp-description"></div>       
+            </div>
+          
+        </div>
+
 
       </div>
       
@@ -723,6 +846,7 @@
     <script src="script/metabusinesssuite.js?62736232564237" charset="utf-8"></script>
     <script src="script/meltwaterSerach.js?62736232564237" charset="utf-8"></script>
     <script src="script/CreateSheetJS.js?62736232564237" charset="utf-8"></script>
+    <script src="script/campaign.js?62736232564237" charset="utf-8"></script>
 
   </body>
 

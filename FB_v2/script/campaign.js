@@ -51,7 +51,7 @@ function getCampaign(){
                     btnUpdate='&nbsp;&nbsp;<button type="button" class="btn-success btnUpdateCP" name="'+theme+'">Actualizar</button>';
                     
                 }
-                $(".tblCampañas").find('tbody').append('<tr><td>'+theme+'</td><td><a href="'+sheet+'" target="blank">Ver</a>'+btnUpdate+'</td><td>'+start+'</td><td>'+end+'</td></tr>');
+                $(".tblCampañas").find('tbody').append('<tr><td>'+theme+'</td><td><a href="https://docs.google.com/spreadsheets/d/'+sheet+'" target="blank">Ver</a>'+btnUpdate+'</td><td>'+start+'</td><td>'+end+'</td></tr>');
             }
             
         }catch(error){
@@ -75,7 +75,7 @@ function addCampaign(request){
     .then((response) => response.json())
     .then(function(responseCampañas){
         try{
-            alert("Campaña agregada correctamente");
+            alert("Campaña agregada o actualizada correctamente");
             console.log("responseCampañas");
             console.log(responseCampañas);
             console.log("Actualizando la lista");
@@ -111,20 +111,24 @@ $(document).on('click','.btnUpdateCP', function(){
     "update":"false"
 }
  $("#cpstart").click(function(event){
-    if(validateForm()){
+    if(validateFormCp()){
         let dtNow = new Date();
+        dtNow = new Date(dtNow.getFullYear(),dtNow.getMonth(),dtNow.getDate());
         let arrDt = rqSaveCampaign.date_start.split('/');
         let startDateObject = new Date(parseInt(arrDt[2]),parseInt(arrDt[1])-1,parseInt(arrDt[0]));
         arrDt = rqSaveCampaign.date_end.split('/');
         let endDateObject = new Date(parseInt(arrDt[2]),parseInt(arrDt[1])-1,parseInt(arrDt[0]));
 
         let _continue = true;
-        if(startDateObject >= endDateObject){
+        if(dtNow > startDateObject){
             _continue = false;
-            alert("La fecha de termino no puede ser igual o menor a la de inicio");
-        }else if(dtNow >= endDateObject){
+            alert("La fecha de inicio no puede ser menor al dia en curso");
+        }else if(startDateObject > endDateObject){
             _continue = false;
-            alert("La fecha de termino no puede ser igual o menor al dia en curso");
+            alert("La fecha de termino no puede ser menor a la de inicio");
+        }else if(dtNow > endDateObject){
+            _continue = false;
+            alert("La fecha de termino no puede ser menor al dia en curso");
         }else {
             console.log("Validando diferencia de dias");
             let diff = endDateObject.getTime() - startDateObject.getTime();
@@ -135,7 +139,7 @@ $(document).on('click','.btnUpdateCP', function(){
             let maxday = parseInt(xpathUrl["max_day"][0]);
             if(minday > diff ||  diff  > maxday){
                 _continue = false;
-                alert("La fecha de termino no puede ser igual o menor al dia en curso");
+                alert("La duración de la campaña debe ser entre 1 día y "+maxday+" días");
             }
         }
 
@@ -148,7 +152,7 @@ $(document).on('click','.btnUpdateCP', function(){
     }
  });
 
- function validateForm(){  
+ function validateFormCp(){  
     let isOK = true;
     let inputs = document.querySelectorAll('.cp-input');
     for (let i = 0; i < inputs.length; i++) {

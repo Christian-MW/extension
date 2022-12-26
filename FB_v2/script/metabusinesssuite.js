@@ -308,6 +308,9 @@ var ExcelToJSON = function() {
 
 
 $("#mtbsstart").click(function(event){
+  console.log("******************Comunidades cargadas ************************");
+  console.log(xpathUrl);
+
   document.getElementById(option+"lbState").innerHTML = "";
   document.getElementById(option+"LinkProcess").innerHTML = "";
   urlApiSheet = xpathUrl["api_java_sheet"][0];
@@ -590,7 +593,6 @@ function clearMtbs(){
 loadSheet("MetaBusiness");
 loadSheet("Comunidades");
 loadSheet("MetaBusinessGoogle");
-
 
 
 function getIsActiveMetaLink(){

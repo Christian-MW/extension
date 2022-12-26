@@ -24,6 +24,7 @@ function getCampaign(){
             console.log(responseCampañas);
             $(".tblCampañas").find('tbody').html("");
             let dateNow = new Date();
+            dateNow = new Date(dateNow.getFullYear(),dateNow.getMonth(),dateNow.getDate());
             for (let i = 0; i < responseCampañas.length; i++) {
                 let arrDt = responseCampañas[i].rules.startDate.split('/');
                 let startDateObject = new Date(parseInt(arrDt[2]),parseInt(arrDt[1])-1,parseInt(arrDt[0]));
@@ -39,6 +40,7 @@ function getCampaign(){
                 console.log(endDateObject)
                 if(dateNow <= endDateObject)
                 {
+                    console.log("CReando el boton actualizar");
                     requestCpUpdate[theme]={
                         "campaign":theme,
                         "spreadsheet_id": responseCampañas[i].sheet,
@@ -50,6 +52,8 @@ function getCampaign(){
                     }
                     btnUpdate='&nbsp;&nbsp;<button type="button" class="btn-success btnUpdateCP" name="'+theme+'">Actualizar</button>';
                     
+                }else{
+                    console.log("Si boton actualizar");
                 }
                 $(".tblCampañas").find('tbody').append('<tr><td>'+theme+'</td><td><a href="https://docs.google.com/spreadsheets/d/'+sheet+'" target="blank">Ver</a>'+btnUpdate+'</td><td>'+start+'</td><td>'+end+'</td></tr>');
             }

@@ -11,6 +11,7 @@ let nameFileLoaded = "";
 let myTimeout;
 let contentCSVLoaded ="";
 
+var urlComunidadesMeta = "https://docs.google.com/spreadsheets/d/1ckVUJYoQyWztgfxC0lO09NyrWmBoMnsQ_9O1AJGIMPQ/gviz/tq?&sheet={{sheetN}}&tq=Select *"
 var urlComunidades = "https://docs.google.com/spreadsheets/d/1yQ41kTP39D9y7Eh3pM7yDQyLxhI-5H6-3YjbgbfD98I/gviz/tq?&sheet={{sheetN}}&tq=Select *"
 var xpathUrl={};
 var urlBase= ""//"http://3.129.70.158:8100/V1/api";
@@ -195,6 +196,7 @@ function loadThemes(contenedor){
     });
     */
 }
+
 
 function getSheets(data){
         
@@ -715,11 +717,15 @@ function init(){
 loadSheet("API");
 
 function loadSheet(sheetN){
-    console.log("Obteniendo las variables de la hoja "+urlComunidades.replace("{{sheetN}}",sheetN));
+    let urlSheetBase = urlComunidades;
+    if(sheetN == "Comunidades"){
+        urlSheetBase = urlComunidadesMeta;
+    }
+    console.log("Obteniendo las variables de la hoja "+urlSheetBase.replace("{{sheetN}}",sheetN));
     $.ajax({
         async: false,
         type: 'GET',
-        url: urlComunidades.replace("{{sheetN}}",sheetN),
+        url: urlSheetBase.replace("{{sheetN}}",sheetN),
         success: function(data) {
           console.log("loadSheet: ")
           getDataSheet(JSON.parse(data.substr(47).slice(0,-2)));

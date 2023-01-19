@@ -17,7 +17,7 @@ var xpathUrl={};
 var urlBase= ""//"http://3.129.70.158:8100/V1/api";
 
 
-let mapOption={fb:"Facebook", mw:"Meltwater", xp:"MWGroup", tr:"Trendinalia",cl:"Clasificador", mtbs:"Meta Business Suite", mws:"Meltwater Search", cp:"Campañas"}
+let mapOption={fb:"Facebook", mw:"Meltwater", xp:"MWGroup", tr:"Trendinalia",cl:"Clasificador", mtbs:"Meta Business Suite", mws:"Meltwater Search", cp:"Campañas",rmws:"Reportes Meltwater"}
 
 console.log("Archivo functions");
 pathname = window.location.pathname.slice(1).replace("popup.html","").replaceAll("/","\\");
@@ -908,3 +908,4 @@ for (;!e.atEnd();e.moveNext())
 }
 */
 
+/*Obteniendo configuraciones de google chrome */

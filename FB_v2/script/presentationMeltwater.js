@@ -1,19 +1,17 @@
-loadSheet("MeltwterSearch");
-//let searchs=[];
-
-let searchs = [];
+let rsearchs = [];
     
-let ctrlsToFind = [];  
-let ctrlLocationFilter = [];  
-let ctrlLanguajeFilter = [];  
-let dataFilters ={};
-let ctrlsFilterDate = [];
+let rctrlsToFind = [];  
+let rctrlLocationFilter = [];  
+let rctrlLanguajeFilter = [];  
+let rdataFilters ={};
+let rctrlsFilterDate = [];
+let slide_id = "";
 
 console.log("Consultando los controlsToFind");
 
-let textRefres = (Math.random() + 1).toString(36).substring(7);
+let rtextRefres = (Math.random() + 1).toString(36).substring(7);
 console.log(xpathUrl["mws_filters"][0]);
-fetch(xpathUrl["mws_filters"][0]+"?refresh="+textRefres, {
+fetch(xpathUrl["mws_filters"][0]+"?refresh="+rtextRefres, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json',  }
 })
@@ -21,8 +19,8 @@ fetch(xpathUrl["mws_filters"][0]+"?refresh="+textRefres, {
 .then(function(resp){ 
     try {
         console.log(resp);
-        dataFilters=resp;
-        console.log("dataFilters obtenidos!!!");
+        rdataFilters=resp;
+        console.log("rdataFilters obtenidos!!!");
     } catch (error) {
         console.log(error);  
     }
@@ -32,8 +30,8 @@ console.log(error);
 });
 
 console.log(xpathUrl["ctrlLanguajeFilter"][0]);
-textRefres = (Math.random() + 1).toString(36).substring(7);
-fetch(xpathUrl["ctrlLanguajeFilter"][0]+"?refresh="+textRefres, {
+rtextRefres = (Math.random() + 1).toString(36).substring(7);
+fetch(xpathUrl["ctrlLanguajeFilter"][0]+"?refresh="+rtextRefres, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json',  }
 })
@@ -41,8 +39,8 @@ fetch(xpathUrl["ctrlLanguajeFilter"][0]+"?refresh="+textRefres, {
 .then(function(resp){ 
     try {
         console.log(resp);
-        ctrlLanguajeFilter=resp;
-        console.log("ctrlLanguajeFilter obtenidos!!!");
+        rctrlLanguajeFilter=resp;
+        console.log("rctrlLanguajeFilter obtenidos!!!");
     } catch (error) {
         console.log(error);  
     }
@@ -53,8 +51,8 @@ console.log(error);
 
 
 console.log(xpathUrl["ctrlLocationFilter"][0]);
-textRefres = (Math.random() + 1).toString(36).substring(7);
-fetch(xpathUrl["ctrlLocationFilter"][0]+"?refresh="+textRefres, {
+rtextRefres = (Math.random() + 1).toString(36).substring(7);
+fetch(xpathUrl["ctrlLocationFilter"][0]+"?refresh="+rtextRefres, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json',  }
 })
@@ -62,8 +60,8 @@ fetch(xpathUrl["ctrlLocationFilter"][0]+"?refresh="+textRefres, {
 .then(function(resp){ 
     try {
         console.log(resp);
-        ctrlLocationFilter=resp;
-        console.log("ctrlLocationFilter obtenidos!!!");
+        rctrlLocationFilter=resp;
+        console.log("rctrlLocationFilter obtenidos!!!");
     } catch (error) {
         console.log(error);  
     }
@@ -73,8 +71,8 @@ console.log(error);
 });
 
 console.log(xpathUrl["controlsToFind"][0]);
-textRefres = (Math.random() + 1).toString(36).substring(7);
-fetch(xpathUrl["controlsToFind"][0]+"?refresh="+textRefres, {
+rtextRefres = (Math.random() + 1).toString(36).substring(7);
+fetch(xpathUrl["controlsToFind"][0]+"?refresh="+rtextRefres, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json',  }
 })
@@ -82,7 +80,7 @@ fetch(xpathUrl["controlsToFind"][0]+"?refresh="+textRefres, {
 .then(function(resp){ 
     try {
         console.log(resp);
-        ctrlsToFind=resp;
+        rctrlsToFind=resp;
         console.log("controlsToFind obtenidos!!!");
     } catch (error) {
         console.log(error);  
@@ -93,8 +91,8 @@ console.log(error);
 });
 
 console.log(xpathUrl["ctrlsFilterDate"][0]);
-textRefres = (Math.random() + 1).toString(36).substring(7);
-fetch(xpathUrl["ctrlsFilterDate"][0]+"?refresh="+textRefres, {
+rtextRefres = (Math.random() + 1).toString(36).substring(7);
+fetch(xpathUrl["ctrlsFilterDate"][0]+"?refresh="+rtextRefres, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json',  }
 })
@@ -102,8 +100,8 @@ fetch(xpathUrl["ctrlsFilterDate"][0]+"?refresh="+textRefres, {
 .then(function(resp){ 
     try {
         console.log(resp);
-        ctrlsFilterDate=resp;
-        console.log("ctrlsFilterDate obtenidos!!!");
+        rctrlsFilterDate=resp;
+        console.log("rctrlsFilterDate obtenidos!!!");
     } catch (error) {
         console.log(error);  
     }
@@ -112,35 +110,37 @@ fetch(xpathUrl["ctrlsFilterDate"][0]+"?refresh="+textRefres, {
 console.log(error);   
 });
 
-let reqMeltSearch = {
+let reqMeltSearchrmw = {
     columns:"",
     range:"",
     spreadsheet_id:""
   }
+  
 
-  let objSearch ={};
-  let objSearchResult ={ search:""}
-  let listSearchResult =[];
-  let lastpathFilnameGlobal ="";
-  let flagSearch = new observable(2);
-  flagSearch.onChange(function(v){
+  let robjSearch ={};
+  let robjSearchResult ={ search:""}
+  let rlistSearchResult =[];
+  let rlastpathFilnameGlobal ="";
+  let rflagSearch = new observable(2);
+  rflagSearch.onChange(function(v){
         console.log("");console.log("");
+        console.log("presentation meltwater");
         console.log("value changed to: " + v);  
         if(v < 2){
             if(v == 0){ 
                 //Procesar la busqueda
                 pos++;
-                console.log("pos: "+pos+" < searchs.length: "+searchs.length);
-                if(pos < searchs.length ){
-                    flagSearch.setValue(-1);
-                    console.log("Iniciando la búsqueda: "+searchs[pos].NOMBRE);
-                    document.getElementById(option+"description").innerHTML = "Procesando la búsqueda "+searchs[pos].NOMBRE;
-                    objSearch.text_search = searchs[pos].BUSQUEDA;
-                    objSearchResult.search = searchs[pos].NOMBRE;
+                console.log("pos: "+pos+" < rsearchs.length: "+rsearchs.length);
+                if(pos < rsearchs.length ){
+                    rflagSearch.setValue(-1);
+                    console.log("Iniciando la búsqueda: "+rsearchs[pos].NOMBRE);
+                    document.getElementById(option+"description").innerHTML = "Procesando la búsqueda "+rsearchs[pos].NOMBRE;
+                    robjSearch.text_search = rsearchs[pos].BUSQUEDA;
+                    robjSearchResult.search = rsearchs[pos].NOMBRE;
                     
                     chrome.tabs.query({active: true, currentWindow: true}, async function(tabs) {
            
-                        goToPageMws(xpathUrl["ms_link_serach"][0], tabs[0].id,xpathUrl["ms_max_authors"][0]); 
+                        goToPageRmw(xpathUrl["ms_link_serach"][0], tabs[0].id,xpathUrl["ms_max_authors"][0]); 
                         
                     });
                     
@@ -148,20 +148,21 @@ let reqMeltSearch = {
                 else{  
                     //Búsquedas procesadas 
                     
-                    reqMeltSearch.objectResult = listSearchResult;
-                    let endponit = xpathUrl["mws_update_sheet"][0];
-                    reqMeltSearch.range = xpathUrl["ms_sheetname_update"].join();
-                    console.log(reqMeltSearch);   
-                    console.log(JSON.stringify(reqMeltSearch));  
+                    reqMeltSearchrmw.objectResult = rlistSearchResult;
+					reqMeltSearchrmw.slide_id = slide_id;
+                    let endponit = xpathUrl["rmw_update_sheet"][0];
+                    reqMeltSearchrmw.range = xpathUrl["ms_sheetname_update"].join();
+                    console.log(reqMeltSearchrmw);   
+                    console.log(JSON.stringify(reqMeltSearchrmw));  
                     fetch(urlApiSheet+endponit, {
                         method: 'POST',
-                        body: JSON.stringify(reqMeltSearch),
+                        body: JSON.stringify(reqMeltSearchrmw),
                         headers: { 'Content-Type': 'application/json',  }
                     })
                     .then((response) => response.json())
                     .then(function(response){
                         if(response.code == 200){
-                        alert("Las publicaciones se encuentran actualizadas en el google sheet");
+                        alert("Las publicaciones se encuentran actualizadas en el google sheet y el google presentation");
                         }else if(response.code == 500){
                         alert("Algo salio mal en la actualización del google sheet");
                         }
@@ -178,8 +179,8 @@ let reqMeltSearch = {
         }     
     });
 
-    function mwsconvertData(objectResult){
-        searchs=[];
+    function rmwconvertData(objectResult){
+        rsearchs=[];
         let columns = objectResult[0];
       
         for (let r = 1; r < objectResult.length; r++) {
@@ -189,85 +190,95 @@ let reqMeltSearch = {
           for (let index = 0; index < columns.length; index++) {
             obj[columns[index].toUpperCase()] = row[index];    
           }
-          searchs.push(obj);
+          rsearchs.push(obj);
       
         }
       
       }
 
-  $("#mwsstart").click(function(event){
+  $("#rmwstart").click(function(event){
 
-    let url = $("#urlSheetmws").val();
-    if(url != "" && url.startsWith("https://docs.google.com/spreadsheets/d/")){
-        url = url.replace("https://docs.google.com/spreadsheets/d/","");
-        url = url.split('/')[0];
-        $(".mws-contairner-process").show();
-        document.getElementById(option+"lbState").innerHTML = "Procesando...";
-        document.getElementById(option+"description").innerHTML = "Obteniendo las búsquedas...";
-        urlApiSheet = xpathUrl["api_java_sheet"][0];
-        $("#mwsstart").hide();
-        reqMeltSearch.columns = xpathUrl["ms_columnsbase"].join();
-        reqMeltSearch.range = xpathUrl["ms_sheetname"][0];
-        reqMeltSearch.spreadsheet_id = url;
+    let url = $("#urlSheetrmw").val();
+	let urlPresentation = $("#urlPresentationrmw").val();
+	if(urlPresentation != "" && urlPresentation.startsWith("https://docs.google.com/presentation/d/")){
+		urlPresentation = urlPresentation.replace("https://docs.google.com/presentation/d/","");
+        slide_id = urlPresentation.split('/')[0];
+		
+		if(url != "" && url.startsWith("https://docs.google.com/spreadsheets/d/")){
+			url = url.replace("https://docs.google.com/spreadsheets/d/","");
+			url = url.split('/')[0];
+			$(".rmw-contairner-process").show();
+			document.getElementById(option+"lbState").innerHTML = "Procesando...";
+			document.getElementById(option+"description").innerHTML = "Obteniendo las búsquedas...";
+			urlApiSheet = xpathUrl["api_java_sheet"][0];
+			$("#rmwstart").hide();
+			reqMeltSearchrmw.columns = xpathUrl["ms_columnsbase"].join();
+			reqMeltSearchrmw.range = xpathUrl["rm_sheetname"][0];
+			reqMeltSearchrmw.spreadsheet_id = url;
 
-        let endponit = xpathUrl["get_sheet"][0];
-        fetch(urlApiSheet+endponit, {
-          method: 'POST',
-          body: JSON.stringify(reqMeltSearch),
-          headers: { 'Content-Type': 'application/json',  }
-       })
-       .then((resp) => resp.json())
-       .then(function(resp){ 
-        console.log(resp);
-          try {
+			let endponit = xpathUrl["get_sheet"][0];
+			fetch(urlApiSheet+endponit, {
+			  method: 'POST',
+			  body: JSON.stringify(reqMeltSearchrmw),
+			  headers: { 'Content-Type': 'application/json',  }
+		   })
+		   .then((resp) => resp.json())
+		   .then(function(resp){ 
+			console.log(resp);
+			  try {
 
-            if(resp.code == 200){     
-            document.getElementById(option+"description").innerHTML = "Búsquedas obtenidas";         
-              mwsconvertData(resp.objectResult);
-              console.log(searchs.length);
-              flagSearch.setValue(0);
+				if(resp.code == 200){     
+				document.getElementById(option+"description").innerHTML = "Búsquedas obtenidas";         
+				  rmwconvertData(resp.objectResult);
+				  console.log(rsearchs.length);
+				  rflagSearch.setValue(0);
 
-            }else if(resp.code == 409){
-              document.getElementById(option+"LinkProcess").innerHTML = "El archivo sheet tiene inconsitencia en la información";
-              alert("El archivo sheet tiene inconsitencia en la información");
-              clearMtbs();
-            }else if(resp.code == 500){
-              document.getElementById(option+"LinkProcess").innerHTML = "No existe hoja "+xpathUrl["ms_sheetname"][0];
-              alert("No existe hoja "+xpathUrl["ms_sheetname"][0]);
-              clearMtbs();
-            }
+				}else if(resp.code == 409){
+				  document.getElementById(option+"LinkProcess").innerHTML = "El archivo sheet tiene inconsitencia en la información";
+				  alert("El archivo sheet tiene inconsitencia en la información");
+				  clearMtbs();
+				}else if(resp.code == 500){
+				  document.getElementById(option+"LinkProcess").innerHTML = "No existe hoja "+xpathUrl["rm_sheetname"][0];
+				  alert("No existe hoja "+xpathUrl["rm_sheetname"][0]);
+				  clearMtbs();
+				}
 
-          } catch (error) {
-            document.getElementById(option+"LinkProcess").innerHTML = "Problemas al obtener las publicaciones";
-            alert("Problemas al obtener las publicaciones");
-            clearMtbs();
-          }
+			  } catch (error) {
+				document.getElementById(option+"LinkProcess").innerHTML = "Problemas al obtener las publicaciones";
+				alert("Problemas al obtener las publicaciones");
+				clearMtbs();
+			  }
 
-        })
-       .catch(function(error){
-          console.log(error);          
-          document.getElementById(option+"LinkProcess").innerHTML = "Problemas al obtener las publicaciones";
-          alert("Problemas al obtener las publicaciones");
-          clearMws();
-       });
+			})
+		   .catch(function(error){
+			  console.log(error);          
+			  document.getElementById(option+"LinkProcess").innerHTML = "Problemas al obtener las publicaciones";
+			  alert("Problemas al obtener las publicaciones");
+			  clearRmw();
+		   });
 
 
-        
+			
 
-    }else{ 
-        document.getElementById(option+"LinkProcess").innerHTML = "Ingresa una url valida de google sheets";
-        alert("Ingresa una url valida de google sheets");
-        clearMws();
-      }
+			}else{ 
+				document.getElementById(option+"LinkProcess").innerHTML = "Ingresa una url valida de google sheets";
+				alert("Ingresa una url valida de google sheets");
+				clearRmw();
+			}
+		}else{ 
+			document.getElementById(option+"LinkProcess").innerHTML = "Ingresa una url valida de google presentation";
+			alert("Ingresa una url valida de google presentation");
+			clearRmw();
+		  }
   });
 
 
-async function goToPageMws(url,tab_id,max_authors) {
+async function goToPageRmw(url,tab_id,max_authors) {
     return new Promise(function(resolve, reject) {
         
         // update current tab with new url
         chrome.tabs.update({url: url});
-        console.log("goToPageMws...");
+        console.log("goToPageRmw...");
         // fired when tab is updated
         
         chrome.tabs.onUpdated.addListener(function openPage(tabID, changeInfo) {
@@ -291,13 +302,13 @@ async function goToPageMws(url,tab_id,max_authors) {
 
                 chrome.scripting.executeScript({
                     target: {tabId: tab_id},
-                    func: injectScript,
-                    args: [JSON.stringify(searchs[pos]),
-                        JSON.stringify(ctrlsToFind),
-                        JSON.stringify(ctrlLanguajeFilter),
-                        JSON.stringify(ctrlLocationFilter),
-                        JSON.stringify(dataFilters),
-                        JSON.stringify(ctrlsFilterDate),
+                    func: injectScriptRMW,
+                    args: [JSON.stringify(rsearchs[pos]),
+                        JSON.stringify(rctrlsToFind),
+                        JSON.stringify(rctrlLanguajeFilter),
+                        JSON.stringify(rctrlLocationFilter),
+                        JSON.stringify(rdataFilters),
+                        JSON.stringify(rctrlsFilterDate),
                         max_authors                        
                     ],
                   }, 
@@ -327,14 +338,14 @@ async function goToPageMws(url,tab_id,max_authors) {
                         setTimeout(function(){ 
                             console.log("Termino la espera!!!");
                             
-                            if(pathFilnameGlobal != lastpathFilnameGlobal){
-                                json_data.valuesFile=processFileMS();
-                                lastpathFilnameGlobal = pathFilnameGlobal;
+                            if(pathFilnameGlobal != rlastpathFilnameGlobal){
+                                json_data.valuesFile=processFileRMW();
+                                rlastpathFilnameGlobal = pathFilnameGlobal;
                             }
                             else
                                 json_data.valuesFile={};
 
-                            getAlcanceToMWS(json_data);                                                        
+                            getAlcanceToRMW(json_data);                                                        
                         }, 3000);
                                             
                     }catch(err){
@@ -347,7 +358,7 @@ async function goToPageMws(url,tab_id,max_authors) {
     });
 }
 
-function getAlcanceToMWS(json_data){
+function getAlcanceToRMW(json_data){
     try{
         console.log("Preparando data para consumir el api del alcance");
         let listCategory = ["Accidentes:0","Desastres naturales:1","Viral:2","Entretenimiento:3","Deportes:4","Política:5","Gobierno:6","Negocios7"];
@@ -367,7 +378,7 @@ function getAlcanceToMWS(json_data){
         }
 
         let category=0,position=0,level = 0,hour=0;
-        let dataSerch = searchs[pos];
+        let dataSerch = rsearchs[pos];
         for (let index = 0; index < listCategory.length; index++) {
             try{
                 let item = listCategory[index].toLowerCase().trim().split(":");
@@ -449,33 +460,33 @@ function getAlcanceToMWS(json_data){
                     }   
                   }
                 json_data.dataAlcance=dataAlcance;
-                listSearchResult.push(json_data);
-                flagSearch.setValue(0);
+                rlistSearchResult.push(json_data);
+                rflagSearch.setValue(0);
             }
             catch(error){
                 console.log(error);
                 json_data.dataAlcance=[];
-                listSearchResult.push(json_data);
-                flagSearch.setValue(0);
+                rlistSearchResult.push(json_data);
+                rflagSearch.setValue(0);
             }
         })
         .catch(function(error){
             console.log(error);
             json_data.dataAlcance=[];
-            listSearchResult.push(json_data);
-            flagSearch.setValue(0);
+            rlistSearchResult.push(json_data);
+            rflagSearch.setValue(0);
         });
         
     }catch(error){
         console.log(error);
         json_data.dataAlcance=[];
-        listSearchResult.push(json_data);
-        flagSearch.setValue(0);
+        rlistSearchResult.push(json_data);
+        rflagSearch.setValue(0);
     }
 }
 
-function processFileMS(){
-    console.log("processFileMS");
+function processFileRMW(){
+    console.log("processFileRMW");
     console.log(resultReadFile.length);
     let prop = "";
     let obj ={};
@@ -498,17 +509,18 @@ function processFileMS(){
     return obj;
 }
 
-function clearMws(){
-    $("#mwsstart").show();
-    $(".mtbs-contairner-process").hide();
-    $(".mtbs-lbState").val("");
-    $(".mtbs-description").val("");
-    reqMeltSearch = {
+function clearRmw(){
+    $("#rmwstart").show();
+    $(".rmw-contairner-process").hide();
+    $(".rmw-lbState").val("");
+    $(".rmw-description").val("");
+    reqMeltSearchrmw = {
         columns:"",
         range:"",
         spreadsheet_id:""
       }
-      $("#urlSheetmws").val(""); 
+      $("#urlSheetrmw").val(""); 	  
+	  $("#urlPresentationrmw").val(""); 
 }
 
 /*
@@ -526,7 +538,7 @@ function clearMws(){
 
 */
 
-function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationFilter, _dataFilters, _filterDate,max_authors) {
+function injectScriptRMW(_search, _rctrlsToFind, _rctrlLanguajeFilter, _rctrlLocationFilter, _rdataFilters, _filterDate,max_authors) {
     console.log("Funcion inyectada!!!");
     let months={"1":"January","2":"February","3":"March","4":"April","5":"May","6":"June",
     "7":"July","8":"August","9":"September","10":"October","11":"November","12":"December"};
@@ -534,28 +546,28 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
 	
     let filterProcessed = -1;
 	let search = JSON.parse(_search);
-    let ctrlsToFind = [];
-    let ctrlsXToFind = JSON.parse(_ctrlsToFind);
-    let ctrlLanguajeFilter = JSON.parse(_ctrlLanguajeFilter);
-    let ctrlLocationFilter = JSON.parse(_ctrlLocationFilter);
-    let dataFilters = JSON.parse(_dataFilters);
-    let ctrlsFilterDate = JSON.parse(_filterDate);
+    let rctrlsToFind = [];
+    let ctrlsXToFind = JSON.parse(_rctrlsToFind);
+    let rctrlLanguajeFilter = JSON.parse(_rctrlLanguajeFilter);
+    let rctrlLocationFilter = JSON.parse(_rctrlLocationFilter);
+    let rdataFilters = JSON.parse(_rdataFilters);
+    let rctrlsFilterDate = JSON.parse(_filterDate);
 
     console.log("Iniciando con datos de entrada");
     console.log("ctrlsXToFind: "+ctrlsXToFind.length);
     console.log(ctrlsXToFind);
-    console.log("ctrlLanguajeFilter: "+ctrlLanguajeFilter.length);
-    console.log(ctrlLanguajeFilter);
-    console.log("ctrlLocationFilter: "+ctrlLocationFilter.length);
-    console.log(ctrlLocationFilter);
-    console.log("dataFilters: "+dataFilters);
+    console.log("rctrlLanguajeFilter: "+rctrlLanguajeFilter.length);
+    console.log(rctrlLanguajeFilter);
+    console.log("rctrlLocationFilter: "+rctrlLocationFilter.length);
+    console.log(rctrlLocationFilter);
+    console.log("rdataFilters: "+rdataFilters);
     
     htmlFather ="";
     isInHtmlFather ="";
     author = {"nombre":"","cuenta":"","imagen":""}
     authors=[];
     let retryFoundCtrl = 2;
-    function observableS(v){
+    function observableRMW(v){
         this.value = v;
         
         this.valueChangedCallback = null;
@@ -589,9 +601,9 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
     let result =[];
     let finishedSleep = false;
 
-    let objSearch ={ text_search:"", startDate:"", endDate:"" }
-    let objSearchResult ={ search:""}
-    let listSearchResult =[];
+    let robjSearch ={ text_search:"", startDate:"", endDate:"" }
+    let robjSearchResult ={ search:""}
+    let rlistSearchResult =[];
     let typeFilter = "";
     let pos = -1; 
     let indexCtrl = -1;
@@ -610,31 +622,31 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
         title:"",
         maxclick:24
     };
-    let flag = new observableS(-1);
+    let flag = new observableRMW(-1);
     flag.onChange(function(v){
         console.log("");console.log("");
         console.log("value changed to: " + v);  
         if(v >= 0){
             if(v == 1){ 
                 //Procesar un control
-                //console.log("filterProcessed >= objSearch.filter.length");
-                //console.log(filterProcessed+ " >= "+ objSearch.filter.length);
+                //console.log("filterProcessed >= robjSearch.filter.length");
+                //console.log(filterProcessed+ " >= "+ robjSearch.filter.length);
                 //console.log("indexCtrl: "+indexCtrl);
                 //console.log("pos: "+pos);
                 
-                if(objSearch.filter.length <= 0 && inFilters){
+                if(robjSearch.filter.length <= 0 && inFilters){
                     inFilterDate = true;
                     inFilters = false;
                     filterProcessed = 0;
                 }
 
-                if(inFilters && filterProcessed >= objSearch.filter.length){
+                if(inFilters && filterProcessed >= robjSearch.filter.length){
                     console.log("Reiniciando los datos 1");
                     indexCtrl = -1;
                     pos = -1;
                     typeFilter=lastTypeFilter;
                 }
-                if(objSearch.filter.length > 0 && filterProcessed < objSearch.filter.length && inFilters){
+                if(robjSearch.filter.length > 0 && filterProcessed < robjSearch.filter.length && inFilters){
                     //Proceso para aplicar los filtros
                     retryFind = 0;
                     if(!isLoop)
@@ -646,7 +658,7 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                         if(!isLoop)
                             filterProcessed++; 
                         
-                        if(filterProcessed >= objSearch.filter.length){
+                        if(filterProcessed >= robjSearch.filter.length){
                             indexCtrl = -1;
                             pos = -1;
                             isLoop = false;                              
@@ -661,11 +673,11 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
 
                         }else{
 
-                            console.log(objSearch.filter.length);
+                            console.log(robjSearch.filter.length);
                             console.log(filterProcessed);
-                            f =  getValueFilter();// objSearch.filter[filterProcessed];
+                            f =  getValueFilterRMW();// robjSearch.filter[filterProcessed];
                             console.log(f)
-                            if(f !== undefined && dataFilters.languaje[f.trim()] !== undefined){
+                            if(f !== undefined && rdataFilters.languaje[f.trim()] !== undefined){
                                 //filtro por lenguaje
                                 lastTypeFilter = "languaje";
                                 typeFilter = "languaje";
@@ -675,10 +687,10 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                                     indexCtrl++;                                    
                                 }               
                                 retryFind = 0; 
-                                ctrlsToFind = ctrlLanguajeFilter;
-                                processCtrls(ctrlsToFind, false);
+                                rctrlsToFind = rctrlLanguajeFilter;
+                                processCtrlsRMW(rctrlsToFind, false);
                             }
-                            else if(f !== undefined && dataFilters.location[f.trim()] !== undefined){
+                            else if(f !== undefined && rdataFilters.location[f.trim()] !== undefined){
                                 //Filtro por localidad
                                 lastTypeFilter = "location";
                                 typeFilter = "location";
@@ -688,8 +700,8 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                                     indexCtrl++;                                    
                                 }               
                                 retryFind = 0; 
-                                ctrlsToFind = ctrlLocationFilter;
-                                processCtrls(ctrlsToFind, false);
+                                rctrlsToFind = rctrlLocationFilter;
+                                processCtrlsRMW(rctrlsToFind, false);
                             }else{
                                 console.log("No se logro identificar que filtro aplicar para "+f);
                                 flag.setValue(-1);
@@ -698,7 +710,7 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                         }
                     }                       
                     else{
-                        if(filterProcessed >= objSearch.filter.length){
+                        if(filterProcessed >= robjSearch.filter.length){
                             indexCtrl = -1;
                             pos = -1;
                             isLoop = false;
@@ -716,7 +728,7 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                         }else{
   
                             if(typeFilter == "languaje"){
-                                    if(pos >= ctrlLanguajeFilter.length ){
+                                    if(pos >= rctrlLanguajeFilter.length ){
                                         typeFilter = "";
                                         flag.setValue(-1);
                                         flag.setValue(1);
@@ -728,12 +740,12 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                                             indexCtrl++;                                    
                                         }               
                                         retryFind = 0; 
-                                        ctrlsToFind = ctrlLanguajeFilter;
-                                        processCtrls(ctrlsToFind, false);
+                                        rctrlsToFind = rctrlLanguajeFilter;
+                                        processCtrlsRMW(rctrlsToFind, false);
                                     }
                             }
                             else if(typeFilter == "location"){
-                                    if(pos >= ctrlLocationFilter.length ){
+                                    if(pos >= rctrlLocationFilter.length ){
                                         typeFilter = "";
                                         console.log("Filtro: "+f+" aplicado.....");
                                         flag.setValue(-1);
@@ -747,8 +759,8 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                                             indexCtrl++;                                    
                                         }               
                                         retryFind = 0; 
-                                        ctrlsToFind = ctrlLocationFilter;
-                                        processCtrls(ctrlsToFind, false);
+                                        rctrlsToFind = rctrlLocationFilter;
+                                        processCtrlsRMW(rctrlsToFind, false);
                                     }
                             }
                         }
@@ -774,8 +786,8 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                         //Se ha terminado de procesar los filtros
                         inFilterDate = false;
                         console.log("Actualizando el observer por finalizar los filtros de fecha");
-                         for (let index = 0; index < ctrlsFilterDate.length; index++) {
-                                if(ctrlsFilterDate[index].name=="select_dates" ){
+                         for (let index = 0; index < rctrlsFilterDate.length; index++) {
+                                if(rctrlsFilterDate[index].name=="select_dates" ){
                                     pos = index;
                                     indexCtrl = index;
                                     break;
@@ -783,7 +795,7 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                             }
                             stepFilterDate.step =-1;
                             flag.setValue(-1);
-                            processCtrls(ctrlsToFind, false);
+                            processCtrlsRMW(rctrlsToFind, false);
                    }else{
                         /*
                         1.- Abilitar el modo custom  btn_custom
@@ -802,10 +814,10 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                        pos=-1;
                        indexCtrl=-1;
                        
-                       ctrlsToFind = ctrlsFilterDate;
+                       rctrlsToFind = rctrlsFilterDate;
                        if(stepFilterDate.step ==1){
-                            for (let index = 0; index < ctrlsFilterDate.length; index++) {
-                                if(ctrlsFilterDate[index].name=="btn_custom" ){
+                            for (let index = 0; index < rctrlsFilterDate.length; index++) {
+                                if(rctrlsFilterDate[index].name=="btn_custom" ){
                                     pos = index;
                                     indexCtrl = index;
                                     break;
@@ -813,7 +825,7 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                             }
                             stepFilterDate.step =2;
                             flag.setValue(-1);
-                            processCtrls(ctrlsToFind, false);
+                            processCtrlsRMW(rctrlsToFind, false);
                        }
                        else if(stepFilterDate.step ==2){
 
@@ -823,10 +835,10 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                             if(typeDate == "to")
                                 name = "show_calendar_to"
 
-                        for (let index = 0; index < ctrlsFilterDate.length; index++) {
+                        for (let index = 0; index < rctrlsFilterDate.length; index++) {
                                                         
                             stepFilterDate.action = 2
-                            if(ctrlsFilterDate[index].name==name ){
+                            if(rctrlsFilterDate[index].name==name ){
                                 pos = index;
                                 indexCtrl = index;
                                 break;
@@ -834,14 +846,14 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                         }
                         stepFilterDate.step =3;
                         flag.setValue(-1);
-                        processCtrls(ctrlsToFind, false);
+                        processCtrlsRMW(rctrlsToFind, false);
 
                        }                       
                        else if(stepFilterDate.step ==3){
-                        for (let index = 0; index < ctrlsFilterDate.length; index++) {
+                        for (let index = 0; index < rctrlsFilterDate.length; index++) {
                             let typeDate = stepFilterDate.dates[stepFilterDate.date];
                                                            
-                            if(ctrlsFilterDate[index].name== "title_calendar" ){
+                            if(rctrlsFilterDate[index].name== "title_calendar" ){
                                 pos = index;
                                 indexCtrl = index;
                                 break;
@@ -849,7 +861,7 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                         }
                         stepFilterDate.step =4;
                         flag.setValue(-1);
-                        processCtrls(ctrlsToFind, false);
+                        processCtrlsRMW(rctrlsToFind, false);
 
                        }                      
                        else if(stepFilterDate.step ==4){
@@ -917,11 +929,11 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                                 stepFilterDate.action=0;
                             }
 
-                            for (let index = 0; index < ctrlsFilterDate.length; index++) {
+                            for (let index = 0; index < rctrlsFilterDate.length; index++) {
                                 
                                 if(stepFilterDate.actions[stepFilterDate.action]=="back"){
                                     stepFilterDate.step =3;
-                                    if(ctrlsFilterDate[index].name== "back_month" ){
+                                    if(rctrlsFilterDate[index].name== "back_month" ){
                                         pos = index;
                                         indexCtrl = index;
                                         stepFilterDate.maxclick--;
@@ -930,7 +942,7 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                                 }
                                 if(stepFilterDate.actions[stepFilterDate.action]=="next"){
                                     stepFilterDate.step =3;
-                                    if(ctrlsFilterDate[index].name== "next_month" ){
+                                    if(rctrlsFilterDate[index].name== "next_month" ){
                                         pos = index;
                                         indexCtrl = index;
                                         stepFilterDate.maxclick--;
@@ -939,10 +951,10 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                                 }
                                 if(stepFilterDate.actions[stepFilterDate.action]=="equals"){
                                     stepFilterDate.step =5;
-                                    if(ctrlsFilterDate[index].name== "select_day" ){
+                                    if(rctrlsFilterDate[index].name== "select_day" ){
                                         pos = index;
                                         indexCtrl = index;
-                                        ctrlsFilterDate[index].text=indDate.split("/")[0];
+                                        rctrlsFilterDate[index].text=indDate.split("/")[0];
                                         break;
                                     }
                                 }
@@ -951,15 +963,15 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
 
                             
                             flag.setValue(-1);
-                            processCtrls(ctrlsToFind, false);
+                            processCtrlsRMW(rctrlsToFind, false);
                             
                         }
 
                        }
                        else if(stepFilterDate.step == 5){
-                            for (let index = 0; index < ctrlsFilterDate.length; index++) {
+                            for (let index = 0; index < rctrlsFilterDate.length; index++) {
                                                                                         
-                                if(ctrlsFilterDate[index].name=="close_calendar" ){
+                                if(rctrlsFilterDate[index].name=="close_calendar" ){
                                     pos = index;
                                     indexCtrl = index;
                                     break;
@@ -968,7 +980,7 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                             stepFilterDate.date++;
                             stepFilterDate.step =2;
                             flag.setValue(-1);
-                            processCtrls(ctrlsToFind, false);
+                            processCtrlsRMW(rctrlsToFind, false);
                        }
 
                    }
@@ -986,25 +998,25 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                     inFilters = false;      
                     inFilterDate = false;     
                     pos++;
-                    ctrlsToFind = ctrlsXToFind;
-                    //console.log("pos: "+pos+" < ctrlsToFind.length: "+ctrlsToFind.length);
-                    console.log(ctrlsToFind);
-                    if(pos < ctrlsToFind.length ){
+                    rctrlsToFind = ctrlsXToFind;
+                    //console.log("pos: "+pos+" < rctrlsToFind.length: "+rctrlsToFind.length);
+                    console.log(rctrlsToFind);
+                    if(pos < rctrlsToFind.length ){
                         flag.setValue(-1);
                         
                         indexCtrl++;
                         retryFind = 3;
-                        processCtrls(ctrlsToFind, false);
+                        processCtrlsRMW(rctrlsToFind, false);
                         
                     }
                     else{  
                         //Controles procesadas
                         console.log("Finaliado!!!");
-                        console.log(objSearchResult);
+                        console.log(robjSearchResult);
                         //Agregando los autores
-                        //objSearchResult.authors = authors;
-                        //console.log(JSON.stringify(objSearchResult));
-                        chrome.runtime.sendMessage(null, JSON.stringify(objSearchResult));         
+                        robjSearchResult.authors = authors;
+                        //console.log(JSON.stringify(robjSearchResult));
+                        chrome.runtime.sendMessage(null, JSON.stringify(robjSearchResult));         
                     }
                 }   
             }else if(v == 3){
@@ -1012,7 +1024,7 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                 if(retryFind > 0){
                     setTimeout(function(){ 
                         flag.setValue(-1);
-                        processCtrls(ctrlsToFind, false);                        
+                        processCtrlsRMW(rctrlsToFind, false);                        
                     }, 3000);
                 }else{
                     flag.setValue(-1);
@@ -1025,17 +1037,17 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
         }     
     });
 
-    function getValueFilter(){
+    function getValueFilterRMW(){
         let val = ""
-        if(filterProcessed >= objSearch.filter.length){
-            val = objSearch.filter[filterProcessed-1];
+        if(filterProcessed >= robjSearch.filter.length){
+            val = robjSearch.filter[filterProcessed-1];
         }else{
-            val = objSearch.filter[filterProcessed];
+            val = robjSearch.filter[filterProcessed];
         }
         return val;
     }
 
-    function find(Pather, ctrlToFind) {
+    function findRMW(Pather, ctrlToFind) {
         //////console.log(Pather);
         if (Pather != null) {
             let shadow = Pather.shadowRoot;
@@ -1099,14 +1111,14 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                                         ////////console.log("ctrlToFind.text: "+ctrlToFind.text );
                                         ////////console.log("children[c].innerText: "+children[c].innerText);									
                                         if(ctrlToFind.text == "{{filter}}"){
-                                            let f = getValueFilter();
+                                            let f = getValueFilterRMW();
                                             /*
                                             console.log(filterProcessed);
                                             console.log("el texto debe ser igual alfiltro en curso: "+f);
                                             console.log(children[c].innerText);
                                             */
                                             if(f !== undefined && typeFilter != ""){
-                                                let ft = dataFilters[lastTypeFilter][f];
+                                                let ft = rdataFilters[lastTypeFilter][f];
                                                 
                                                 if (ft != children[c].innerText) {
                                                     console.log("NO coincide el texto");
@@ -1155,14 +1167,14 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                                         ////////console.log("ctrlToFind.text: "+ctrlToFind.text );
                                         ////////console.log("children[c].innerText: "+children[c].innerText);
                                         if(ctrlToFind.text == "{{filter}}"){
-                                            let f = getValueFilter();
+                                            let f = getValueFilterRMW();
                                             /*
                                             console.log(filterProcessed);
                                             console.log("el texto debe ser igual alfiltro en curso: "+f);
                                             console.log(children[c].innerText);
                                             */
                                             if(f !== undefined && typeFilter != ""){
-                                                let ft = dataFilters[lastTypeFilter][f];
+                                                let ft = rdataFilters[lastTypeFilter][f];
                                                 
                                                 if (ft != children[c].innerText) {
                                                     console.log("NO coincide el texto2");
@@ -1199,14 +1211,14 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                                 ////////console.log("ctrlToFind.text: "+ctrlToFind.text );
                                 ////////console.log("children[c].innerText: "+children[c].innerText);
                                 if(ctrlToFind.text == "{{filter}}"){
-                                    let f = getValueFilter();
+                                    let f = getValueFilterRMW();
                                     /*
                                     console.log(filterProcessed);
                                     console.log("el texto debe ser igual alfiltro en curso: "+f);
                                     console.log(children[c].innerText);
                                     */
                                     if(f !== undefined && typeFilter != ""){
-                                        let ft = dataFilters[lastTypeFilter][f];
+                                        let ft = rdataFilters[lastTypeFilter][f];
                                         
                                         if (ft == children[c].innerText) {
                                             finded = true;
@@ -1233,12 +1245,12 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                         if (finded) {
                             console.log("Encontrado!!!");		
 							ctrlToFind.finded = children[c];
-							//action(ctrlToFind);
+							//actionRMW(ctrlToFind);
                             break;
                         } 
                         else {
                             //////console.log("Buscando en los Hijos del Pather");
-                            find(children[c], ctrlToFind);
+                            findRMW(children[c], ctrlToFind);
                         }
                     }
                 }
@@ -1302,14 +1314,14 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                                         ////////console.log("ctrlToFind.text: "+ctrlToFind.text );
                                         ////////console.log("children[c].innerText: "+children[c].innerText);
                                         if(ctrlToFind.text == "{{filter}}"){
-                                            let f = getValueFilter();
+                                            let f = getValueFilterRMW();
                                             /*
                                             console.log(filterProcessed);
                                             console.log("el texto debe ser igual alfiltro en curso: "+f);
                                             console.log(children[c].innerText);
                                             */
                                             if(f !== undefined && typeFilter != ""){
-                                                let ft = dataFilters[lastTypeFilter][f];
+                                                let ft = rdataFilters[lastTypeFilter][f];
                                                 
                                                 if (ft != children[c].innerText) {
                                                     console.log("NO coincide el texto 4");
@@ -1364,14 +1376,14 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                                         ////////console.log("ctrlToFind.text: "+ctrlToFind.text );
                                         ////////console.log("children[c].innerText: "+children[c].innerText);
                                         if(ctrlToFind.text == "{{filter}}"){
-                                            let f = getValueFilter();
+                                            let f = getValueFilterRMW();
                                             /*
                                             console.log(filterProcessed);
                                             console.log("el texto debe ser igual alfiltro en curso: "+f);
                                             console.log(children[c].innerText);
                                             */
                                             if(f !== undefined && typeFilter != ""){
-                                                let ft = dataFilters[lastTypeFilter][f];
+                                                let ft = rdataFilters[lastTypeFilter][f];
                                                 
                                                 if (ft != children[c].innerText) {
                                                     console.log("NO coincide el texto 5");
@@ -1410,14 +1422,14 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                                 ////////console.log("ctrlToFind.text: "+ctrlToFind.text );
                                 ////////console.log("children[c].innerText: "+children[c].innerText);
                                 if(ctrlToFind.text == "{{filter}}"){
-                                    let f = getValueFilter();
+                                    let f = getValueFilterRMW();
                                     /*
                                     console.log(filterProcessed);
                                     console.log("el texto debe ser igual alfiltro en curso: "+f);
                                     console.log(children[c].innerText);
                                     */
                                     if(f !== undefined && typeFilter != ""){
-                                        let ft = dataFilters[lastTypeFilter][f];
+                                        let ft = rdataFilters[lastTypeFilter][f];
                                         
                                         if (ft == children[c].innerText) {
                                             finded = true;
@@ -1443,11 +1455,11 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                         if (finded) {	
                             console.log("Encontrado en el hijo");							
 							ctrlToFind.finded = children[c];
-							//action(ctrlToFind);
+							//actionRMW(ctrlToFind);
                             break;
                         } else {                           
                             //console.log("Buscando en los Hijos del Pather");
-                            find(children[c], ctrlToFind);
+                            findRMW(children[c], ctrlToFind);
                         }
                     }
                 }
@@ -1458,13 +1470,13 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
 
     }
 
-    function processCtrls(_ctrlToFind, isChil){
+    function processCtrlsRMW(_ctrlToFind, isChil){
         let ctrlToFind = [];
         console.log(_ctrlToFind);
         if(isChil){
             if(_ctrlToFind.name == "htmlFather"){
                 isInHtmlFather = true;
-                action(_ctrlToFind);
+                actionRMW(_ctrlToFind);
             }
             console.log("Buscando el hijo");
             ctrlToFind = _ctrlToFind.chil;		
@@ -1496,14 +1508,14 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                     if(f > 0){
                         //console.log("BUscando el siguiente hijo");
                         if(ctrlToFind.length > 1 && (ctrlToFind[f-1].finded != null && ctrlToFind[f-1].finded !== undefined )){
-                            find(_ctrlToFind.finded,ctrlToFind[f]);
+                            findRMW(_ctrlToFind.finded,ctrlToFind[f]);
                             ctrlToFind[f].finded = ctrl;
                         }else{
                             break;
                         }
                     }else{
                         //console.log("BUscando el primer hijo");
-                        find(_ctrlToFind.finded,ctrlToFind[f]);
+                        findRMW(_ctrlToFind.finded,ctrlToFind[f]);
                         ctrlToFind[f].finded = ctrl;
                     }
                     
@@ -1512,7 +1524,7 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                 else{
                     console.log("Buscando en el body el control");
                     console.log(ctrlToFind[f]);
-                    find(containerPather[0],ctrlToFind[f]);
+                    findRMW(containerPather[0],ctrlToFind[f]);
                     ctrlToFind[f].finded = ctrl;
                 }
                 
@@ -1521,17 +1533,17 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                 }
                 else{
                     _ctrlToFind[indexCtrl] = ctrlToFind[0];
-                    ctrlsToFind[indexCtrl] = ctrlToFind[0];
+                    rctrlsToFind[indexCtrl] = ctrlToFind[0];
                 }
                 
                 if(finded){
                     retryFind = -1;      
                     if(ctrlToFind[f].chil !== undefined && ctrlToFind[f].chil != null && ctrlToFind[f].chil.length > 0){
                         retryFind = 3;
-                        processCtrls(ctrlToFind[f], true);
+                        processCtrlsRMW(ctrlToFind[f], true);
                     }else{
                         ctrlToFind[f].finded = ctrl;
-                        action(ctrlToFind[f]);                        
+                        actionRMW(ctrlToFind[f]);                        
                     }    
                 }
                 else{
@@ -1542,7 +1554,7 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                         console.log("No se encontro el control haciendo un intento más!!!");
                         setTimeout(function(){ 
                             //flag.setValue(-1);
-                            processCtrls(_ctrlToFind, isChil);                        
+                            processCtrlsRMW(_ctrlToFind, isChil);                        
                         }, 3000);
                     }else{
                         console.log("No se logro encontrar el control del paso: "+ctrlToFind[f].step);
@@ -1563,7 +1575,7 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
         }
     }
 
-    function action(_ctrlA){ 
+    function actionRMW(_ctrlA){ 
         
         console.log("iniciando accion para el control");   
 		console.log(_ctrlA);		
@@ -1583,26 +1595,26 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                     console.log("Accionando un click");
                     console.log(_ctrl);
                     _ctrl.finded.click();
-                    sleep(_ctrl);
+                    sleepRMW(_ctrl);
                 }
                 else if(actions[a].trim() == "change"){
                     console.log("Accionando un change");
                     console.log(_ctrl);
                     $(_ctrl.finded).focus(function() { $(this).select(); } );
                     _ctrl.finded.addEventListener("change",function(){console.log("se realizo el change");});
-                    sleep(_ctrl);
+                    sleepRMW(_ctrl);
                 }
                 else if(actions[a].trim().startsWith("setText")){
                     console.log("Accionando un setText");
                     if(_ctrl.name.startsWith("filter")){
                         //es un filtro hay que obtener el o los valores correctos
-                        let f = objSearch.filter[filterProcessed];
+                        let f = robjSearch.filter[filterProcessed];
                         if(f !== undefined){
-                            let ft = dataFilters[lastTypeFilter][f]
+                            let ft = rdataFilters[lastTypeFilter][f]
                             _ctrl.finded.value = ft;
                         }
                     }else{
-                        _ctrl.finded.innerHTML = objSearch[_ctrl.name];
+                        _ctrl.finded.innerHTML = robjSearch[_ctrl.name];
                     }
                     
                     flag.setValue(1);
@@ -1614,7 +1626,7 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                     if(inFilterDate){
                         stepFilterDate.title = _ctrl.finded.innerText;
                     }else{
-                        objSearchResult[_ctrl.name]= _ctrl.finded.innerText;
+                        robjSearchResult[_ctrl.name]= _ctrl.finded.innerText;
                     }
                     
                 
@@ -1634,7 +1646,7 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
                         let attrs = _ctrl.finded.attributes;
                         let prop = actions[a].trim().split('>');
                         console.log("Obteniendo el valor de la propiedad "+prop[1]);
-                        objSearchResult[_ctrl.name] = attrs[prop[1]].value;
+                        robjSearchResult[_ctrl.name] = attrs[prop[1]].value;
                     }
                     catch(error){
                         console.log(error);
@@ -1697,7 +1709,7 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
     }
 
     let ctrlTime = {};
-    function sleep(_ctrlTime){
+    function sleepRMW(_ctrlTime){
         ctrlTime = _ctrlTime;
         let second = ctrlTime.await;
         let tm = second/1000;
@@ -1718,20 +1730,20 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
     console.log("search: "+search);
     console.log("ctrlsXToFind: "+ctrlsXToFind.length);
 	
-		objSearch.text_search = search.BUSQUEDA;
-        objSearch.search = search.NOMBRE;
-        objSearch.date_start = search.FECHA_INICIO;
-        objSearch.date_end = search.FECHA_FIN;
-        objSearch.filter = [];
+		robjSearch.text_search = search.BUSQUEDA;
+        robjSearch.search = search.NOMBRE;
+        robjSearch.date_start = search.FECHA_INICIO;
+        robjSearch.date_end = search.FECHA_FIN;
+        robjSearch.filter = [];
         try{
-            objSearch.filter = search.FILTRO.trim().split("-");
+            robjSearch.filter = search.FILTRO.trim().split("-");
         }catch(error){
             console.log("Se trabajara sin filtro de region y lenguaje!!!");
         }
         
-        objSearchResult.search = search.NOMBRE;
-        ctrlLanguajeFilter.sort((a, b) => a.step - b.step);
-        ctrlLocationFilter.sort((a, b) => a.step - b.step);     
+        robjSearchResult.search = search.NOMBRE;
+        rctrlLanguajeFilter.sort((a, b) => a.step - b.step);
+        rctrlLocationFilter.sort((a, b) => a.step - b.step);     
         ctrlsXToFind.sort((a, b) => a.step - b.step);
         flag.setValue(1);
     }, 5000);

@@ -44,7 +44,11 @@
                 <li class="list-inline-item" id="mws-">
                   <img style="border-radius: 50%; width: 30px; height:30px; " src="images/meltwater.png" /> 
                   Meltwater Search
-                </li>    
+                </li>       
+                <li class="list-inline-item" id="mwm-">
+                  <img style="border-radius: 50%; width: 30px; height:30px; " src="images/medicion.jpg" /> 
+                  Meltwater Mediciones
+                </li> 
               </ul> 
             </div>
           </div>
@@ -888,6 +892,61 @@
 
         </div>
 
+        
+        <div class="process mwm-">
+          <div class="row">
+            <div class="col-md-12">
+              <h2 style="color: #18b9bb;">Meltwater Mediciones</h2>
+              <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.40r5f6lpv9f2"
+               target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
+            </div>
+            <div class="tab-content">
+              <form id="formmwm" class="was-validated form-inline">  
+                
+                <div class="form-group">
+                    <label for="titlemwm">Titulo de la medición </label>
+                    <input type="text"  class="form-control" id="titlemwm" placeholder="Titulo para la medición" name="titlemwm" required> 
+                    <br>
+                </div> 
+
+                <div class="form-group">
+                  <label for="searchmwm">Búsqueda </label>
+                  <input type="text"  class="form-control" id="searchmwm" placeholder="Búsqueda" name="searchmwm" required> 
+                  <br>
+                </div> 
+
+                <div id="errorDtmwm"></div>
+
+                <div class="row">
+
+                  <div class="col-md-12" style="text-align: left;">
+                    <button type="button" id="mwmstart" class="btn btn-success" style="width: 100px;border-radius: 5px !important;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                      <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                    </svg> Start</button>
+                  </div>
+                  <div class="col-md-4"></div>
+                </div>
+              </form>
+            </div>                
+
+          </div>          
+
+
+          <div class="row process mwm-contairner-process">
+            <br>
+            <div class="col-md-12">
+
+              <label id="mwm-lbState"></label>        
+              <div id="mwm-LinkProcess"></div>
+              <br>
+              <div id="mwm-description"></div>       
+            </div>
+          </div>
+
+        </div>
+
 
       </div>
       
@@ -905,6 +964,7 @@
     <script src="script/metabusinesssuite.js?62736232564237" charset="utf-8"></script>
     <script src="script/meltwaterSerach.js?62736232564237" charset="utf-8"></script>
     <script src="script/presentationMeltwater.js?62736232564237" charset="utf-8"></script>
+    <script src="script/meltwaterMedition.js?62736232564237" charset="utf-8"></script>
     <script src="script/CreateSheetJS.js?62736232564237" charset="utf-8"></script>
     <script src="script/campaign.js?62736232564237" charset="utf-8"></script>
 

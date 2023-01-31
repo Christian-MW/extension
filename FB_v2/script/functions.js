@@ -17,7 +17,7 @@ var xpathUrl={};
 var urlBase= ""//"http://3.129.70.158:8100/V1/api";
 
 
-let mapOption={fb:"Facebook", mw:"Meltwater", xp:"MWGroup", tr:"Trendinalia",cl:"Clasificador", mtbs:"Meta Business Suite", mws:"Meltwater Search", cp:"Campañas",rmws:"Reportes Meltwater"}
+let mapOption={fb:"Facebook", mw:"Meltwater", xp:"MWGroup", tr:"Trendinalia",cl:"Clasificador", mtbs:"Meta Business Suite", mws:"Meltwater Search", cp:"Campañas",rmw:"Reportes Meltwater",mwm:"Mediciones Meltwater"}
 
 console.log("Archivo functions");
 pathname = window.location.pathname.slice(1).replace("popup.html","").replaceAll("/","\\");
@@ -394,6 +394,19 @@ function download(nameParent,content){
     //chrome.downloads.download({ url: objectURL, filename: (dirBase+'/'+currentDirectory+'/'+ nameParent + nameFileLoaded), conflictAction: 'overwrite' });
     chrome.downloads.download({ url: objectURL, filename: (dirBase+'/'+currentDirectory+'/'+ nameParent), conflictAction: 'overwrite' });
     document.getElementById(option+"description").innerHTML="";
+}
+
+function saveFile (name, type, data) {
+	if (data != null && navigator.msSaveBlob)
+		return navigator.msSaveBlob(new Blob([data], { type: type }), name);
+	var a = $("<a style='display: none;'/>");
+  var url = window.URL.createObjectURL(new Blob([data], {type: type}));
+	a.attr("href", url);
+	a.attr("download", name);
+	$("body").append(a);
+	a[0].click();
+  window.URL.revokeObjectURL(url);
+  a.remove();
 }
 
 function downloadImg(name, base){
@@ -896,6 +909,12 @@ function sendPost(url, request){
         console.log(error);
         return {status:210};
     }  
+}
+
+Date.prototype.addDays = function(days) {
+    let date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
 }
   /*
   var strComputer = ".";

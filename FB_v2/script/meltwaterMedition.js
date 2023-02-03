@@ -381,15 +381,15 @@ function getAlcanceToMWM(json_data){
             }catch(error){console.log(error);}          
         }
         let dateN = new Date();
-        dateN = dateN.addDays(-1);
+        //dateN = dateN.addDays(-1);
         let dtstart = dataSerch.FECHA_INICIO;
-        let d = new Date(dateN.getFullYear() , dateN.getMonth() + 1,dateN.getDate(), "00", "00", "00");
+        let d = new Date(dateN.getFullYear() , dateN.getMonth(),dateN.getDate(), "00", "00", "00");
         let epochStart = Math.floor((d).getTime() / 1000);
 
         let dtend = dataSerch.FECHA_FIN;
         dateN = dateN.addDays(-6);
         //d = new Date(dtend.split('/')[2] , dtend.split('/')[1], dtend.split('/')[0], "00", "00", "00");
-        d = new Date(dateN.getFullYear() , dateN.getMonth() + 1,dateN.getDate(), "00", "00", "00");
+        d = new Date(dateN.getFullYear() , dateN.getMonth(),dateN.getDate(), "00", "00", "00");
         let epochEnd = Math.floor((d).getTime() / 1000);
 
         let request = new FormData();

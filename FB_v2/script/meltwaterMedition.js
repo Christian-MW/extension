@@ -160,7 +160,7 @@ let reqMeltSearchmwm = {
                             fb=dataAlcance[index].Facebook;                            
                         }
                         if(dataAlcance[index].Medicion=="Alcance"){
-                            total = dataAlcance[index].Twitter+dataAlcance[index].Facebook;                            
+                            total = parseInt(dataAlcance[index].Twitter.replaceAll(",",""))+parseInt(dataAlcance[index].Facebook.replaceAll(",",""));                            
                         }
                     }
                     let strSH = "";
@@ -173,7 +173,8 @@ let reqMeltSearchmwm = {
                         }
                     }
                     if(sh.length >= xpathUrl["ms_max_authors"][0]){
-                        strSH += ", entre otros."
+                        if(strSH != "")
+                            strSH += ", entre otros."
                     }
                     let html_text='<html> <head> <title>Mediciones</title> </head> <body style="overflow-x: hidden; margin: 0px; font-family: arial;"> <div style="display:flex; background:#f2f2f2; top:0;position: absolute;width: 100%;"> <img src="https://mwgroup.agency/wp-content/uploads/2022/07/Logotipo-2-1024x1024.png" style="width:100px;"/> <h1 style="text-align: center; width: 70%; color: #004169;"><b>{{title}}</b> </h1> </div> <div style="display: flex; padding:20px;position: absolute;width: 100%;top: 110px;"> <div style="width: 60%;">{{grafica}}</div> <div style="width: 40%; font-size: 18px;"> <p> <b>Alcance Potencial en Twitter y Facebook:</b> {{alcance}} </p> <p> <b>Post en Twitter:</b> {{twitter}} </p> <p> <b>Post en Facebook:</b> {{Facebook}} </p> <p> <b>Notas indexadas:</b> {{indexadas}} </p> <br><p><b>Algunos medios que han retomado la noticia son: </b><br><p style="padding-right: 20px;">{{sh}}</p></p></div> </div> <br><br><script>let sv = document.getElementsByTagName("svg")[0];console.log(sv);sv.setAttribute("width","auto");sv.setAttribute("height", "auto");</script></body> <footer style="background:#004169; color:#FFFF; position: absolute; bottom: 0;width: 100%;height: 6rem;"> <div style="display: flex; padding:20px;"> <div style="width: 50%; font-size: 18px; padding-left:20px;"> Copyright © 2023. All rights reserved. </div> <div style="width: 50%; font-size: 18px; text-align:right; padding-right:20px;"> <ul style="list-style-type: none;display: inline;"> <li style="color: #ffffff; display: inline;" > <a href="https://twitter.com/MWGroup_Mx" ><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="color: white;"><path d="M22.23,5.924c-0.736,0.326-1.527,0.547-2.357,0.646c0.847-0.508,1.498-1.312,1.804-2.27 c-0.793,0.47-1.671,0.812-2.606,0.996C18.324,4.498,17.257,4,16.077,4c-2.266,0-4.103,1.837-4.103,4.103 c0,0.322,0.036,0.635,0.106,0.935C8.67,8.867,5.647,7.234,3.623,4.751C3.27,5.357,3.067,6.062,3.067,6.814 c0,1.424,0.724,2.679,1.825,3.415c-0.673-0.021-1.305-0.206-1.859-0.513c0,0.017,0,0.034,0,0.052c0,1.988,1.414,3.647,3.292,4.023 c-0.344,0.094-0.707,0.144-1.081,0.144c-0.264,0-0.521-0.026-0.772-0.074c0.522,1.63,2.038,2.816,3.833,2.85 c-1.404,1.1-3.174,1.756-5.096,1.756c-0.331,0-0.658-0.019-0.979-0.057c1.816,1.164,3.973,1.843,6.29,1.843 c7.547,0,11.675-6.252,11.675-11.675c0-0.178-0.004-0.355-0.012-0.531C20.985,7.47,21.68,6.747,22.23,5.924z"></path></svg></a></li> <li style="color: #ffffff; display: inline;" ><a href="https://www.linkedin.com/company/mw-groupmx/" ><svg width="24" height="24"  xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="color: white;"><path d="M19.7,3H4.3C3.582,3,3,3.582,3,4.3v15.4C3,20.418,3.582,21,4.3,21h15.4c0.718,0,1.3-0.582,1.3-1.3V4.3 C21,3.582,20.418,3,19.7,3z M8.339,18.338H5.667v-8.59h2.672V18.338z M7.004,8.574c-0.857,0-1.549-0.694-1.549-1.548 c0-0.855,0.691-1.548,1.549-1.548c0.854,0,1.547,0.694,1.547,1.548C8.551,7.881,7.858,8.574,7.004,8.574z M18.339,18.338h-2.669 v-4.177c0-0.996-0.017-2.278-1.387-2.278c-1.389,0-1.601,1.086-1.601,2.206v4.249h-2.667v-8.59h2.559v1.174h0.037 c0.356-0.675,1.227-1.387,2.526-1.387c2.703,0,3.203,1.779,3.203,4.092V18.338z"></path></svg></a></li> </ul> </div> </div> </footer> </html>';
                         html_text = html_text.replace("{{grafica}}",reqMeltSearchmwm.objectResult[0].graficamentionstrend)
@@ -182,7 +183,7 @@ let reqMeltSearchmwm = {
                         .replace("{{twitter}}",tw)
                         .replace("{{Facebook}}",fb)
                         .replace("{{indexadas}}",reqMeltSearchmwm.objectResult[0].dataChart.News)
-                        .replace("{{alcance}}",tw+fb)
+                        .replace("{{alcance}}",total.toLocaleString('en-US', {maximumFractionDigits:2}))
                         .replace("{{sh}}",strSH);
                         saveFile(msearchs.NOMBRE.replaceAll(" ","_")+".html","data:attachment/text",html_text);
 
@@ -384,13 +385,13 @@ function getAlcanceToMWM(json_data){
         //dateN = dateN.addDays(-1);
         let dtstart = dataSerch.FECHA_INICIO;
         let d = new Date(dateN.getFullYear() , dateN.getMonth(),dateN.getDate(), "00", "00", "00");
-        let epochStart = Math.floor((d).getTime() / 1000);
+        let epochEnd = Math.floor((d).getTime() / 1000);
 
         let dtend = dataSerch.FECHA_FIN;
         dateN = dateN.addDays(-6);
         //d = new Date(dtend.split('/')[2] , dtend.split('/')[1], dtend.split('/')[0], "00", "00", "00");
         d = new Date(dateN.getFullYear() , dateN.getMonth(),dateN.getDate(), "00", "00", "00");
-        let epochEnd = Math.floor((d).getTime() / 1000);
+        let epochStart = Math.floor((d).getTime() / 1000);
 
         let request = new FormData();
         request.append('categoriaTema', category);

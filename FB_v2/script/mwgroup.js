@@ -133,11 +133,11 @@ function getEvaluation(evaluacion ="", token=""){
       endponit = xpathUrl["api_alcance"][0];
         //let epoch = Math.floor((d).getTime() / 1000)-(3600*5);
         let dtstart = document.getElementById("dtStart").value;
-        let d = new Date(dtstart.split('-')[0] , dtstart.split('-')[1], dtstart.split('-')[2], "00", "00", "00");
+        let d = new Date(dtstart.split('-')[0] , parseInt(dtstart.split('-')[1])-1, dtstart.split('-')[2], "00", "00", "00");
         let epochStart = Math.floor((d).getTime() / 1000);
 
         let dtend = document.getElementById("dtEnd").value;
-        d = new Date(dtend.split('-')[0] , dtend.split('-')[1], dtend.split('-')[2], "00", "00", "00");
+        d = new Date(dtend.split('-')[0] , parseInt(dtend.split('-')[1]-1), dtend.split('-')[2], "00", "00", "00");
         let epochEnd = Math.floor((d).getTime() / 1000);
 
         let category=document.getElementById("category").value;

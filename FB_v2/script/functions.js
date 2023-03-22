@@ -30,6 +30,7 @@ var urlBySheet ="https://docs.google.com/spreadsheets/d/1k4r9mTcIl5FAsSCV7jNeIqX
 var arrThems=[];
 var themsEval =[];
 var thems =[];
+var tags =[];
 
 function clasificador(urlsTrProcess, themsEval, column){
     try{
@@ -916,6 +917,8 @@ Date.prototype.addDays = function(days) {
     date.setDate(date.getDate() + days);
     return date;
 }
+
+
   /*
   var strComputer = ".";
 var objWMIService = GetObject("winmgmts:\\\\" + strComputer + "\\root\\cimv2");

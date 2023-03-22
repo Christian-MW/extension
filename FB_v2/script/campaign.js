@@ -2,6 +2,7 @@ loadSheet("Campaign");
 console.log("Archivo campaign.js cargado!!!");
 jQuery(document).ready(function() {
     getCampaign();
+    loadTags();
 })
 
 let requestCpUpdate ={}
@@ -67,9 +68,96 @@ function getCampaign(){
     });
 }
 
+function loadTags(){
+    try {
+        let urlTags = xpathUrl["apiGetTags"][0];
+        fetch(urlTags, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(function(response){
+            try {
+                console.log('Respuesta de la consulta de los conceptos');
+                console.log(response);
+                if(response.operation.code == 200 || response.operation.code == 203 ){
+                    
+                    response.result.forEach(tag => {
+                        $('#select-concept').append("<option>"+tag.description+"</option>")
+                    });
+
+                    $(".chosen-select-width").chosen({
+                        width: "75%"
+                    });
+                    $("#select-concept").change(function(e, chosen) {
+                        $a = $("<div/>", {
+                        text: chosen.selected
+                        }).append(
+                        $("<span/>", {
+                            text: "X",
+                            on: {
+                            click: function() {
+                                $(this).parent().remove();
+                            }
+                            }
+                        }))
+
+                    });
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        })
+        .catch(function(error){
+            console.log(error);
+        });
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+function addHashtag(request){
+    console.log("Agregano un hashtag")
+    let requestHashtag = {
+        "email": "extension@mwgroup.com.mx",
+        "hashtag": request.search,
+        "topics": request.tags
+      }
+
+    console.log(requestHashtag);
+    url = xpathUrl["apiAddHashtag"][0];
+    fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(requestHashtag),
+        headers: { 'Content-Type': 'application/json',  }
+    })
+    .then((response) => response.json())
+    .then(function(responseHashtag){
+        try{ 
+            console.log("responseHashtag");
+            console.log(responseHashtag);
+            $("#cp-description").html("<h4>Registrando campaña...</h4>");
+            addCampaign(request);
+                        
+        }catch(error){
+            console.log(error);
+            clearCampaign();
+        }        
+    })
+    .catch(function(error){
+        console.log(error);
+        alert("Error al guardar la campaña intenta más tarde");
+        clearCampaign();
+    });
+}
+
 function addCampaign(request){
     console.log("Agregano o actualizando campaña")
-    console.log(request);
+    console.log(JSON.stringify(request));
     url = xpathUrl["api_java_sheet"][0]+xpathUrl["addCampaign"][0];
     fetch(url, {
         method: 'POST',
@@ -88,11 +176,13 @@ function addCampaign(request){
                         
         }catch(error){
             console.log(error);
+            clearCampaign();
         }        
     })
     .catch(function(error){
         console.log(error);
         alert("Error al guardar la campaña intenta mas tarde");
+        clearCampaign();
     });
 }
 
@@ -112,10 +202,15 @@ $(document).on('click','.btnUpdateCP', function(){
     "search":"",
     "date_start":"",
     "date_end":"",
-    "update":"false"
+    "update":"false",
+    "tags":""
 }
  $("#cpstart").click(function(event){
+    $("#cpstart").hide();
+    $("#cp-description").show();
+    $("#cp-description").html("<h4>Validando datos....</h4>");
     if(validateFormCp()){
+        rqSaveCampaign.campaign = rqSaveCampaign.search;
         let dtNow = new Date();
         dtNow = new Date(dtNow.getFullYear(),dtNow.getMonth(),dtNow.getDate());
         let arrDt = rqSaveCampaign.date_start.split('/');
@@ -148,11 +243,35 @@ $(document).on('click','.btnUpdateCP', function(){
         }
 
         if(_continue){
+
+            
+            console.log("Datos en el $('#select-concept')"); 
+            let selected =[];
+            console.log(document.getElementById('select-concept'));
+            for (var option of document.getElementById('select-concept').options)
+            {
+                if (option.selected) {
+                    selected.push(option.value);
+                }
+            }
+            rqSaveCampaign.tags = selected;
+            
+
             if(!rqSaveCampaign.search.startsWith("(")){
                 rqSaveCampaign.search = "("+rqSaveCampaign.search+")"
             }
-            addCampaign(rqSaveCampaign);
+            console.log(rqSaveCampaign);
+            $("#cp-description").html("<h4>Registrando el hashtag</h4>");
+            addHashtag(rqSaveCampaign);
+        }else{
+            $("#cpstart").show();
+            $("#cp-description").hide();
+            $("#cp-description").html("");
         }
+    }else{
+        $("#cpstart").show();
+        $("#cp-description").hide();
+        $("#cp-description").html("");
     }
  });
 
@@ -206,7 +325,11 @@ function clearCampaign(){
         "search":"",
         "date_start":"",
         "date_end":"",
-        "update":"false"
+        "update":"false",
+        "tags":""
     }
+    $("#cpstart").show();
+    $("#cp-description").hide();
+    $("#cp-description").html("");
 }
 

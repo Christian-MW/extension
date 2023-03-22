@@ -6,6 +6,7 @@
     <!-- CSS only -->
     <link rel="stylesheet" href="style/bootstrap.css?62736232564237">
     <link rel="stylesheet" href="style/bootstrap-icons.css?62736232564237">
+    <link rel="stylesheet" href="style/chosen.css?62736232564237">
 
   </head>
   <body>
@@ -751,21 +752,26 @@
                   <div class="tab-pane fade show active" id="addCp" role="tabpanel" aria-labelledby="addCp-tab">  
                     <br>
                     <div class="form-group">
-                      <label for="cp-name-campaign">Nombre:</label>
-                      <input type="text" id="cp_campaign" name="cp-name-campaign" class="cp-input form-control" placeholder="Nombre de la campaña" required>
+                      <label for="cp-search-campaign">#Hashtag:</label>
+                      <input type="text" id="cp_search" name="cp-search-campaign" class="cp-input form-control" placeholder="#Hashtag" required>
                       <br>
                     </div>
                     <div class="form-group">
-                      <label for="cp-user-campaign">Usuarios:</label>
+                      <label for="cp-user-campaign">Documento de Usuarios:</label>
                       <input type="text" id="cp_spreadsheet_id" name="cp-user-campaign" class="cp-input form-control" 
                       placeholder="Link del archivo de usuarios" required>
                       <br>
                     </div>
+                    
                     <div class="form-group">
-                      <label for="cp-search-campaign">Búsqueda:</label>
-                      <input type="text" id="cp_search" name="cp-search-campaign" class="cp-input form-control" placeholder="Búsqueda" required>
-                      <br>
+                      <label for="select-concept">Concepto(s):</label><br>                      
+                      <select data-placeholder="Comienza a escribir para seleccionar un concepto" 
+                        multiple class="chosen-select-width" 
+                         id="select-concept" name="select-concept">
+                      </select> 
                     </div>
+
+                    <br>
                     <div class="row-date">
 
                       <div class="col2">
@@ -794,10 +800,13 @@
                             <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
                           </svg>
                           Start
-                        </button>
+                        </button>                
+                          <label id="cp-lbState"></label>        
+                          <div id="cp-LinkProcess"></div>
+                          <div id="cp-description"></div>    
                       </p>
                     </div>
-                    
+                                        
                   </div> 
                   
                   <div class="tab-pane fade show" id="showCP" role="tabpanel" aria-labelledby="showCP-tab">
@@ -825,15 +834,6 @@
             </div>                
 
           </div>          
-         
-            <br>
-            <div class="col-md-12">
-
-              <label id="cp-lbState"></label>        
-              <div id="cp-LinkProcess"></div>
-              <br>
-              <div id="cp-description"></div>       
-            </div>
           
         </div>
 
@@ -968,6 +968,8 @@
     <script src="script/meltwaterMedition.js?62736232564237" charset="utf-8"></script>
     <script src="script/CreateSheetJS.js?62736232564237" charset="utf-8"></script>
     <script src="script/campaign.js?62736232564237" charset="utf-8"></script>
+    <script src="script/chosen.jquery.js?62736232564237" charset="utf-8"></script>
+    
 
   </body>
 

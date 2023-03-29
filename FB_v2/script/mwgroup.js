@@ -1,6 +1,9 @@
 'use strict';
 console.log("Cargando archivo mwgroup");
 
+let unexploredVersion = "1";
+let erroresUnexplore = 0;
+
 var rowActitud =[];   
 var rowAlcance =[];   
 var rowAlcanceXlsx =[];   
@@ -35,6 +38,7 @@ flagEvaluation.onChange(function(v){
     document.getElementById(option+"description").innerHTML = v;
     if(processed==toProcess){
       setTimeout(function() {
+        let processUnexplored =0;
         wb = XLSX.utils.book_new();
         const checks = document.querySelectorAll('.badgebox');
         for (let i = 0; i < checks.length; i++) {
@@ -43,20 +47,23 @@ flagEvaluation.onChange(function(v){
             if(checks[i].id=="Actitud"){
               addSheet("Actitud", rowActitud);
               //download("Actitud_"+nameFileLoaded,rowActitud);
+              processUnexplored++;
 
             }else if(checks[i].id=="Alcance"){
               addSheet("Alcance", rowAlcanceXlsx);
               //download(fileNameAlcance,rowAlcance);  
+              processUnexplored++;
 
             }else if(checks[i].id=="WordCloud"){
               addSheet("WordCloud", rowWcXlsx);
               descriptionEvaluation += "\n Imagen wordcloud: "+document.getElementById("namefilesave").value.trim()+"_wordcloud.jpeg";
-    
+              processUnexplored++;
               downloadImg(document.getElementById("namefilesave").value.trim()+"_wordcloud.jpeg",rowWcImg);
             }else if(checks[i].id=="Audiencias"){
-              
+              processUnexplored++;
             }else if(checks[i].id=="LineasDiscursivas"){
               addSheet("Líneas Discursivas", rowLD);
+              processUnexplored++;
               downloadImg(document.getElementById("namefilesave").value.trim()+"_lineas.jpeg",rowWcImg);
             }
 
@@ -64,13 +71,26 @@ flagEvaluation.onChange(function(v){
           
         } 
 
-        //descarga de imagenes
-        for (let i = 0; i < imagesDownload.length; i++) {
-          downloadImg(imagesDownload[i].name,imagesDownload[i].content);          
+        if(erroresUnexplore == processUnexplored){
+          if(erroresUnexplore == 1){
+            alert(v);
+          }else{
+            alert("Ocurrio un prublema al obtener la información en todos los modulos indicados");
+          }
+          clearMwgroup();  
+        }else{
+          //descarga de imagenes
+          for (let i = 0; i < imagesDownload.length; i++) {
+            downloadImg(imagesDownload[i].name,imagesDownload[i].content);          
+          }
+          downloadBook(document.getElementById("namefilesave").value.trim());
+          alert(descriptionEvaluation);
+          clearMwgroup();  
+
         }
-        downloadBook(document.getElementById("namefilesave").value.trim());
-        alert(descriptionEvaluation);
-        clearMwgroup();  
+
+
+        
 
       },10);
     }
@@ -160,6 +180,9 @@ function getEvaluation(evaluacion ="", token=""){
         request.append('numHrs', hour);
         request.append('datestart', epochStart);
         request.append('dateend', epochEnd);
+        if(unexploredVersion == "2"){
+          request.append('carp', $('#'+option+'file-selector-carp')[0].files[0]);
+        }
         
       break;
     
@@ -268,6 +291,7 @@ function getActitude(){
             console.log(error);   
             msgActitud = msgActitud.replace("Actitud...","Actitud no puedo ser procesada");
             msg = msgActitud+msgAlcance+msgWordCloud+msgAudiencias+msgLines;
+            erroresUnexplore++;
             processed++;
             flagEvaluation.setValue(msg);
           }
@@ -276,8 +300,9 @@ function getActitude(){
         .catch(function(error){
           console.log(error);   
           rowActitud=[["No fue posible obtener la información del api"]]; 
-            msgActitud = "Actitud no puedo ser procesada :( problema con unexplored";
+            msgActitud = "Actitud no puedo ser procesada :(  verifique su información";
             msg = msgActitud+msgAlcance+msgWordCloud+msgAudiencias+msgLines;
+            erroresUnexplore++;
             processed++;
             flagEvaluation.setValue(msg);
         });
@@ -309,27 +334,52 @@ function getAlcance(){
             rowAlcanceXlsx =[];
             rowAlcance.push(["","Twitter","Facebook","Whatsapp","Totales"]);
             rowAlcanceXlsx.push(["","Twitter","Facebook","Whatsapp","Totales"]);
-            for (let i = 0; i < responseAlcance.length; i++) {
-              if(typeof responseAlcance[i] == "object"){
-                for (let o = 0; o < responseAlcance[i].length; o++) {
-                  rowAlcance.push(['"'+responseAlcance[i][o][0].trim()+'"',
-                                   '"'+responseAlcance[i][o][1].trim()+'"',
-                                   '"'+responseAlcance[i][o][2].trim()+'"',
-                                   '"'+responseAlcance[i][o][4].trim()+'"',
-                                   '"'+responseAlcance[i][o][3].trim()+'"']);
+            if (responseAlcance.message !== undefined){
+              msgActitud ="";
+              msgAlcance = "Alcance no procesado verifica tu información";
+              msg = msgActitud+msgAlcance+msgWordCloud+msgAudiencias+msgLines;
+              erroresUnexplore++;
+            }else{
+            
+              for (let i = 0; i < responseAlcance.length; i++) {
+                if(typeof responseAlcance[i] == "object"){
+                  for (let o = 0; o < responseAlcance[i].length; o++) {
+                    let tt = 0;
+                    if(unexploredVersion=="2"){
+                      tt = responseAlcance[i][o][1]+responseAlcance[i][o][2]+responseAlcance[i][o][3];
 
-                  rowAlcanceXlsx.push([responseAlcance[i][o][0].trim(),
-                                   responseAlcance[i][o][1].trim(),
-                                   responseAlcance[i][o][2].trim(),
-                                   responseAlcance[i][o][4].trim(),
-                                   responseAlcance[i][o][3].trim()]);
-                }
-                break;
-              }   
-            }
+                      rowAlcance.push(['"'+responseAlcance[i][o][0].trim()+'"',
+                        '"'+responseAlcance[i][o][1]+'"',
+                        '"'+responseAlcance[i][o][2]+'"',
+                        '"'+responseAlcance[i][o][3]+'"',
+                        '"'+tt+'"']);
 
-            msgActitud = msgActitud.replace("Alcance...","Alcance procesada!!!");
-            msg = msgActitud+msgAlcance+msgWordCloud+msgAudiencias+msgLines;
+                      rowAlcanceXlsx.push([responseAlcance[i][o][0].trim(),
+                        responseAlcance[i][o][1],
+                        responseAlcance[i][o][2],
+                        responseAlcance[i][o][3],
+                        tt]);
+
+                    }else{
+                      rowAlcance.push(['"'+responseAlcance[i][o][0].trim()+'"',
+                                      '"'+responseAlcance[i][o][1].trim()+'"',
+                                      '"'+responseAlcance[i][o][2].trim()+'"',
+                                      '"'+responseAlcance[i][o][4].trim()+'"',
+                                      '"'+responseAlcance[i][o][3].trim()+'"']);
+
+                      rowAlcanceXlsx.push([responseAlcance[i][o][0].trim(),
+                                      responseAlcance[i][o][1].trim(),
+                                      responseAlcance[i][o][2].trim(),
+                                      responseAlcance[i][o][4].trim(),
+                                      responseAlcance[i][o][3].trim()]);
+                    }
+                  }
+                  break;
+                }   
+              }
+            
+              msgActitud = msgActitud.replace("Alcance...","Alcance procesada!!!");
+              msg = msgActitud+msgAlcance+msgWordCloud+msgAudiencias+msgLines;
             /*
             if(processed > 0){
               descriptionEvaluation += "\n--------------------------------------------------";
@@ -338,12 +388,14 @@ function getAlcance(){
             }
             descriptionEvaluation += "\nALCANCE: "+fileNameAlcance;
             */
+            }
             processed++;
             flagEvaluation.setValue(msg);
           }catch(error){
             console.log(error);   
-            msgAlcance = "Alcance no puedo ser procesado :( problema con unexplored";
+            msgAlcance = "Alcance no puedo ser procesado :( verifique su información";
             msg = msgActitud+msgAlcance+msgWordCloud+msgAudiencias+msgLines;
+            erroresUnexplore++;
             processed++;
             flagEvaluation.setValue(msg);
           }
@@ -352,8 +404,9 @@ function getAlcance(){
         .catch(function(error){
           console.log(error);   
             rowAlcanceXlsx=[["No fue posible obtener la información del api"]]; 
-            msgAlcance = "Alcance no puedo ser procesada  :( problema con unexplored";
+            msgAlcance = "Alcance no puedo ser procesada  :( verifique su información";
             msg = msgActitud+msgAlcance+msgWordCloud+msgAudiencias+msgLines;
+            erroresUnexplore++;
             processed++;
             flagEvaluation.setValue(msg);
         });
@@ -399,6 +452,7 @@ function getWordCloud(){
             console.log(error);   
             msgWordCloud = msgWordCloud.replace("WordCloud...","WordCloud no puedo ser procesado");
             msg = msgActitud+msgAlcance+msgWordCloud+msgAudiencias+msgLines;
+            erroresUnexplore++;
             processed++;
             flagEvaluation.setValue(msg);
           }
@@ -407,8 +461,9 @@ function getWordCloud(){
         .catch(function(error){
           console.log(error);  
           rowWcXlsx=[["No fue posible obtener la información del api"]]; 
-            msgWordCloud = "WordCloud no puedo ser procesada :( problema con unexplored";
+            msgWordCloud = "WordCloud no puedo ser procesada :( verifique su información";
             msg = msgActitud+msgAlcance+msgWordCloud+msgAudiencias+msgLines;
+            erroresUnexplore++;
             processed++;
             flagEvaluation.setValue(msg);
         });
@@ -488,9 +543,9 @@ function getLinesDiscursive(){
         .catch(function(error){
           console.log(error);  
           rowLD=[["No fue posible obtener la información del api"]];
-            msgLines = "Líneas Discursivas no procesada :( problema con unexplored";
+            msgLines = "Líneas Discursivas no procesada :( verifique su información";
             msg = msgActitud+msgAlcance+msgWordCloud+msgAudiencias+msgLines;
-
+            erroresUnexplore++;
             processed++;
             flagEvaluation.setValue(msg);
         });
@@ -554,6 +609,7 @@ function unchecked(){
 
 function clearMwgroup(){
   console.log("Reiniciando variables.....");
+  erroresUnexplore = 0;
   //Actitud
    try {      
       document.getElementById(option+"file-selector-trainning").value = "";
@@ -603,6 +659,11 @@ function clearMwgroup(){
     document.getElementById("hour").value="";
     document.getElementById("dtStart").value="";
     document.getElementById("dtEnd").value="";
+    if(unexploredVersion =="2"){      
+      $('#container-carp').html('<label for="xp-file-selector-carp">Carp:</label><input type="file" id="xp-file-selector-carp" name="xp-file-selector-carp" class="form-control-file border" accept=".csv" required>');        
+    }else{
+      $('#container-carp').html('');
+    }
   }
   catch(error){
     console.log(error);
@@ -1213,4 +1274,32 @@ function getTweetsInCloster(dataUrl, name){
     }    
   });
 }
+$(".unexploredV").click(function(e){
   
+    unexploredVersion = e.currentTarget.defaultValue;
+    
+    $("#Actitud")[0].checked = false;
+    $("#Alcance")[0].checked = false;
+    $("#WordCloud")[0].checked = false;
+    $("#Audiencias")[0].checked = false;
+    $("#LineasDiscursivas")[0].checked = false;
+
+    if(unexploredVersion =="2"){      
+      $('#container-carp').html('<label for="xp-file-selector-carp">Carp:</label><input type="file" id="xp-file-selector-carp" name="xp-file-selector-carp" class="form-control-file border" accept=".csv" required>');        
+      $("#lb-act-chkUnexplor").hide();
+      $("#lb-alc-chkUnexplor").show();
+      $("#lb-wor-chkUnexplor").hide();
+      //$("#lb-aud-chkUnexplor").hide();
+      $("#lb-lin-chkUnexplor").hide();
+    }
+    if(unexploredVersion =="1"){
+      $('#container-carp').html('');
+      $("#lb-act-chkUnexplor").show();
+      $("#lb-alc-chkUnexplor").show();
+      $("#lb-wor-chkUnexplor").show();
+      //$("#lb-aud-chkUnexplor").show();
+      $("#lb-lin-chkUnexplor").show();
+    }
+    getVersionUnexploredApiBase(unexploredVersion)
+
+});

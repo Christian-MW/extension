@@ -1,6 +1,6 @@
 loadSheet("MeltwterSearch");
 //let searchs=[];
-
+let msunexploredVersion = "1";
 let searchs = [];
     
 let ctrlsToFind = [];  
@@ -196,69 +196,81 @@ let reqMeltSearch = {
       }
 
   $("#mwsstart").click(function(event){
+    let fileOK = false;
+    if(msunexploredVersion == "2"){
+        if($('#ms-file-selector-carp')[0].files.length > 0)
+            fileOK = true;
+    }else{
+        fileOK = true;
+    }
 
-    let url = $("#urlSheetmws").val();
-    if(url != "" && url.startsWith("https://docs.google.com/spreadsheets/d/")){
-        url = url.replace("https://docs.google.com/spreadsheets/d/","");
-        url = url.split('/')[0];
-        $(".mws-contairner-process").show();
-        document.getElementById(option+"lbState").innerHTML = "Procesando...";
-        document.getElementById(option+"description").innerHTML = "Obteniendo las búsquedas...";
-        urlApiSheet = xpathUrl["api_java_sheet"][0];
-        $("#mwsstart").hide();
-        reqMeltSearch.columns = xpathUrl["ms_columnsbase"].join();
-        reqMeltSearch.range = xpathUrl["ms_sheetname"][0];
-        reqMeltSearch.spreadsheet_id = url;
+    if(!fileOK){
+        alert("Para la versión 2 de alcance es necesario que cargue el archivo de entrenamiento");
+    }else{
 
-        let endponit = xpathUrl["get_sheet"][0];
-        fetch(urlApiSheet+endponit, {
-          method: 'POST',
-          body: JSON.stringify(reqMeltSearch),
-          headers: { 'Content-Type': 'application/json',  }
-       })
-       .then((resp) => resp.json())
-       .then(function(resp){ 
-        console.log(resp);
-          try {
+        let url = $("#urlSheetmws").val();
+        if(url != "" && url.startsWith("https://docs.google.com/spreadsheets/d/")){
+            url = url.replace("https://docs.google.com/spreadsheets/d/","");
+            url = url.split('/')[0];
+            $(".mws-contairner-process").show();
+            document.getElementById(option+"lbState").innerHTML = "Procesando...";
+            document.getElementById(option+"description").innerHTML = "Obteniendo las búsquedas...";
+            urlApiSheet = xpathUrl["api_java_sheet"][0];
+            $("#mwsstart").hide();
+            reqMeltSearch.columns = xpathUrl["ms_columnsbase"].join();
+            reqMeltSearch.range = xpathUrl["ms_sheetname"][0];
+            reqMeltSearch.spreadsheet_id = url;
 
-            if(resp.code == 200){     
-            document.getElementById(option+"description").innerHTML = "Búsquedas obtenidas";         
-              mwsconvertData(resp.objectResult);
-              console.log(searchs.length);
-              flagSearch.setValue(0);
+            let endponit = xpathUrl["get_sheet"][0];
+            fetch(urlApiSheet+endponit, {
+            method: 'POST',
+            body: JSON.stringify(reqMeltSearch),
+            headers: { 'Content-Type': 'application/json',  }
+        })
+        .then((resp) => resp.json())
+        .then(function(resp){ 
+            console.log(resp);
+            try {
 
-            }else if(resp.code == 409){
-              document.getElementById(option+"LinkProcess").innerHTML = "El archivo sheet tiene inconsitencia en la información";
-              alert("El archivo sheet tiene inconsitencia en la información");
-              clearMtbs();
-            }else if(resp.code == 500){
-              document.getElementById(option+"LinkProcess").innerHTML = "No existe hoja "+xpathUrl["ms_sheetname"][0];
-              alert("No existe hoja "+xpathUrl["ms_sheetname"][0]);
-              clearMtbs();
+                if(resp.code == 200){     
+                document.getElementById(option+"description").innerHTML = "Búsquedas obtenidas";         
+                mwsconvertData(resp.objectResult);
+                console.log(searchs.length);
+                flagSearch.setValue(0);
+
+                }else if(resp.code == 409){
+                document.getElementById(option+"LinkProcess").innerHTML = "El archivo sheet tiene inconsitencia en la información";
+                alert("El archivo sheet tiene inconsitencia en la información");
+                clearMtbs();
+                }else if(resp.code == 500){
+                document.getElementById(option+"LinkProcess").innerHTML = "No existe hoja "+xpathUrl["ms_sheetname"][0];
+                alert("No existe hoja "+xpathUrl["ms_sheetname"][0]);
+                clearMtbs();
+                }
+
+            } catch (error) {
+                document.getElementById(option+"LinkProcess").innerHTML = "Problemas al obtener las publicaciones";
+                alert("Problemas al obtener las publicaciones");
+                clearMtbs();
             }
 
-          } catch (error) {
+            })
+        .catch(function(error){
+            console.log(error);          
             document.getElementById(option+"LinkProcess").innerHTML = "Problemas al obtener las publicaciones";
             alert("Problemas al obtener las publicaciones");
-            clearMtbs();
-          }
-
-        })
-       .catch(function(error){
-          console.log(error);          
-          document.getElementById(option+"LinkProcess").innerHTML = "Problemas al obtener las publicaciones";
-          alert("Problemas al obtener las publicaciones");
-          clearMws();
-       });
+            clearMws();
+        });
 
 
-        
+            
 
-    }else{ 
-        document.getElementById(option+"LinkProcess").innerHTML = "Ingresa una url valida de google sheets";
-        alert("Ingresa una url valida de google sheets");
-        clearMws();
-      }
+        }else{ 
+            document.getElementById(option+"LinkProcess").innerHTML = "Ingresa una url valida de google sheets";
+            alert("Ingresa una url valida de google sheets");
+            clearMws();
+        }
+    }
   });
 
 
@@ -427,6 +439,10 @@ function getAlcanceToMWS(json_data){
         request.append('numHrs', hour);
         request.append('datestart', epochStart);
         request.append('dateend', epochEnd);
+        if(msunexploredVersion == "2"){
+            request.append('carp', $('#ms-file-selector-carp')[0].files[0]);
+        }
+
         url = urlBase+xpathUrl["api_alcance"][0];
         sendPost(url, request)
         .then(function(responseAlcance){
@@ -435,15 +451,34 @@ function getAlcanceToMWS(json_data){
                 for (let i = 0; i < responseAlcance.length; i++) {
                     if(typeof responseAlcance[i] == "object"){
                       for (let o = 0; o < responseAlcance[i].length; o++) {
-                        dataAlcance.push(
-                            {
-                                Medicion:responseAlcance[i][o][0].trim(),
-                                Twitter:responseAlcance[i][o][1].trim(),
-                                Facebook:responseAlcance[i][o][2].trim(),
-                                Whatsapp:responseAlcance[i][o][4].trim(),
-                                Totales:responseAlcance[i][o][3].trim()
-                            }
-                        );
+
+                        let tt = 0;
+                        if(msunexploredVersion=="2"){
+                            tt = responseAlcance[i][o][1]+responseAlcance[i][o][2]+responseAlcance[i][o][3];
+
+                            dataAlcance.push(
+                                {
+                                    Medicion:responseAlcance[i][o][0].trim(),
+                                    Twitter:responseAlcance[i][o][1].trim(),
+                                    Facebook:responseAlcance[i][o][2].trim(),
+                                    Whatsapp:responseAlcance[i][o][3].trim(),
+                                    Totales:tt
+                                }
+                            );
+
+                        }else{
+                        
+                            dataAlcance.push(
+                                {
+                                    Medicion:responseAlcance[i][o][0].trim(),
+                                    Twitter:responseAlcance[i][o][1].trim(),
+                                    Facebook:responseAlcance[i][o][2].trim(),
+                                    Whatsapp:responseAlcance[i][o][4].trim(),
+                                    Totales:responseAlcance[i][o][3].trim()
+                                }
+                            );
+
+                        }
                       }
                       break;
                     }   
@@ -509,6 +544,12 @@ function clearMws(){
         spreadsheet_id:""
       }
       $("#urlSheetmws").val(""); 
+
+      if(msunexploredVersion =="2"){      
+        $('#container-carp').html('<label for="xp-file-selector-carp">Carp:</label><input type="file" id="xp-file-selector-carp" name="xp-file-selector-carp" class="form-control-file border" accept=".csv" required>');        
+      }else{
+        $('#container-carp').html('');
+      }
 }
 
 /*
@@ -1737,3 +1778,17 @@ function injectScript(_search, _ctrlsToFind, _ctrlLanguajeFilter, _ctrlLocationF
     }, 5000);
 
   }
+
+  $(".msUnexploredV").click(function(e){ 
+    msunexploredVersion = e.currentTarget.defaultValue;
+    if(msunexploredVersion =="2"){
+        $('#ms-container-carp').html('<label for="ms-file-selector-carp">Carp:</label><input type="file" id="ms-file-selector-carp" name="ms-file-selector-carp" class="form-control-file border" accept=".csv" required> <br><br>');        
+    }
+    if(msunexploredVersion =="1"){
+        $('#ms-container-carp').html('');
+    }
+
+    
+    getVersionUnexploredApiBase(msunexploredVersion);
+
+  });

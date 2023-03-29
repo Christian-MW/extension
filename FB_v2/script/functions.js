@@ -918,6 +918,14 @@ Date.prototype.addDays = function(days) {
     return date;
 }
 
+function getVersionUnexploredApiBase(version){
+    if(version == "1"){
+        urlBase = xpathUrl["api_unexplored"][0];
+    }
+    if(version == "2"){
+        urlBase = xpathUrl["api_unexplored_v2"][0];
+    }
+}
 
   /*
   var strComputer = ".";

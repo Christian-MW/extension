@@ -160,17 +160,18 @@ let reqMeltSearch = {
                     })
                     .then((response) => response.json())
                     .then(function(response){
+                        console.log(response)
                         if(response.code == 200){
                         alert("Las publicaciones se encuentran actualizadas en el google sheet");
                         }else if(response.code == 500){
                         alert("Algo salio mal en la actualización del google sheet");
                         }
-                        clearMtbs(); 
+                        clearMws(); 
                     })             
                     .catch(function(error){
                         console.log(error);                          
                         alert("Problemas al actualizar las publicaciones");
-                        clearMtbs(); 
+                        clearMws(); 
                     });
                             
                 }
@@ -241,17 +242,17 @@ let reqMeltSearch = {
                 }else if(resp.code == 409){
                 document.getElementById(option+"LinkProcess").innerHTML = "El archivo sheet tiene inconsitencia en la información";
                 alert("El archivo sheet tiene inconsitencia en la información");
-                clearMtbs();
+                clearMws();
                 }else if(resp.code == 500){
                 document.getElementById(option+"LinkProcess").innerHTML = "No existe hoja "+xpathUrl["ms_sheetname"][0];
                 alert("No existe hoja "+xpathUrl["ms_sheetname"][0]);
-                clearMtbs();
+                clearMws();
                 }
 
             } catch (error) {
                 document.getElementById(option+"LinkProcess").innerHTML = "Problemas al obtener las publicaciones";
                 alert("Problemas al obtener las publicaciones");
-                clearMtbs();
+                clearMws();
             }
 
             })
@@ -458,10 +459,10 @@ function getAlcanceToMWS(json_data){
 
                             dataAlcance.push(
                                 {
-                                    Medicion:responseAlcance[i][o][0].trim(),
-                                    Twitter:responseAlcance[i][o][1].trim(),
-                                    Facebook:responseAlcance[i][o][2].trim(),
-                                    Whatsapp:responseAlcance[i][o][3].trim(),
+                                    Medicion:responseAlcance[i][o][0],
+                                    Twitter:""+responseAlcance[i][o][1].toLocaleString('en-US', {maximumFractionDigits:2}),
+                                    Facebook:""+responseAlcance[i][o][2].toLocaleString('en-US', {maximumFractionDigits:2}),
+                                    Whatsapp:""+responseAlcance[i][o][3].toLocaleString('en-US', {maximumFractionDigits:2}),
                                     Totales:tt
                                 }
                             );
@@ -516,7 +517,7 @@ function processFileMS(){
     let obj ={};
     for (let index = 0; index < resultReadFile.length; index++) {
         let r = resultReadFile[index].replaceAll('"',"");
-        if(!r.startsWith("Explore") && !r.startsWith("Date") && r!=""){
+        if(!r.startsWith("Explore") && !r.startsWith("Date") && r!="" && !r.startsWith("[object Object]")){
             
             if(r.match(/^\d/) && prop != "" ){
                 //Escontenido de 
@@ -535,9 +536,9 @@ function processFileMS(){
 
 function clearMws(){
     $("#mwsstart").show();
-    $(".mtbs-contairner-process").hide();
-    $(".mtbs-lbState").val("");
-    $(".mtbs-description").val("");
+    $(".mws-contairner-process").hide();
+    $(".mws-lbState").val("");
+    $(".mws-description").val("");
     reqMeltSearch = {
         columns:"",
         range:"",
@@ -546,9 +547,9 @@ function clearMws(){
       $("#urlSheetmws").val(""); 
 
       if(msunexploredVersion =="2"){      
-        $('#container-carp').html('<label for="xp-file-selector-carp">Carp:</label><input type="file" id="xp-file-selector-carp" name="xp-file-selector-carp" class="form-control-file border" accept=".csv" required>');        
+        $('#ms-container-carp').html('<label for="ms-file-selector-carp">Carp:</label><input type="file" id="ms-file-selector-carp" name="ms-file-selector-carp" class="form-control-file border" accept=".csv" required> <br><br>');        
       }else{
-        $('#container-carp').html('');
+        $('#ms-container-carp').html('');
       }
 }
 

@@ -831,8 +831,9 @@ function getFiles(){
                     if(pathBase.length >= 2){
                         pathBase = pathBase[0];
                         var pathItemArr = item.filename.split("\\");
-                        console.log(pathItemArr[pathItemArr.length -1].startsWith("explore-csv"));
-                        if(pathItemArr[pathItemArr.length -1].startsWith("explore-csv")){
+                        //console.log(pathItemArr[pathItemArr.length -1].startsWith("explore-csv"));
+                        console.log(pathItemArr[pathItemArr.length -1].toLowerCase().startsWith("mentions_trend"));
+                        if(pathItemArr[pathItemArr.length -1].toLowerCase().startsWith("mentions_trend")){
                             console.log("Este es el archivo a procesar")
                             console.log(pathBase[0] + athItemArr[pathItemArr.length -1]);
                             pathFilnameGlobal = pathBase[0] + athItemArr[pathItemArr.length -1];
@@ -843,8 +844,9 @@ function getFiles(){
                     }
                     else if(pathBase.length <= 1){
                         var pathItemArr = item.filename.split("\\");
-                        console.log(pathItemArr[pathItemArr.length -1].startsWith("explore-csv"));
-                        if(pathItemArr[pathItemArr.length -1].startsWith("explore-csv")){
+                        //console.log(pathItemArr[pathItemArr.length -1].startsWith("explore-csv"));
+                        console.log(pathItemArr[pathItemArr.length -1].toLowerCase().startsWith("mentions_trend"));
+                        if(pathItemArr[pathItemArr.length -1].toLowerCase().startsWith("mentions_trend")){
                             pathFilnameGlobal = item.filename;
                             console.log(pathFilnameGlobal);
                             //return item.filename

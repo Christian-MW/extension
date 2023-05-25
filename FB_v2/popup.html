@@ -199,7 +199,7 @@
         <div class="process xp-">
           <h2 style="color: #004169;">MWGroup</h2>
           <div>
-            <h5>Con que versión de deseas trabajar?</h5>
+            <h5>¿Con qué versión de deseas trabajar?</h5>
             <div class="form-group">
 
               <label class="container-radio">Versión 1
@@ -705,7 +705,7 @@
             <div class="tab-content">
               <form id="formmws" class="was-validated form-inline">  
                 
-              <label>Para procesar el alcance con que version deseas trabajar?</label>
+              <label>Para procesar el alcance ¿con qué versión deseas trabajar?</label>
               <div class="form-group">
 
                 <label class="container-radio">Versión 1
@@ -935,7 +935,23 @@
             </div>
             <div class="tab-content">
               <form id="formmwm" class="was-validated form-inline">  
-                
+                  
+              <label>Para procesar el alcance ¿con qué versión deseas trabajar?</label>
+              <div class="form-group">
+
+                <label class="container-radio">Versión 1
+                  <input type="radio" checked="checked" class="mwmUnexploredV" name="mwmUnexploredV" value="1">
+                  <span class="checkmark"></span>
+                </label>&nbsp;&nbsp;&nbsp;
+                <label class="container-radio">Versión 2
+                  <input type="radio" class="mwmUnexploredV" name="mwmUnexploredV" value="2">
+                  <span class="checkmark"></span>
+                </label>
+              </div> 
+
+              <div id="mwm-container-carp" class="form-group">
+              </div>
+
                 <div class="form-group">
                     <label for="titlemwm">Título de la medición </label>
                     <input type="text"  class="form-control" id="titlemwm" placeholder="Título para la medición" name="titlemwm" required> 
@@ -947,6 +963,32 @@
                   <input type="text"  class="form-control" id="searchmwm" placeholder="Búsqueda" name="searchmwm" required> 
                   <br>
                 </div> 
+                                
+                <div class="form-group">
+                  <label for="languajemwm">Idioma </label> 
+                  <br>                      
+                      <select data-placeholder="Comienza a escribir para seleccionar un idioma" 
+                        multiple class="chosen-select-width" id="languajemwm" name="languajemwm" required>
+                      </select>                   
+                </div> 
+                <div class="form-group">
+                  <label for="locationmwm">Ubicación </label>
+                  <br>                      
+                  <select data-placeholder="Comienza a escribir para seleccionar un ubicación" 
+                    multiple class="chosen-select-width" id="locationmwm" name="locationmwm" required>
+                  </select>                    
+                  
+                </div> 
+                <br>
+                                     
+                <div class="form-group">
+                  <label for="dtStartmwm">Fecha de inicio:</label>
+                  <input type="date" class="form-control" id="dtStartmwm" placeholder="" name="dtStartmwm" > 
+                  <br>
+                  <label for="dtEndmwm">Fecha de fin:</label>
+                  <input type="date" class="form-control" id="dtEndmwm" placeholder="" name="dtEndmwm" > 
+                </div>
+                <br><br>
 
                 <div id="errorDtmwm"></div>
 

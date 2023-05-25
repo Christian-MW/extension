@@ -7,6 +7,14 @@ var div_post_principal = "";
 var likes = "";
 var span_likes = "";
 var likes_video = "";
+var commentsXpath = "";
+var sharedXpath = "";
+var comments_icon = "";
+var shared_icon = "";
+var position_comments_icon="";
+var position_shared_icon="";
+var div_reactions_container = "";
+var container_video = "";
 
 //sleep(sleepSeconds);
 let page_title = document.title,
@@ -116,6 +124,16 @@ function getDataConfiguration(data){
         likes = xpaths[2].items;
         span_likes = xpaths[3].items;
         likes_video = xpaths[4].items;
+		commentsXpath = xpaths[5].items;
+		sharedXpath = xpaths[6].items;
+		comments_icon = xpaths[7].items;
+		shared_icon = xpaths[8].items;
+		position_comments_icon = xpaths[9].items;
+		position_shared_icon = xpaths[10].items;
+		div_reactions_container = xpaths[11].items;
+		container_video = xpaths[12].items;
+
+		
 
         console.log("###=> div_contenedor_mg " + div_contenedor_mg);
         console.log("###=> div_post_principal " + div_post_principal);
@@ -228,6 +246,8 @@ if(document.documentElement.innerText.includes("contenido no está disponible en
 
 		    */
 		    let xpath = div_post_principal;
+			console.log('##########BUSCANDO EL CONTENER###########');
+			console.log(xpath);
 		    waitForElm(xpath)
 		    .then((elm) => {
 		    	console.log('Contendor cargado!!!');
@@ -302,13 +322,14 @@ function getReactions(element){
 	//Extraccion de los likes
 	
 	let lk = element.querySelector(likes);
-
+	let containerVideo =element.querySelector(container_video);
 	console.log(lk);
 	if(lk !== null && lk.textContent != "" && !lk.textContent.includes(' d') && !lk.textContent.includes(' las')){
 
 		console.log("LIKES: " + lk.textContent);
-		if(lk.textContent.match(/^\d/)){
-			post.likes = lk.textContent.replace(",",".").replace(/&nbsp;/g, ' ');
+		let valueLikeTemp = lk.textContent.replace("Tú y ","").replace(" persona más","").replace(" personas más","");
+		if(valueLikeTemp.match(/^\d/)){
+			post.likes = valueLikeTemp.replace(",",".").replace(/&nbsp;/g, ' ');
 		}
 	}else{
 		lk= null;
@@ -341,8 +362,8 @@ function getReactions(element){
 				//}  
 			}
 			if(lk == null){
-
-				let spanLk =element.querySelectorAll(likes_video);
+				
+				let spanLk = (containerVideo != null)?containerVideo.querySelectorAll(likes_video):element.querySelectorAll(likes_video);
 				console.log("Likes video");
 				for (var s = 0; s < spanLk.length; s++) {
 					let spn = spanLk[s];
@@ -364,50 +385,141 @@ function getReactions(element){
 	}
 
 	
-	
+	let reactionContainer =null;
+	if(containerVideo != null){
+		reactionContainer = containerVideo.querySelector(div_reactions_container);	
+	}else{
+		reactionContainer = element.querySelector(div_reactions_container);
+	}
+
+
+	console.log("div_reactions_container: "+reactionContainer.length)
 	//Extraccion de los compartidos
-	let shared = Array.prototype.slice.call(element.querySelectorAll('span')).filter(function (el) {
-    	return el.textContent.includes('vez compartid');
-  	});
-  	console.log(shared);
-  	if(shared.length > 0){
-  		if(shared[0].textContent.match(/^\d/)){
-			post.shared = shared[0].textContent.replace(",",".").replace("vez compartido","").replace("vez compartida","").replace("Â ",' ').replace(/&nbsp;/g, ' ');
-		}  		
-  	}
-  	else{
-  		shared = Array.prototype.slice.call(element.querySelectorAll('span')).filter(function (el) {
-	    	return el.textContent.includes('veces compartid');
-	  	});
-	  	console.log(shared);
-	  	if(shared.length > 0){
-	  		if(shared[0].textContent.match(/^\d/)){
-				post.shared = shared[0].textContent.replace(",",".").replace("veces compartida","").replace("veces compartido","").replace("Â ",' ').replace(/&nbsp;/g, ' ');
-			} 
-  			
-  		}
-  	}
+	let shared = null;
+	let spanExtras = 0;
+	let findedReactionCC =0;
+	let position = -1;
+	let spanShared =(reactionContainer.length > 0)?reactionContainer.querySelectorAll(sharedXpath):element.querySelectorAll(sharedXpath);
+	if(spanShared.length > 4){
+		spanExtras = spanShared.length-4;
+	}
+	let iconShared =(reactionContainer.length > 0)?reactionContainer.querySelectorAll(shared_icon):element.querySelectorAll(shared_icon);
+	console.log("iconShared: "+iconShared.length)
+	iconShared.forEach(function(i) {
+	  if(i.style.backgroundPosition == position_shared_icon){	
+		findedReactionCC = 1;		
+		if(iconShared!=null){
+			if(spanShared.length==1){
+				position=1;
+			}
+			else if(spanShared.length>1){
+				position=2;
+			}
+		}
+	  }
+  	})
+
+	console.log("position para shared: "+position)
+	if(position > 0){  			
+		console.log("spanShared: "+spanShared.length)
+		spanShared.forEach(function(spn, index) {
+			console.log(spn.textContent);
+		  if(!spn.textContent.includes(' ') && index == (spanShared.length-(findedReactionCC+spanExtras))){
+			shared = spn.textContent;
+			post.shared = spn.textContent.replace(",",".");
+			console.log("Compartidos:");
+			console.log(spn.textContent.replace(",","."));
+		  }
+		});
+	}
+
+	if(shared == null || shared == ""  || shared == " "){
+		post.shared = "0";
+		shared = Array.prototype.slice.call(element.querySelectorAll('span')).filter(function (el) {
+			return el.textContent.includes('vez compartid');
+		  });
+		  console.log(shared);
+		  if(shared.length > 0){
+			  if(shared[0].textContent.match(/^\d/)){
+				post.shared = shared[0].textContent.replace(",",".").replace("vez compartido","").replace("vez compartida","").replace("Â ",' ').replace(/&nbsp;/g, ' ');
+			}  		
+		  }
+		  else{
+			  shared = Array.prototype.slice.call(element.querySelectorAll('span')).filter(function (el) {
+				return el.textContent.includes('veces compartid');
+			  });
+			  console.log(shared);
+			  if(shared.length > 0){
+				  if(shared[0].textContent.match(/^\d/)){
+					post.shared = shared[0].textContent.replace(",",".").replace("veces compartida","").replace("veces compartido","").replace("Â ",' ').replace(/&nbsp;/g, ' ');
+				} 
+				  
+			  }
+		  }
+	}
+
   	//Extraccion del comentario
-  	let comments = Array.prototype.slice.call(element.querySelectorAll('span')).filter(function (el) {
-    	return el.textContent.includes('comentario');
-  	});
-	console.log(shared);
-  	if(comments.length > 0){
-  		if(comments[0].textContent.match(/^\d/)){
-			post.comments = comments[0].textContent.replace(",",".").replace("comentarios","").replace("comentario","").replace("Â ",' ').replace(/&nbsp;/g, ' ');
-		}   			
-  	}
-
-  		//Extraccion de reproducciones
-	let reproducc = Array.prototype.slice.call(element.querySelectorAll('span')).filter(function (el) {
-    	return el.textContent.includes(' reproducc');
-  	});
-  	console.log(reproducc);
-  	if(reproducc.length > 0){
-  		if(reproducc[0].textContent.match(/^\d/)){
-			post.reproductions = reproducc[0].textContent.replace(",",".").replace("reproducciones","").replace("reproducción","").replace("reproduccion","").replace("Â ",' ').replace(/&nbsp;/g, ' ');
-		}  		
-  	}
-
+	  let comments = null;
+	  let spanComments =(reactionContainer != null)?reactionContainer.querySelectorAll(commentsXpath):element.querySelectorAll(commentsXpath);
+	  spanExtras = 0; 
+	  if(spanComments.length > 4){
+		spanExtras = spanComments.length-4;
+	  }
+	  let iconComment =(reactionContainer.length != null)?reactionContainer.querySelectorAll(comments_icon):element.querySelectorAll(comments_icon);
+	  position = 0;
+	  iconComment.forEach(function(i) {
+		if(i.style.backgroundPosition == position_comments_icon){			
+			position=1;
+			
+		}
+	})
+	findedReactionCC = findedReactionCC+position;
+	console.log("position para comments: "+position)
+	if(position > 0){
+	  spanComments.forEach(function(spn,index) {
+		  console.log(spn.textContent);
+		if(!spn.textContent.includes(' ') && index == (spanComments.length-(findedReactionCC+spanExtras))){
+			comments = spn.textContent;
+			post.comments = spn.textContent.replace(",",".");
+			console.log("Comentarios:");
+			console.log("index: "+index);
+			console.log(spn.textContent.replace(",","."));
+		}
+	  });
+	}
+  	if(comments == null || comments == ""  || comments == " "){
+		post.comments = "0";
+		comments = Array.prototype.slice.call((reactionContainer.length != null)?reactionContainer.querySelectorAll('span'):element.querySelectorAll('span')).filter(function (el) {
+			return el.textContent.includes('comentario');
+		  });
+		console.log(shared);
+		  if(comments.length > 0){
+			  if(comments[0].textContent.match(/^\d/)){
+				post.comments = comments[0].textContent.replace(",",".").replace("comentarios","").replace("comentario","").replace("Â ",' ').replace(/&nbsp;/g, ' ');
+			}   			
+		  }
+	
+			  //Extraccion de reproducciones
+		let reproducc = Array.prototype.slice.call((reactionContainer.length != null)?reactionContainer.querySelectorAll('span'):element.querySelectorAll('span')).filter(function (el) {
+			return el.textContent.includes(' reproducc');
+		  });
+		  console.log(reproducc);
+		  if(reproducc.length > 0){
+			  if(reproducc[0].textContent.match(/^\d/)){
+				post.reproductions = reproducc[0].textContent.replace(",",".").replace("reproducciones","").replace("reproducción","").replace("reproduccion","").replace("Â ",' ').replace(/&nbsp;/g, ' ');
+			}  		
+		  }else{
+			reproducc = Array.prototype.slice.call((reactionContainer.length != null)?reactionContainer.querySelectorAll('span'):element.querySelectorAll('span')).filter(function (el) {
+				return el.textContent.includes('visualizaci');
+			  });
+			  console.log(reproducc);
+			  if(reproducc.length > 0){
+				  if(reproducc[0].textContent.match(/^\d/)){
+					post.reproductions = reproducc[0].textContent.replace(",",".").replace("visualizaciones","").replace("visualizacio","").replace("visualización","").replace("Â ",' ').replace(/&nbsp;/g, ' ');
+				}  		
+			  }
+		  }
+	}
+	  
   	console.log("Resultados:" + JSON.stringify(post));
 }

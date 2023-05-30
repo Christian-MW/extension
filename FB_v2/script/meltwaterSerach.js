@@ -463,7 +463,7 @@ function getAlcanceToMWS(json_data){
                                     Twitter:""+responseAlcance[i][o][1].toLocaleString('en-US', {maximumFractionDigits:2}),
                                     Facebook:""+responseAlcance[i][o][2].toLocaleString('en-US', {maximumFractionDigits:2}),
                                     Whatsapp:""+responseAlcance[i][o][3].toLocaleString('en-US', {maximumFractionDigits:2}),
-                                    Totales:tt
+                                    Totales:""+tt.toLocaleString('en-US', {maximumFractionDigits:2})
                                 }
                             );
 
@@ -515,13 +515,20 @@ function processFileMS(){
     console.log(resultReadFile.length);
     let prop = "";
     let obj ={};
+    obj.Total=[];
     for (let index = 0; index < resultReadFile.length; index++) {
         let r = resultReadFile[index].replaceAll('"',"");
         if(!r.startsWith("Explore") && !r.startsWith("Date") && r!="" && !r.startsWith("[object Object]")){
             
             if(r.match(/^\d/) && prop != "" ){
                 //Escontenido de 
-                obj[prop].push(resultReadFile[index].trim().replaceAll('"',""));
+                if(resultReadFile[index].trim().replaceAll('"',"") != "" 
+                && resultReadFile[index].trim().replaceAll('"',"") != " "
+                && resultReadFile[index].trim().replaceAll('"',"") != null
+                && resultReadFile[index].trim().replaceAll('"',"") != undefined){
+                    obj[prop].push(resultReadFile[index].trim().replaceAll('"',""));
+                }
+                
             }else{
                 console.log("Agregando propiedad al objeto");
                 console.log(r);

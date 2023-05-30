@@ -24,6 +24,24 @@ function getCampaign(){
             console.log("responseCampañas");
             console.log(responseCampañas);
             $(".tblCampañas").find('tbody').html("");
+            responseCampañas.sort((a, b) => {
+                console.log("Validando el item.... A B")
+                
+                let arrDtA = a.rules.startDate.split('/');
+                let arrDtB = b.rules.startDate.split('/');
+                let dtA = parseInt(arrDtA[2]+(parseInt(arrDtA[1])-1)+arrDtA[0]);
+                let dtB = parseInt(arrDtB[2]+(parseInt(arrDtB[1])-1)+arrDtB[0]);
+                if(dtA > dtB){
+                    return -1
+                }
+                if(dtA < dtB){
+                    return 1
+                }
+                return 0
+            });
+            DataCampaign = responseCampañas;
+            renderizar();
+            /*
             let dateNow = new Date();
             dateNow = new Date(dateNow.getFullYear(),dateNow.getMonth(),dateNow.getDate());
             for (let i = 0; i < responseCampañas.length; i++) {
@@ -57,8 +75,11 @@ function getCampaign(){
                     console.log("Si boton actualizar");
                 }
                 $(".tblCampañas").find('tbody').append('<tr><td>'+theme+'</td><td><a href="https://docs.google.com/spreadsheets/d/'+sheet+'" target="blank">Ver</a>'+btnUpdate+'</td><td>'+start+'</td><td>'+end+'</td></tr>');
+                $("#ctn-pagger").show();
             }
             
+            */
+
         }catch(error){
             console.log(error);
         }        

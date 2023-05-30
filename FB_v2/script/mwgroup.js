@@ -349,10 +349,10 @@ function getAlcance(){
                       tt = responseAlcance[i][o][1]+responseAlcance[i][o][2]+responseAlcance[i][o][3];
 
                       rowAlcance.push(['"'+responseAlcance[i][o][0].trim()+'"',
-                        '"'+responseAlcance[i][o][1]+'"',
-                        '"'+responseAlcance[i][o][2]+'"',
-                        '"'+responseAlcance[i][o][3]+'"',
-                        '"'+tt+'"']);
+                        '"'+responseAlcance[i][o][1].toLocaleString('en-US', {maximumFractionDigits:2})+'"',
+                        '"'+responseAlcance[i][o][2].toLocaleString('en-US', {maximumFractionDigits:2})+'"',
+                        '"'+responseAlcance[i][o][3].toLocaleString('en-US', {maximumFractionDigits:2})+'"',
+                        '"'+tt.toLocaleString('en-US', {maximumFractionDigits:2})+'"']);
 
                       rowAlcanceXlsx.push([responseAlcance[i][o][0].trim(),
                         responseAlcance[i][o][1],

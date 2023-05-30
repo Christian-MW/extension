@@ -544,7 +544,7 @@ function getAlcanceToMWM(json_data){
                                     Twitter:""+responseAlcance[i][o][1].toLocaleString('en-US', {maximumFractionDigits:2}),
                                     Facebook:""+responseAlcance[i][o][2].toLocaleString('en-US', {maximumFractionDigits:2}),
                                     Whatsapp:""+responseAlcance[i][o][3].toLocaleString('en-US', {maximumFractionDigits:2}),
-                                    Totales:tt
+                                    Totales:""+tt.toLocaleString('en-US', {maximumFractionDigits:2})
                                 }
                             );
 

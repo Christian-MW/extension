@@ -32,6 +32,8 @@ var themsEval =[];
 var thems =[];
 var tags =[];
 
+var DataCampaign =[]
+
 function clasificador(urlsTrProcess, themsEval, column){
     try{
         //Agregando columnas de las clasificaciones

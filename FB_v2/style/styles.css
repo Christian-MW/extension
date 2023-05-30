@@ -338,3 +338,18 @@ div.process{
     border-radius: 50%;
     background: white;
  }
+
+ #ctn-pagger{
+   display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 10%;
+    padding-right: 10%;
+ }
+ .btn-disabled{
+   background-color: #c3c3c2 !important;
+ }
+ .btn-pagger{
+   background-color: #e08406;
+ }

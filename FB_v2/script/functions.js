@@ -33,6 +33,7 @@ var thems =[];
 var tags =[];
 
 var DataCampaign =[]
+var DataRanking = []
 
 function clasificador(urlsTrProcess, themsEval, column){
     try{

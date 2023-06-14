@@ -87,6 +87,10 @@
                 <li class="list-inline-item" id="cp-">
                   <img style="border-radius: 50%; width: 30px; height:30px; " src="images/campaña.png" /> 
                   Campañas 
+                </li>               
+                <li class="list-inline-item" id="rk-">
+                  <img style="border-radius: 50%; width: 30px; height:30px; " src="images/ranking.png" /> 
+                  Ranking 
                 </li>
               </ul> 
             </div>
@@ -878,6 +882,95 @@
           
         </div>
 
+        <div class="process rk-">
+          <div class="row">
+            <div class="col-md-12">
+              <h2 style="color: #bc2b05;">Ranking</h2>
+              <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.nwihz5sp6bfv" target="blank"
+              style="display: flex; margin-top: -32px; margin-left: 85%;"
+              >Ayuda</a>
+            </div>
+            <div class="tab-content">
+              <form id="formTrk" class="was-validated form-inline">                  
+                                
+                <ul class="nav nav-tabs" id="tabRanking" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link-meta nav-link active " id="addRK-tab" data-toggle="tab" href="#addRK" role="tab" aria-controls="addRK" aria-selected="false">Registrar</a>
+                  </li>
+                  
+                  <li class="nav-item">
+                    <a class="nav-link-meta nav-link" id="showRK-tab" data-toggle="tab" href="#showRK" role="tab" aria-controls="showRK" aria-selected="true">Rankigs</a>
+                  </li>
+                  
+                </ul>
+                
+                
+                <div class="tab-content" id="myTabContentRanking">
+                  <div class="tab-pane fade show active" id="addRK" role="tabpanel" aria-labelledby="addRK-tab">  
+                    
+                    <br> 
+                    <div class="form-group">
+                      <label for="rk-user-campaign">Documento de Usuarios:</label>
+                      <input type="text" id="rk_spreadsheet_id" name="rk-user-campaign" class="rk-input form-control" 
+                      placeholder="Link del archivo de usuarios" required>
+                      <br>
+                    </div>
+                    
+                     
+                    <br>
+                    <div class="row">
+                      <br>
+                      <p class="col-md-6">
+          
+                        <button id="rkstart" type="button" class="btn btn-success">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                            <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                          </svg>
+                          Start
+                        </button>                
+                          <label id="rk-lbState"></label>        
+                          <div id="rk-LinkProcess"></div>
+                          <div id="rk-description"></div>    
+                      </p>
+                    </div>
+                                        
+                  </div> 
+                  
+                  <div class="tab-pane fade show" id="showRK" role="tabpanel" aria-labelledby="showRK-tab">
+                    
+                    <div class="form-group">
+                      <br>
+                      <table class="table tblRanking">
+                        <thead class="thead-dark">
+                          <tr> 
+                            <th scope="col">Ranking</th>
+                            <th scope="col">Link</th>
+                          </tr>
+                        </thead>
+                        <tbody>  
+                        </tbody>
+                      </table>
+                      
+                    </div> 
+                    
+                  </div> 
+                </div> 
+
+              </form>
+              <div id="ctn-pagger-rk" style="display: none;">
+                <!-- Botón para ir a la página anterior -->
+                <button id="atras-rk" class="btn-pagger">Anterior</button>
+                <!-- Información de la página actual -->
+                <span id="informacion-pagina-rk"></span>
+                <!-- Botón para ir a la página siguiente -->
+                <button id="siguiente-rk"  class="btn-pagger">Siguiente</button>
+              </div>
+            </div>                
+
+          </div>          
+          
+        </div>
         
         <div class="process rmw-">
           <div class="row">
@@ -1053,6 +1146,8 @@
     <script src="script/pagger.js?62736232564237" charset="utf-8"></script>
     <script src="script/campaign.js?62736232564237" charset="utf-8"></script>
     <script src="script/chosen.jquery.js?62736232564237" charset="utf-8"></script>
+    <!--<script src="script/paggerRanking.js?62736232564237" charset="utf-8"></script>-->
+    <script src="script/ranking.js?62736232564237" charset="utf-8"></script>
     
 
   </body>

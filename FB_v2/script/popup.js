@@ -70,6 +70,10 @@ fbstart.onclick = function(element) {
     domain = "https://www.facebook.com";
     switchBlock("process");
     urls_processed=[];
+
+    listControlsExecuted=[];
+    listControlsExecuted.push({control:"BTN-START",module:"FACEBOOK"});
+    saveLog();
     //element.target.hidden = true;
     chrome.tabs.query({active: true, currentWindow: true}, async function(tabs) {
         if(urls_list.length > 0){

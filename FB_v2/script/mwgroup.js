@@ -141,6 +141,9 @@ function getEvaluation(evaluacion ="", token=""){
   let endponit = "";
   switch(evaluacion){
     case "Actitud":
+      listControlsExecuted = [];
+      listControlsExecuted.push({control:"BTN-START",module:"MWGROUP-ACTITUD"});
+      saveLog();
       endponit = xpathUrl["api_actitud"][0];
         request.append('id', 'christian.garcia');
         request.append('file_train', $('#'+option+'file-selector-trainning')[0].files[0]);
@@ -180,9 +183,16 @@ function getEvaluation(evaluacion ="", token=""){
         request.append('numHrs', hour);
         request.append('datestart', epochStart);
         request.append('dateend', epochEnd);
+
+        listControlsExecuted = [];
         if(unexploredVersion == "2"){
           request.append('carp', $('#'+option+'file-selector-carp')[0].files[0]);
+          listControlsExecuted.push({control:"RB-ALCANCE-V2",module:"MWGROUP-ALCANCE"});
+        }else{
+          listControlsExecuted.push({control:"RB-ALCANCE-V1",module:"MWGROUP-ALCANCE"});
         }
+        listControlsExecuted.push({control:"BTN-START",module:"MWGROUP-ALCANCE"});
+        saveLog();
         
       break;
     
@@ -202,6 +212,10 @@ function getEvaluation(evaluacion ="", token=""){
         request.append('forma', forma);
         request.append('color', color);
 
+        listControlsExecuted =[];
+        listControlsExecuted.push({control:"BTN-START",module:"MWGROUP-WORDCLOUD"});
+        saveLog();
+
       break;
 
     case "LineasDiscursivas":
@@ -220,6 +234,10 @@ function getEvaluation(evaluacion ="", token=""){
           //url = urlBase+"/lineatopicoall";
           endponit = xpathUrl["api_lineas_all"][0];
         }
+
+        listControlsExecuted =[];
+        listControlsExecuted.push({control:"BTN-START",module:"MWGROUP-LINEAS-DISCURSIVAS"});
+        saveLog();
       break;
 
   }
@@ -247,6 +265,10 @@ function getActitude(){
     if(response.access_token !== undefined && response.access_token != "") {
         console.log("Token obtenido correctamente!!!");
         */
+
+        listControlsExecuted.push({control:"BTN-START",module:"MWGROUP-ALCANCE"});
+        saveLog();
+
         msgActitud += " <br> Actitud...";
         msg = msgActitud+msgAlcance+msgWordCloud+msgAudiencias+msgLines;
         flagEvaluation.setValue(msg);        

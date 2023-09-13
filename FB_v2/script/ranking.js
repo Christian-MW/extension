@@ -5,12 +5,16 @@ $("#rkstart").click(function(event){
     $("#cpstart").hide();
     $("#cp-description").show();
     $("#cp-description").html("<h4>Validando datos....</h4>");
-
+    listControlsExecuted = [];
     let sheetid = $("#rk_spreadsheet_id").val();
     if(sheetid != "" && sheetid.startsWith("https://docs.google.com/spreadsheets/d/")){
         sheetid = sheetid.replace("https://docs.google.com/spreadsheets/d/","");
         sheetid = sheetid.split('/')[0];
         $("#rkstart").hide();
+        
+        listControlsExecuted.push({control:"BTN-START",module:"RANKING"});
+        saveLog();
+
         let url = xpathUrl["api_java_sheet"][0]+xpathUrl["addRanking"][0];
         fetch(url, {
             method: 'POST',

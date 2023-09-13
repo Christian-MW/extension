@@ -198,16 +198,23 @@ let reqMeltSearch = {
 
   $("#mwsstart").click(function(event){
     let fileOK = false;
+    listControlsExecuted=[];
     if(msunexploredVersion == "2"){
-        if($('#ms-file-selector-carp')[0].files.length > 0)
+        if($('#ms-file-selector-carp')[0].files.length > 0){
             fileOK = true;
+            listControlsExecuted.push({control:"RB-ALCANCE-V2",module:"MELTWATER SEARCH"});
+        }
     }else{
         fileOK = true;
+        listControlsExecuted.push({control:"RB-ALCANCE-V1",module:"MELTWATER SEARCH"});
     }
 
     if(!fileOK){
         alert("Para la versión 2 de alcance es necesario que cargue el archivo de entrenamiento");
     }else{
+
+        listControlsExecuted.push({control:"BTN-START",module:"MELTWATER SEARCH"});
+        saveLog();
 
         let url = $("#urlSheetmws").val();
         if(url != "" && url.startsWith("https://docs.google.com/spreadsheets/d/")){

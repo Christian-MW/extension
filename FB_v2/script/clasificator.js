@@ -119,6 +119,7 @@ $("#clstart").click(function(event){
     console.log("Starting clstart");
     $(".cl-contairner-process").show();
     $("#clstart").hide();   
+    listControlsExecuted = [];
     document.getElementById(option+"lbState").innerHTML = "Clasificando";
 
     window.setTimeout(function(){
@@ -142,6 +143,7 @@ $("#clstart").click(function(event){
                     
                     let sh = themsEval[s];
                     console.log("Obteniendo el contenido de la Hoja "+ sh.desc);
+                    listControlsExecuted.push({control:"CHK-"+sh.desc.toUpperCase(),module:"CLASIFICADOR"});
                     document.getElementById(option+"LinkProcess").innerHTML = "Obteniendo  "+sh.desc;
                     let waitData = true;                
 
@@ -162,7 +164,10 @@ $("#clstart").click(function(event){
                     console.log("SE ha procesado la hoja "+sh.desc);
 
                 }
-            
+                
+                listControlsExecuted.push({control:"BTN-START",module:"CLASIFICADOR"});
+                saveLog();
+
                 document.getElementById(option+"LinkProcess").innerHTML = "Clasificando los items";
                 jsonFile = clasificador(jsonFile, themsEval,co);
 

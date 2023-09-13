@@ -4,7 +4,7 @@
   "version": "1.0",
   "manifest_version": 3,
   "permissions": [
-    "downloads","declarativeContent","storage", "activeTab", "scripting","webNavigation","webRequest","tabs","notifications" 
+    "identity","downloads","declarativeContent","storage", "activeTab", "scripting","webNavigation","webRequest","tabs","notifications" 
   ],
   "host_permissions": [
     "<all_urls>",

@@ -198,7 +198,7 @@ let reqMeltSearchrmw = {
       }
 
   $("#rmwstart").click(function(event){
-
+    listControlsExecuted=[];
     let url = $("#urlSheetrmw").val();
 	let urlPresentation = $("#urlPresentationrmw").val();
 	if(urlPresentation != "" && urlPresentation.startsWith("https://docs.google.com/presentation/d/")){
@@ -213,6 +213,8 @@ let reqMeltSearchrmw = {
 			document.getElementById(option+"description").innerHTML = "Obteniendo las búsquedas...";
 			urlApiSheet = xpathUrl["api_java_sheet"][0];
 			$("#rmwstart").hide();
+            listControlsExecuted.push({control:"BTN-START",module:"REPORTES MELTWATER"});
+            saveLog();
 			reqMeltSearchrmw.columns = xpathUrl["ms_columnsbase"].join();
 			reqMeltSearchrmw.range = xpathUrl["rm_sheetname"][0];
 			reqMeltSearchrmw.spreadsheet_id = url;

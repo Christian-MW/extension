@@ -155,16 +155,19 @@ $('#dtTr').prop('disabled', true);
 $(".tr-contairner-process").show();
 $("#trstart").hide();
 
+
 window.setTimeout(function(){
-    thems=[];
+    thems=[];    
+    listControlsExecuted=[];
     
+
     if(validateDts() && themsEval.length > 0){
         
-    
         for (var s = 0; s < themsEval.length; s++) {
             
             let sh = themsEval[s];
             console.log("Obteniendo el contenido de la Hojo "+ sh.desc);
+            listControlsExecuted.push({control:"CHK-"+sh.desc.toUpperCase(),module:"TRENDINALIA"});
             let waitData = true;                
 
             let url = urlBySheet.replace('{{sheetName}}',sh.desc);
@@ -185,8 +188,8 @@ window.setTimeout(function(){
 
         }
         console.log("themsEval ==> "+themsEval);
-        
-        
+        listControlsExecuted.push({control:"BTN-START",module:"TRENDINALIA"});
+        saveLog();
         //loadThems(data);
 
 

@@ -9,6 +9,7 @@ var csvSQLLite =[];
 mwstart.onclick = function(element) {
     // query the current tab to find its id
     console.log("Starting mwstart")
+    listControlsExecuted = [];
     //element.target.hidden = true;
     document.getElementById(option+"lbState").innerHTML = "Procesando... ";
     switchBlock("process");
@@ -17,11 +18,15 @@ mwstart.onclick = function(element) {
         const sql = document.querySelector('#mwSql');
         dateTime = new Date().toLocaleString().substring(0,16).replace(",","");
         if(sql.checked){
+            listControlsExecuted.push({control:"RB-SQL-LITE",module:"MELTWATER"});
+            listControlsExecuted.push({control:"BTN-START",module:"MELTWATER"});
+            saveLog();
             ReplaceComillaSimple();
             downloadToSQL("SQLLite_"+nameFileLoaded,csvSQLLite);  
             alert("Archivo procesado, el resultado lo puedes consultar en tus descargas. \n\n Carpeta: "+dirBase+'/'+currentDirectory+"  \n Archivo: SQLLite_"+nameFileLoaded);
         }else{
-
+            listControlsExecuted.push({control:"BTN-START",module:"MELTWATER"});
+            saveLog();
             getRows();
             deleteRT();
                         

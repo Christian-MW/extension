@@ -86,8 +86,7 @@ flagmtbs.onChange(function(v){
                     dataR.push("");
                   }else{
                     dataR.push(row[columns[key]]);
-                  }
-                    
+                  }                    
                 }
 
                 data.push(dataR);
@@ -317,12 +316,22 @@ $("#mtbsstart").click(function(event){
     console.log("Starting clstart");
     let col  = $("#columns").val();
 
+    listControlsExecuted=[];
+    
+
     if(getIsActiveMetaLink()== "local"){
+      listControlsExecuted.push({control:"LOCAL",module:"META BUSINESS"});
+      listControlsExecuted.push({control:"BTN-START",module:"META BUSINESS"});
+      saveLog();
       intMetaProcess();
     }else{
       //Consumir 
       let url = $("#urlGoogleSheet").val();
       if(url != "" && url.startsWith("https://docs.google.com/spreadsheets/d/")){
+        listControlsExecuted.push({control:"GOOGLE SHEET",module:"META BUSINESS"});
+        listControlsExecuted.push({control:"BTN-START",module:"META BUSINESS"});
+        saveLog();
+
         url = url.replace("https://docs.google.com/spreadsheets/d/","");
         url = url.split('/')[0];
         
@@ -459,13 +468,19 @@ function processPost(htmlPost){
           
           innerText = innerText.toLowerCase();
 
-          if(newRow && (jsonFile[p].POST.toLowerCase() == innerText || innerText.startsWith(jsonFile[p].POST.toLowerCase()))){              
+          console.log(jsonFile[p].POST.toLowerCase());
+          let xy = jsonFile[p].POST.toLowerCase();
+          if(xy.endsWith("\n")){ 
+            xy = xy.substring(0,xy.length-1) 
+          }
+          //if(newRow && (jsonFile[p].POST.toLowerCase() == innerText || innerText.trim().startsWith(jsonFile[p].POST.toLowerCase()))){              
+          if(newRow && (xy.toLowerCase() == innerText || innerText.trim().startsWith(xy.toLowerCase()))){              
               inRow = true;
           }
           if(inRow && datos > 0){
-              if(innerText.includes("personas alcanzadas")){
+              if(innerText.includes("cuentas alcanzadas")){
                   datos--;
-                  let v = innerText.split("personas alcanzadas")[0];
+                  let v = innerText.split("cuentas del centro")[0];
                   jsonFile[p]["ALCANCE"+datetime] = v;
                   //jsonFile[p]["ALCANCE"+datetime] = v.replace(/\D/g, "");
               }

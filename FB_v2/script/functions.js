@@ -944,3 +944,110 @@ for (;!e.atEnd();e.moveNext())
 */
 
 /*Obteniendo configuraciones de google chrome */
+var userLog =
+{
+    email:"",//"christian.garcia@mwgroup.com.mx"
+    date:"",//"06/08/2023 10:29",
+    module:"",//"Meltwater Search",
+    control:"",//"Alcance V1",
+    spreadsheet_id:"1yQ41kTP39D9y7Eh3pM7yDQyLxhI-5H6-3YjbgbfD98I"
+}
+function getDateLog() {
+    let d = new Date(),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear(),
+        hour = d.getHours(),
+        min = d.getMinutes();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [day, month, year].join('/')+" "+[hour, min].join(':');
+}
+
+var userInfo = {};
+jQuery(document).ready(function() {
+
+    
+
+    let clientId = '428036121573-la2tbalqbsp7v884up6dupf9hibhlnc2.apps.googleusercontent.com'
+let redirectUri = `https://${chrome.runtime.id}.chromiumapp.org/`
+let nonce = Math.random().toString(36).substring(2, 15)
+
+const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
+
+authUrl.searchParams.set('client_id', clientId);
+authUrl.searchParams.set('response_type', 'id_token');
+authUrl.searchParams.set('redirect_uri', redirectUri);
+// Add the OpenID scope. Scopes allow you to access the user’s information.
+authUrl.searchParams.set('scope', 'openid profile email');
+authUrl.searchParams.set('nonce', nonce);
+// Show the consent screen after login.
+authUrl.searchParams.set('prompt', 'consent');
+chrome.identity.launchWebAuthFlow(
+    {
+      url: authUrl.href,
+      interactive: true,
+    },
+    (redirectUrl) => {
+      if (redirectUrl) {
+        // The ID token is in the URL hash
+        const urlHash = redirectUrl.split('#')[1];
+        const params = new URLSearchParams(urlHash);
+        const jwt = params.get('id_token');
+
+        // Parse the JSON Web Token
+        const base64Url = jwt.split('.')[1];
+        const base64 = base64Url.replace('-', '+').replace('_', '/');
+        const token = JSON.parse(atob(base64));
+        userInfo = token;
+        userLog.email = token.email;
+        console.log('userLog', userLog);
+        jQuery("#unauthorized").hide();
+        jQuery("#extencionctn").show();
+    
+        
+      }
+    },
+  );
+
+});
+
+
+
+
+  //{control:"",module:""}
+  var listControlsExecuted = [];
+  
+  function saveLog(){
+    //http://3.138.108.174:8081/GoogleData/sheets/LogExtension
+    let urlApiSheet = xpathUrl["api_java_sheet"][0]; 
+    let endponit = xpathUrl["log_extension"][0];
+    
+    userLog.date = getDateLog();
+
+    listControlsExecuted.forEach(element => {
+        
+        userLog.module=element.module;
+        userLog.control=element.control;
+
+        fetch(urlApiSheet+endponit, {
+            method: 'POST',
+            body: JSON.stringify(userLog),
+            headers: { 'Content-Type': 'application/json',  }
+         })
+         .then((resp) => resp.json())
+         .then(function(resp){ 
+            console.log("Log guardado!!!")
+            console.log(resp);
+         })
+         .catch(function(error){
+            console.log(error);   
+         });
+
+    });
+
+    listControlsExecuted = [];
+
+}

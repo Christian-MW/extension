@@ -251,12 +251,16 @@ let reqMeltSearchmwm = {
 
   $("#mwmstart").click(function(event){
 
+    listControlsExecuted=[];
     let fileOK = false;
     if(mwmunexploredVersion == "2"){
-        if($('#mwm-file-selector-carp')[0].files.length > 0)
+        if($('#mwm-file-selector-carp')[0].files.length > 0){
             fileOK = true;
+            listControlsExecuted.push({control:"RB-ALCANCE-V2",module:"MELTWATER MEDICIONES"});
+        }
     }else{
         fileOK = true;
+        listControlsExecuted.push({control:"RB-ALCANCE-V1",module:"MELTWATER MEDICIONES"});
     }
 
     if(!fileOK){
@@ -316,7 +320,8 @@ let reqMeltSearchmwm = {
                 document.getElementById(option+"description").innerHTML = "Obteniendo las búsquedas...";
                 
                 $("#mwmstart").hide();
-    
+                listControlsExecuted.push({control:"BTN-START",module:"MELTWATER MEDICIONES"});
+                saveLog();
                 try {
         
                     document.getElementById(option+"description").innerHTML = "Búsquedas obtenidas";         

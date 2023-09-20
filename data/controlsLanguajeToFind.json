@@ -1,0 +1,62 @@
+[
+	{
+		"step": 1,
+		"name": "dc_language_show_more",
+		"tagName": "dc-language-filter",
+		"className": "hydrated",
+		"id": "",
+		"attr": "",
+		"text": "",
+		"html": "",
+		"finded": null,
+		"chil": [
+			{
+				"step": 1,
+				"name": "search_languaje",
+				"tagName": "flux-button",
+				"className": "",
+				"id": "",
+				"attr": "",
+				"text": "Show More",
+				"html": "",
+				"finded": null,
+				"chil": [],
+				"action": "click",
+				"await": 250,
+				"isLoop":true
+			}
+		],
+		"action": "",
+		"await": 0
+	},
+	{
+		"step": 2,
+		"name": "dc_language",
+		"tagName": "dc-language-filter",
+		"className": "hydrated",
+		"id": "",
+		"attr": "",
+		"text": "",
+		"html": "",
+		"finded": null,
+		"chil": [
+			{
+				"step": 1,
+				"name": "search_language",
+				"tagName": "flux-list-item",
+				"className": "",
+				"id": "",
+				"attr": "",
+				"text": "{{filter}}",
+				"html": "",
+				"finded": null,
+				"chil": [],
+				"action": "click",
+				"await": 250
+			}
+		],
+		"action": "",
+		"await": 0
+	}
+]
+

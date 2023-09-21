@@ -267,6 +267,7 @@
                     <br>
                   </div>
 
+                  <!--
                 <div id="tabActitud" class="container tab-pane">
 
                   <h3>Actitud</h3>
@@ -282,7 +283,7 @@
                   </div>
               
                 </div>
-
+              -->
                 <div id="tabAlcance" class="container tab-pane">
 
                   <h3>Alcance</h3>
@@ -321,6 +322,7 @@
                         <option value="5">Política</option>
                         <option value="6">Gobierno</option>
                         <option value="7">Negocios</option>
+                        
                       </select>
                       <br>
                     </div> 
@@ -418,32 +420,38 @@
                   </div>                    
                              
                 </div>
-
-                <div id="tabLineasDiscursivas" class="container tab-pane">
-
-                  <h3>Líneas Discursivas</h3>
+              
+                <div id="tabLineasDiscursivas" class="container tab-pane"> 
+                
+              
+                  <!-- <h3>Líneas Discursivas</h3> -->
+                  
                   <div class="col-md-12">
-                    <label>Carga el archivo de entrenamiento
-                      <input type="file" id="xp-file-selector-ld" class="xp-file form-control-file border" accept=".csv, .txt">
-                    </label>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="ldTypeProcess">Tipo de procesamiento</label>
-                    <select id="ldTypeProcess" class="form-select" aria-label="Default select example" required>
-                      <!--<option selected="selected" value="0">Lineas</option>-->
-                      <option value="1" selected>Lineas Topics All</option>
-                    </select>
-                    <br>
+                    
+                    <!-- <label>Carga el archivo de entrenamiento 
+                      <input type="file" id="xp-file-selector-ld" class="xp-file form-control-file border" accept=".csv, .txt"> 
+                    </label> -->
                   </div> 
                   
+                   <div class="form-group">
+                   
+                   <!-- <label for="ldTypeProcess">Tipo de procesamiento</label>  -->
+                   <p id="ldTypeProcess"></p> 
+                     <!-- <select id="ldTypeProcess" class="form-select" aria-label="Default select example" required>  -->
+                      <!-- <option selected="selected" value="0">Lineas</option>  -->
+                      <!-- <option value="1" selected>Lineas Topics All</option>  -->
+                    <!-- </select>  -->
+                    <!-- <br> -->
+                  </div>  
+                  
                   <div class="form-group">
-                    <label for="ldNPublications">Número de publicaciones</label>
-                    <input type="number" min="1" class="form-control" id="ldNPublications" placeholder="Número de publicaciones" name="wcwords" required> 
-                    <br>
-                  </div> 
-
-                </div>
+                    <p  id="ldNPublications"> </p>
+                    <!-- <label for="ldNPublications">Número de publicaciones</label> -->
+                    <!-- <input type="number" min="1" class="form-control" id="ldNPublications" placeholder="Número de publicaciones" name="wcwords" required> 
+                    <br> -->
+                  </div>  
+                  
+                </div> 
                 <div>
                   <br>
                   <div  style="text-align: left;">

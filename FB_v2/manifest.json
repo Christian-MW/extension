@@ -1,8 +1,8 @@
 {
   "name": "MWGroup Info",
-  "description": "Get Info",
+  "description": "Extension modulos de MWGroup",
   "version": "1.0",
-  "manifest_version": 3,
+  "manifest_version": 3, 
   "permissions": [
     "identity","downloads","declarativeContent","storage", "activeTab", "scripting","webNavigation","webRequest","tabs","notifications" 
   ],

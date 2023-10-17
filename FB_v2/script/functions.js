@@ -969,11 +969,14 @@ function getDateLog() {
 var userInfo = {};
 jQuery(document).ready(function() {
 
+    console.log("Iniciado el ready de functions");
     
 
     let clientId = '428036121573-la2tbalqbsp7v884up6dupf9hibhlnc2.apps.googleusercontent.com'
 let redirectUri = `https://${chrome.runtime.id}.chromiumapp.org/`
+
 let nonce = Math.random().toString(36).substring(2, 15)
+console.log(redirectUri);
 
 const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
 

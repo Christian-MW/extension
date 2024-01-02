@@ -201,6 +201,10 @@ input[type="checkbox"] {
    color:#b02a37 !important;
 }
 
+.badge-orange{
+   color:#f19a16 !important;
+}
+
 .contairner-extensions li.active{
   /*background-color: #d1d0d0 !important;*/
     box-shadow: 0 6px 3px -2px #004169fa !important;
@@ -352,4 +356,42 @@ div.process{
  }
  .btn-pagger{
    background-color: #e08406;
+ }
+/*Multiselect with checkboxes*/
+ .box-multiselect {
+   width: 200px;
+ }
+ 
+ .selectBox {
+   position: relative;
+ }
+ 
+ .selectBox select {
+   width: 100%;
+   font-weight: bold;
+ }
+ 
+ .overSelect {
+   position: absolute;
+   left: 0;
+   right: 0;
+   top: 0;
+   bottom: 0;
+ }
+ 
+ .rmSelectChecksBox {
+   display: none;
+   border: 1px #dadada solid;
+   max-height: 300px;
+    overflow-y: auto;
+ }
+ 
+ .rmSelectChecksBox label {
+   display: block;
+   padding: 5px 0px 10px 10px;
+   font-weight: 400 !important;
+ }
+ 
+ .rmSelectChecksBox label:hover {
+   background-color: #f19a16;
  }

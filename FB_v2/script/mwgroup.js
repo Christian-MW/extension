@@ -699,6 +699,7 @@ function clearMwgroup(){
     document.getElementById("wctype").value="";
     document.getElementById("wcStop").checked = false;
     document.getElementById("xp-file-selector-wc-stop").value="";
+    document.getElementById("xp-list-wc").value = "";
   }
   catch(error){
     console.log(error);
@@ -786,7 +787,13 @@ $(document).on(('click','change'), function(e) {
           let alc = getAlcance();
         }else if(checks[i].id=="WordCloud"){
           toProcess++;
-          let alc = getWordCloud();
+          //WORDS or TWEETS
+          if(typeWC == "WORDS"){
+            procesFileWC();
+          }else if(typeWC == "TWEETS"){
+            let alc = getWordCloud();
+          }
+          
         }else if(checks[i].id=="LineasDiscursivas"){
           toProcess++;
           let alc = getLinesDiscursive();
@@ -883,19 +890,31 @@ function validateForm(){
 
         if(checks[i].id=="WordCloud"){
           //Verifica que no haya ningun campo vacio
-          ok = isFull("xp-file-selector-wc");
+
+          ok = isFull("xp-list-wc");
           if(!ok){
             i=100;
+            
+            ok = isFull("xp-file-selector-wc");
+            if(!ok){
+              i=100;
+              break;
+            }
+
+            const ch = document.querySelector('#wcStop');
+            let stop = isFull("xp-file-selector-wc-stop");
+            if(ch.checked && !stop){
+              i=100;
+              ok=false;
+              break;
+            }
+
+          }else{
             break;
           }
 
-          const ch = document.querySelector('#wcStop');
-          let stop = isFull("xp-file-selector-wc-stop");
-          if(ch.checked && !stop){
-            i=100;
-            ok=false;
-            break;
-          }
+          
+          
         }
 
         if(checks[i].id=="LineasDiscursivas"){
@@ -934,7 +953,7 @@ function isFull(id){
   }
 }
 
-
+/*
  document.getElementById('xp-file-selector-ld').addEventListener('change', function() {
       
     var fr=new FileReader();
@@ -945,6 +964,7 @@ function isFull(id){
     }
       
 })
+*/
 
   function getObjectGroupTopicos(ar){
     //Crear el objeto con las palabras teniendo como valor el numero de repeiciones
@@ -1324,4 +1344,191 @@ $(".unexploredV").click(function(e){
     }
     getVersionUnexploredApiBase(unexploredVersion)
 
+});
+
+
+
+let dataWC = [{
+  name: 'Charriskis',
+  weight: 30
+}];
+
+function handleFileSelectWCList(e) {
+
+  var fileReader=new FileReader();
+
+   fileReader.onload=function(){
+    dataWC = [];
+    //console.log(fileReader.result);
+    const text = fileReader.result;
+    
+    let lines=text.split("\n");
+    for(let i = 0; i < lines.length; i++){
+      if(i>0){
+        let r = lines[i].split(",");
+        try{
+          if(r[1] !== undefined && r[1] > 0){
+           dataWC.push({name:r[0].replaceAll("\"",""),weight:parseInt(r[1])});  
+          }                	
+        }catch(error){
+          console.log(error);
+        }
+
+      }
+    }
+
+   }
+   
+   fileReader.readAsText(this.files[0]);
+
+};
+
+function procesFileWC(){
+  
+     Highcharts.chart('containerWordCSVG', {
+        series: [{
+            colors: ['#010101', '#010101', '#010101', '#010101', '#010101'],
+            rotation: {
+                from: 0,
+                to: 90,
+                orientations: 2
+            },
+            type: 'wordcloud',
+            data: dataWC
+        }],
+        title: {
+            text: ''
+        },
+        tooltip: {
+            enabled: false
+        },
+        subtitle: {
+            text: ''
+        },
+        accessibility: {
+          enabled: false
+        }
+    });
+     
+      let canvas = document.querySelector('#canvasWC');
+      let ctx = canvas.getContext('2d');
+      console.log(ctx);
+      ctx.canvas.width = 500;
+      ctx.canvas.height = 500;
+      ctx.fillStyle = "rgba(0, 0, 0, 0)";
+      
+
+      setTimeout(function(){
+      
+      let cred = document.getElementsByClassName("highcharts-credits")[0];
+      cred.innerHTML = "";
+      let ctnWC = document.querySelector('#containerWordCSVG');
+      let svg = ctnWC.querySelector("svg");
+      let r = svg.querySelector(".highcharts-background");
+      console.log("r");
+      console.log(r);
+      $(r)[0].style.fill="transparent";
+      $(r)[0].style.background="transparent";
+      
+
+
+      let data = (new XMLSerializer()).serializeToString(svg);
+      let DOMURL = window.URL || window.webkitURL || window;
+
+      let img = new Image();
+      console.log(" img" );
+      console.log(img);
+      
+      img.style.background = 'transparent';
+      console.log(img);
+      let svgBlob = new Blob([data], {type: 'image/svg+xml;charset=utf-8'});
+      let url = DOMURL.createObjectURL(svgBlob);
+      img.src = url;  
+      //$(img).style.background="transparent";
+      img.onload = function () {
+        ctx.drawImage(img, 0, 0);
+        DOMURL.revokeObjectURL(url);
+
+        var imgURI = canvas
+            .toDataURL('image/png')
+            .replace('image/png', 'image/octet-stream');
+
+        triggerDownloadWC(imgURI);
+        
+        ctx.canvas.width = 5;
+        ctx.canvas.height = 5;
+        ctnWC.innerHTML="";
+      };
+
+      
+
+
+      },1000);
+  
+}
+
+function triggerDownloadWC (imgURI) {
+  var evt = new MouseEvent('click', {
+    view: window,
+    bubbles: false,
+    cancelable: true
+  });
+
+  var a = document.createElement('a');
+  a.setAttribute('download', document.getElementById("namefilesave").value+'.png');
+  a.setAttribute('href', imgURI);
+  a.setAttribute('target', '_blank');
+
+  a.dispatchEvent(evt);
+
+  descriptionEvaluation = "Imagen wordcloud: "+document.getElementById("namefilesave").value.trim()+".png \nDescargada en tus descargas";
+  alert(descriptionEvaluation);
+  clearMwgroup();
+}
+//WORDS or TWEETS
+let typeWC = "WORDS";
+$(".nav-link-wc").click(function(e){ 
+  console.log(e.target.hash);
+  if(e.target.hash=="#wcTweets"){
+    typeWC = "TWEETS";
+  }
+  else if(e.target.hash=="#wcWords"){
+    typeWC = "WORDS";
+  }
+  setTypeWC();
+});
+
+function setTypeWC(){
+  if(typeWC=="TWEETS"){
+    //clear words
+    try{
+      document.getElementById("xp-list-wc").value = "";
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
+  else if(typeWC=="WORDS"){
+    //clear tweets
+    try{
+      //Limpiar campos del wordcloud
+      document.getElementById("xp-file-selector-wc").value="";    
+      document.getElementById("wcwords").value="0";
+      document.getElementById("wcform").value="";
+      document.getElementById("wctype").value="";
+      document.getElementById("wcStop").checked = false;
+      document.getElementById("xp-file-selector-wc-stop").value="";
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
+  else{
+    //clear all wc
+  }
+
+}
+
+jQuery(document).ready(function() {
+  document.getElementById('xp-list-wc').addEventListener('change', handleFileSelectWCList, false);
 });

@@ -34,6 +34,7 @@ var tags =[];
 
 var DataCampaign =[]
 var DataRanking = []
+var dataApisMelt={tokenAuthMelt:"",mw_api_search:"",mw_api_grapql:"",mw_api_runes:"",mw_api_users:"",XClientName:""}
 
 function clasificador(urlsTrProcess, themsEval, column){
     try{

@@ -8,6 +8,8 @@ setTimeout(function (){
 	var div_post_principal = "";
 	var likes = "";
 	var span_likes = "";
+	var div_text_post = "";
+	var div_text_post_sub = "";
 	var likes_video = "";
 	var commentsXpath = "";
 	var sharedXpath = "";
@@ -33,11 +35,18 @@ setTimeout(function (){
 	console.log("Iniciando el script.....");
 
 	//console.log(target);
+	let tt = document.title.replace(/,/g,"").replace(" | Facebook","").split('+)');
 
+	if(tt.length > 1){
+		tt = tt[1];
+	}else{
+		tt = tt[1];
+	}
 	var post =
 		{ 
-			PostName: document.title.replace(/,/g,""), 
+			PostName: tt, 
 			url:'', 
+			post:"",
 			date:"", 
 			likes: 'N/A',
 			comments:'N/A',
@@ -134,6 +143,8 @@ setTimeout(function (){
 			position_shared_icon = xpaths[10].items;
 			div_reactions_container = xpaths[11].items;
 			container_video = xpaths[12].items;
+			div_text_post = xpaths[13].items;
+			div_text_post_sub= xpaths[14].items;
 
 			
 
@@ -142,6 +153,10 @@ setTimeout(function (){
 			console.log("###=> likes " + likes);
 			console.log("###=> span_likes " + span_likes);
 			console.log("###=> likes_video " + likes_video);
+			console.log("###=> Title post " + div_text_post);
+			console.log("###=> Subtitle post " + div_text_post_sub);
+			
+			
 
 			/*for (var t = 0; t < xpaths.length; t++) {
 				let elementXpathFace = xpaths[t];
@@ -386,14 +401,14 @@ setTimeout(function (){
 			}
 		}
 
-		if(post.likes.includes('compartid')
+		if((post.likes.includes('compartid')
 		|| post.likes.includes('comentario')
 		|| post.likes.includes('visualizaci')
 		|| post.likes.includes('reproducc')
 		|| post.likes.includes(' d')
 		|| post.likes.includes(' h')
 		|| post.likes.includes(':')
-		|| post.likes.includes('.')){
+		|| post.likes.includes('.'))&& !post.likes.includes("mil")){
 			post.likes="0";
 		}
 
@@ -534,7 +549,23 @@ setTimeout(function (){
 				}
 			}
 		}
+
+		//################################Extraccion del texto#####################
 		
+		let divTextPost = (reactionContainer != null)?reactionContainer.querySelectorAll(div_text_post):element.querySelectorAll(div_text_post);
+		if(divTextPost.length > 0){
+			if(divTextPost != null && divTextPost!== undefined){
+				post.post = divTextPost[0].textContent;
+			}
+		}
+		
+		//subtitle
+		divTextPost = (reactionContainer != null)?reactionContainer.querySelectorAll(div_text_post_sub):element.querySelectorAll(div_text_post_sub);
+		if(divTextPost.length > 0){
+			if(divTextPost != null && divTextPost!== undefined){
+				post.post += divTextPost[0].textContent;
+			}
+		}
 		console.log("Resultados:" + JSON.stringify(post));
 	}
 

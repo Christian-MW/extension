@@ -890,11 +890,7 @@ function validateForm(){
 
         if(checks[i].id=="WordCloud"){
           //Verifica que no haya ningun campo vacio
-
-          ok = isFull("xp-list-wc");
-          if(!ok){
-            i=100;
-            
+          if( typeWC == "TWEETS"){
             ok = isFull("xp-file-selector-wc");
             if(!ok){
               i=100;
@@ -910,10 +906,12 @@ function validateForm(){
             }
 
           }else{
-            break;
+            ok = isFull("xp-list-wc");
+            if(!ok){
+              i=100;
+              break;
+            }
           }
-
-          
           
         }
 

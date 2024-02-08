@@ -380,6 +380,17 @@ function download(){
 
     chrome.downloads.download({ url: objectURL, filename: (dirBase+'/'+currentDirectory+'/' + nameFileLoaded), conflictAction: 'overwrite' });
     document.getElementById(option+"description").innerHTML="";
+    
+}
+
+function downloadTab(){
+    
+    var rows = urls_processed.map(e => e.join("\t")).join("\n");
+    let blob = new Blob([rows], {type: "data:text/tab-separated-values;charset=utf-8"});
+    let objectURL = URL.createObjectURL(blob);
+
+    chrome.downloads.download({ url: objectURL, filename: (dirBase+'/'+currentDirectory+'/' + nameFileLoaded), conflictAction: 'overwrite' });
+    document.getElementById(option+"description").innerHTML="";
 }
 
 function downloadToSQL(nameParent,content){
@@ -543,6 +554,7 @@ function restart(){
     //var flag = 0;
     flag.setValue(2);
     //document.getElementById(option.replace("-","")+"start").style.display = "none";
+    $("#AddAlcanceMTB")[0].checked = false;
     try{
         document.getElementById(option+"description").innerHTML="";
         document.getElementById(option+"file-selector").value = "";

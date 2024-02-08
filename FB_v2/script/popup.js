@@ -8,6 +8,7 @@ var pos = -1;
 var currentUrl = "";
 var minutesInSeg = 20;
 var seg = -1; 
+let includeAlcanceMTB = false;
 
 
 //var flag = 0;
@@ -37,7 +38,16 @@ flag.onChange(function(v){
                             goToPage(urls_list[pos], pos+1, tabs[0].id);    
                         }else{
                             console.log("La url no pertenece al dominio solicitado "+domain);
-                            var row =["", urls_list[pos], dateTime, "N/A", "N/A", "N/A", "N/A","Dominio no permitido"];
+                            //var row =["", urls_list[pos], dateTime, "N/A", "N/A", "N/A", "N/A","Dominio no permitido"];
+                            var row =[];
+                            if(includeAlcanceMTB){
+                                let comm = urls_list[pos].split('facebook.com/')[1].split('/');
+                                row =["LINK\tPOST\tCOMUNIDAD"];
+                                ["\t"+urls_list[pos]+"\t\t"+comm[0]+"\t"+ dateTime+"\t"+  "N/A\tN/A\tN/A\tN/A\tDominio no permitido"];
+                            }else{
+                                row =["\t"+urls_list[pos]+"\t"+ dateTime+"\t"+  "N/A\tN/A\tN/A\tN/A\tDominio no permitido"];
+                            }
+                            
                             urls_processed.push(row);
                             flag.setValue(0);
                         }
@@ -48,12 +58,27 @@ flag.onChange(function(v){
                 });
 
             }else{
-                clearTimeout(myTimeout);  
-                document.getElementById(option+"lbState").innerHTML = "";
-                document.getElementById(option+"LinkProcess").innerHTML = "";
-                download(nameFileLoaded,urls_processed);
-                alert("Se han procesado los links cargados, el resultado lo puedes consultar en tus descargas. \n\n Carpeta: "+dirBase+'/'+currentDirectory+"  \n Archivo: "+nameFileLoaded);
-                restart();
+                if(includeAlcanceMTB){
+                    console.log("Llamando a intMetaProcess();");
+                    jsonFile=[];
+                    let names = 0;
+                    urls_processed.forEach(element => {
+                        if(names > 0){
+                            let r = element[0].split("\t");
+                            jsonFile.push({LINK:r[0],POST:r[1],COMUNIDAD:r[2]});
+                        }
+                        names++;
+                    });
+                    //jsonFile = var rows = urls_processed.map(e => e.join(",")).join("\n");
+                    intMetaProcess();
+                }else{
+                    clearTimeout(myTimeout);  
+                    document.getElementById(option+"lbState").innerHTML = "";
+                    document.getElementById(option+"LinkProcess").innerHTML = "";
+                    downloadTab(nameFileLoaded,urls_processed);
+                    alert("Se han procesado los links cargados, el resultado lo puedes consultar en tus descargas. \n\n Carpeta: "+dirBase+'/'+currentDirectory+"  \n Archivo: "+nameFileLoaded);
+                    restart();
+                }
             }
          }else if(v==1){
             console.log("Se esta procesando el link....");                
@@ -68,6 +93,9 @@ fbstart.onclick = function(element) {
     // query the current tab to find its id
     console.log("Starting....")
     domain = "https://www.facebook.com";
+    let alcance = $(".ch-fb-alcance-mtb-check");
+    includeAlcanceMTB = alcance[0].checked;
+    console.log(alcance[0].checked);
     switchBlock("process");
     urls_processed=[];
 
@@ -80,7 +108,13 @@ fbstart.onclick = function(element) {
             dateTime = new Date().toLocaleString().substring(0,16).replace(",","");
 
             console.log("Agregando los encabezados!!!");
-            var row =["PostName", "url", "date", "likes", "comments", "shared", "reproductions", "datails"];
+            var row ="";
+            if(includeAlcanceMTB){
+                row =["Link\tpost\tcomunidad"];
+            }else{
+                row =["PostName\turl\tdate\tlikes\tcomments\tshared\treproductions\tdatails"];
+            }
+            
             urls_processed.push(row);
             flag.setValue(0);
             
@@ -158,7 +192,15 @@ async function goToPage(url, url_index, tab_id) {
 
                     try{
                         console.log("Agregando fila");
-                        var row =[json_data.PostName, json_data.url, json_data.date, json_data.likes, json_data.comments, json_data.shared,json_data.reproductions,json_data.details];
+                        //var row =[];
+                        var row ="";
+                        if(includeAlcanceMTB){
+                            let comm = urls_list[pos].split('facebook.com/')[1].split('/');
+                            row =[json_data.url+"\t"+json_data.post+"\t"+comm[0]];
+                        }else{
+                            row =[json_data.PostName+"\t"+json_data.url+"\t"+json_data.date+"\t"+json_data.likes+"\t"+ json_data.comments+"\t"+ json_data.shared+"\t"+json_data.reproductions+"\t"+json_data.details];
+                        }
+                        
                         urls_processed.push(row);
                     }catch(err){
                         console.log(err);

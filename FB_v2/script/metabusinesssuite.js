@@ -68,7 +68,13 @@ flagmtbs.onChange(function(v){
               columns = xpathUrl["columnsbase"].concat(colP);
 
             }else{              
-              columns =["LINK","POST","COMUNIDAD","ALCANCE","INTERACCIONES","REACCIONES","COMENTARIOS","COMPARTIDOS"];
+              //esta variable viene de el modulo de FB popup.js
+              if(includeAlcanceMTB){
+                columns =["LINK","POST","COMUNIDAD","ALCANCE","REACCIONES","COMENTARIOS","COMPARTIDOS"];  
+              }else{
+                columns =["LINK","POST","COMUNIDAD","ALCANCE","INTERACCIONES","REACCIONES","COMENTARIOS","COMPARTIDOS"];
+              }
+              
             }
 
             let data =[];  
@@ -403,6 +409,7 @@ $("#mtbsstart").click(function(event){
 });
 
 function intMetaProcess(){
+  pos = -1;
   if(jsonFile.length > 0){  
     getCommunity();
     $(".mtbs-contairner-process").show();
@@ -412,14 +419,34 @@ function intMetaProcess(){
 }
 
 function getCommunity(){
-  jsonFile.forEach(element => {
-      const found = communities.find(f => f == element.COMUNIDAD);
-      if(found === undefined){
-          communities.push(element.COMUNIDAD);
-      }else{
-          console.log("Y existe la comunidad");
-      }
-  });
+  if(jsonFile.length>0){
+    if(jsonFile[0].COMUNIDAD === undefined){
+      //No existe la comunidad hay que crearlo
+      let i = 0;
+      jsonFile.forEach(element => {
+        let c = element.LINK.replace("https://www.facebook.com/","").split('/')[0];
+        jsonFile[i].COMUNIDAD = c;
+          const found = communities.find(f => f == c);
+          if(found === undefined){
+              communities.push(element.LINK);
+          }else{
+              console.log("Y existe la comunidad");
+          }
+          i++;
+      });
+    }else{
+      jsonFile.forEach(element => {
+        
+          const found = communities.find(f => f == element.COMUNIDAD);
+          if(found === undefined){
+              communities.push(element.COMUNIDAD);
+          }else{
+              console.log("Y existe la comunidad");
+          }
+      });
+    }
+  }
+  
 }
 
 function processPost(htmlPost){
@@ -478,9 +505,10 @@ function processPost(htmlPost){
               inRow = true;
           }
           if(inRow && datos > 0){
-              if(innerText.includes("cuentas alcanzadas")){
+              //if(innerText.includes("cuentas alcanzadas")){
+                if(innerText.includes("alcanceel valor de esta")){
                   datos--;
-                  let v = innerText.split("cuentas del centro")[0];
+                  let v = innerText.split("alcance")[0];
                   jsonFile[p]["ALCANCE"+datetime] = v;
                   //jsonFile[p]["ALCANCE"+datetime] = v.replace(/\D/g, "");
               }
@@ -601,6 +629,14 @@ function clearMtbs(){
   }
 
   switchBlock("extencion");
+
+  if(includeAlcanceMTB){
+    clearTimeout(myTimeout);  
+    document.getElementById(option+"lbState").innerHTML = "";
+    document.getElementById(option+"LinkProcess").innerHTML = "";
+    restart();
+    switchBlock("action");
+  }
   
 }
 

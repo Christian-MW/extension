@@ -13,6 +13,27 @@ body {
 	
 	
 }
+.tape-header{
+   background-color: #004169;
+   font-weight: bolder;
+   padding-bottom: 12px;
+   padding-top: 5px;
+   padding-right: 20px;
+   padding-left: 20px;
+   color: white;
+   height: 42px;
+}
+
+.tape-header #welcome{
+   float: left;
+   display: flex;
+}
+
+.tape-header img{
+   float: right;
+   display: flex;
+}
+
 .footer{
    background-color: #004169;
    text-align: center; 
@@ -394,4 +415,9 @@ div.process{
  
  .rmSelectChecksBox label:hover {
    background-color: #f19a16;
+ }
+
+ .picture-user{
+   width: 30px;
+   border-radius: 50%;
  }

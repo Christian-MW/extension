@@ -1,5 +1,9 @@
 'use strict';
 console.log("Cargando archivo functions");
+var modules = [];
+var users = [];
+var userDVD = [];
+var versionExtension = 2.0002;
 var pathname ="";
 var option="";
 var domain ="https://";
@@ -745,7 +749,7 @@ function init(){
 */
 
 loadSheet("API");
-
+loadSheet("Configuracion");
 function loadSheet(sheetN){
     let urlSheetBase = urlComunidades;
     if(sheetN == "Comunidades"){
@@ -757,9 +761,9 @@ function loadSheet(sheetN){
         type: 'GET',
         url: urlSheetBase.replace("{{sheetN}}",sheetN),
         success: function(data) {
-          console.log("loadSheet: ")
+          console.log("loadSheet: "+sheetN)
           getDataSheet(JSON.parse(data.substr(47).slice(0,-2)));
-          urlBase = xpathUrl["api_unexplored"][0];
+          //urlBase = xpathUrl["api_unexplored"][0];
         }
    });
   }
@@ -980,9 +984,7 @@ function getDateLog() {
 }
 
 var userInfo = {};
-jQuery(document).ready(function() {
-
-    
+jQuery(document).ready(function() {    
 
     let clientId = '428036121573-la2tbalqbsp7v884up6dupf9hibhlnc2.apps.googleusercontent.com'
 let redirectUri = `https://${chrome.runtime.id}.chromiumapp.org/`
@@ -992,9 +994,10 @@ const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
 
 authUrl.searchParams.set('client_id', clientId);
 authUrl.searchParams.set('response_type', 'id_token');
+//authUrl.searchParams.set('response_type', 'id_token');
 authUrl.searchParams.set('redirect_uri', redirectUri);
 // Add the OpenID scope. Scopes allow you to access the user’s information.
-authUrl.searchParams.set('scope', 'openid profile email');
+authUrl.searchParams.set('scope', 'openid profile email','https://www.googleapis.com/auth/cloud-platform','https://www.googleapis.com/auth/gmail.modify');
 authUrl.searchParams.set('nonce', nonce);
 // Show the consent screen after login.
 authUrl.searchParams.set('prompt', 'consent');
@@ -1015,10 +1018,32 @@ chrome.identity.launchWebAuthFlow(
         const base64 = base64Url.replace('-', '+').replace('_', '/');
         const token = JSON.parse(atob(base64));
         userInfo = token;
+        userInfo["id_token"] = jwt;
         userLog.email = token.email;
+
         console.log('userLog', userLog);
-        jQuery("#unauthorized").hide();
-        jQuery("#extencionctn").show();
+        
+
+        let vRegister = parseFloat(xpathUrl["version_extension"][0]);
+        console.log("vRegister: "+ vRegister)
+        if(versionExtension<vRegister){
+            jQuery("#updateVersion").show();
+        }else{
+
+            jQuery("#unauthorized").hide();
+            jQuery("#extencionctn").show();
+
+            let u = users.filter((u) => u["Correo"]==userInfo.email);
+            
+            document.getElementById("welcome").innerHTML="Bienvenido "+u[0].Usuario;
+            document.getElementById("picture-user").src=userInfo.picture;
+            
+            
+            console.log("Asignando los modulos a userInfo");
+            console.log(u);
+            userInfo["modules"] = u[0].Modulos;
+            serveModules();
+        }
     
         
       }
@@ -1064,3 +1089,141 @@ chrome.identity.launchWebAuthFlow(
     listControlsExecuted = [];
 
 }
+
+let activateSubmodules=[];
+function serveModules(){
+    
+    //activar submodulos
+    activateSubmodules=[];
+    processSubmodules();
+
+    //activar modulos completos
+    processModules();
+
+  }
+
+function processModules(){
+    let activateModules = [];
+    let myModules = userInfo.modules.split(",");    
+    let htmlModules = document.querySelectorAll('*[module]');
+    
+    for (let index = 0; index < myModules.length; index++) {
+        let mdl = myModules[index].split("-")[0];
+        
+        //* es que tiene acceso a todos los modulos
+        htmlModules.forEach(h=>{
+            //E,A,C,T
+            let codeModuleHtml = h.attributes["module"].value;
+            let modulebase = modules.filter((f)=> f.code_module==codeModuleHtml);
+            if(modulebase.length > 0){
+                //se activa o desactiva segun DB
+                let isActive = modulebase.filter((f)=> f.status.toLowerCase()=="activo");
+                if(isActive.length > 0){
+                    //al menos hay un submodulo activo
+                    if(mdl == "*" || mdl == codeModuleHtml){
+                        activateModules.push(codeModuleHtml);
+                    }else{
+                        jQuery('[module='+codeModuleHtml+']').hide();
+                    }
+                }else{
+                    //no hay ningun submodulo activo se desactiva el modulo por completo
+                    jQuery('[module='+codeModuleHtml+']').hide();
+                }
+                
+            }else{
+                //Si no esta en la db se deja desactivado
+                //Esto aplica para modulos nuevos en codigo sin estar registrados en la DB
+                jQuery('[module='+codeModuleHtml+']').hide();
+            }
+        });
+        if(mdl == "*"){
+        break;
+        }        
+    }
+    htmlModules.forEach(h=>{
+        try {
+            jQuery('[module='+ h.attributes["module"].value+']').hide();    
+        } catch (error) {
+            
+        }
+    });
+
+    activateModules.forEach(a =>{
+        try {
+            let existesubmodule = activateSubmodules.filter(s=>(s.startsWith(a+"-")||s==a));
+            if(existesubmodule.length > 0)
+                jQuery('[module='+a+']').show();    
+        } catch (error) {
+            
+        }
+        
+    })
+}
+
+function processSubmodules(){
+    let myModules = userInfo.modules.split(",");    
+    let htmlModules = document.querySelectorAll('*[submodule]');    
+    for (let index = 0; index < myModules.length; index++) {
+        let mdl = myModules[index];
+        let allSubmodulesByModule = !mdl.includes("-");
+        
+        let asigned = false;
+        //* es que tiene acceso a todos los modulos
+        htmlModules.forEach(h=>{
+            if(!asigned){
+            
+                //E,A,C,T
+                let codeModuleHtml = h.attributes["submodule"].value;
+                
+                let submodulebase = modules.filter((f)=> ((f.code_module+"-"+f.code_submodule)==mdl));
+                if(allSubmodulesByModule){
+                    //INDICA QUE PUEDE SER UN *=>TODO O UN MODULO EJEMPLO E => EXTRACCION
+                    submodulebase = modules.filter((f)=> (f.code_module==mdl || mdl=="*"));
+                    submodulebase.forEach(sb =>{
+                        
+                        if(sb.status.toLowerCase()=="activo"){
+                            activateSubmodules.push(sb.code_module+"-"+sb.code_submodule);
+                        }else{
+                            try {
+                                jQuery('[submodule='+sb.code_module+"-"+sb.code_submodule+']').hide();
+                            } catch (error) {
+                                
+                            }
+                        }
+                    })
+                    asigned = true;
+                }else{
+                    try {
+                        jQuery('[submodule='+codeModuleHtml+']').hide();
+                        jQuery('[submodule='+mdl+']').hide();
+                    } catch (error) {
+                        
+                    }
+                    //modulos unicos
+                    let isActive = submodulebase.filter((f)=> f.status.toLowerCase()=="activo");
+                    if(isActive.length>0){
+                        activateSubmodules.push(mdl);
+                    }
+                    asigned = true;
+                }
+            }
+        });       
+    }
+    htmlModules.forEach(h=>{
+        try {
+            jQuery('[submodule='+ h.attributes["submodule"].value+']').hide();    
+        } catch (error) {
+            
+        }
+    });
+    activateSubmodules.forEach(a =>{
+        try {
+            jQuery('[submodule='+a+']').show();    
+        } catch (error) {
+            
+        }
+        
+    });
+}
+
+

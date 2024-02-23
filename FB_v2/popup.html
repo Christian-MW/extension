@@ -1,1343 +1,1256 @@
 <!DOCTYPE html>
 <html>
-  <head>    
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <link rel="stylesheet" href="style/styles.css?62736232564237">   
-    <!-- CSS only -->
-    <link rel="stylesheet" href="style/bootstrap.css?62736232564237">
-    <link rel="stylesheet" href="style/bootstrap-icons.css?62736232564237">
-    <link rel="stylesheet" href="style/chosen.css?62736232564237">
-
-  </head>
-  <body>
-    <div id="unauthorized" style="text-align:center; color:#2f3650;">
-      <p style="font-size:-webkit-xxx-large; font-weight: bolder;">403</p>
-      <p style="font-size:-webkit-xxx-large; font-weight: bolder;">Acceso Prohibido</p>
-    </div>
-    <div id="extencionctn" style="display: none;">
-    <div> 
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" >
-          <a class="nav-link active" id="extract-tab" data-toggle="tab" href="#extract" role="tab" aria-controls="extract" aria-selected="true">Extracción</a>
-        </li>
-        
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="transform-tab" data-toggle="tab" href="#transform" role="tab" aria-controls="transform" aria-selected="false">Transformación</a>
-        </li>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <link rel="stylesheet" href="style/styles.css?62736232564237">
+      <!-- CSS only -->
+      <link rel="stylesheet" href="style/bootstrap.css?62736232564237">
+      <link rel="stylesheet" href="style/bootstrap-icons.css?62736232564237">
+      <link rel="stylesheet" href="style/chosen.css?62736232564237">
+      <title>MWGroup</title>
       
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="carga-tab" data-toggle="tab" href="#carga" role="tab" 
-          aria-controls="carga" aria-selected="false">Carga</a>
-        </li>
-      </ul>
-
-      <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="extract" role="tabpanel" aria-labelledby="extract-tab">
-          <div class="container contairner-extensions">
-            <div class="col-md-12">
-              <br/>
-              <ul class="list-inline">
-                <li class="list-inline-item" id="fb-" >
-                  <img style="border-radius: 50%; width: 30px; height:30px; " src="images/facebook.png" /> 
-                  Facebook 
-                </li>    
-                <!--
-                <li class="list-inline-item" id="tr-">
-                  <img style="border-radius: 50%; width: 30px; height:30px; " src="images/trendinalia.jpg" /> 
-                  Trendinalia 
-                </li>        
-              -->         
-                <li class="list-inline-item" id="mtbs-">
-                  <img style="border-radius: 50%; width: 30px; height:30px; " src="images/meta business.png" /> 
-                  Meta Business
-                </li>      
-                <li class="list-inline-item" id="mws-">
-                  <img style="border-radius: 50%; width: 30px; height:30px; " src="images/meltwater.png" /> 
-                  Meltwater Search
-                </li>       
-                <li class="list-inline-item" id="mwm-">
-                  <img style="border-radius: 50%; width: 30px; height:30px; " src="images/medicion.jpg" /> 
-                  Meltwater Mediciones
-                </li> 
-              </ul> 
-            </div>
-          </div>
-        </div>
-        <div class="tab-pane fade" id="transform" role="tabpanel" aria-labelledby="transform-tab">
-          <div class="container contairner-extensions">
-            <div class="col-md-12">
-              <br/>
-              <ul class="list-inline">
-               <!--
-                <li class="list-inline-item" id="mw-">
-                  <img style="border-radius: 50%; width: 30px; height:30px; " src="images/meltwater.png" /> 
-                  Meltwater 
-                </li>
-              -->
-                <li class="list-inline-item" id="rmw-">
-                  <img style="border-radius: 50%; width: 30px; height:30px; " src="images/ReporteMeltwater.png" /> 
-                  Reportes Meltwater 
-                </li>
-              </ul> 
-            </div>
-          </div>          
-        </div>
-        <div class="tab-pane fade" id="carga" role="tabpanel" aria-labelledby="carga-tab">
-          <div class="container contairner-extensions">
-            <div class="col-md-12">
-              <br/>
-              <ul class="list-inline">
-                <li class="list-inline-item" id="xp-">
-                  <img style="border-radius: 50%; width: 30px; height:30px; " src="images/mwgroup.png" /> 
-                  MWGroup 
-                </li>
-                <!--
-                <li class="list-inline-item" id="cl-">
-                  <img style="border-radius: 50%; width: 30px; height:30px; " src="images/clasificator.png" /> 
-                  Clasificador 
-                </li>       
-              -->         
-                <li class="list-inline-item" id="cp-">
-                  <img style="border-radius: 50%; width: 30px; height:30px; " src="images/campaña.png" /> 
-                  Campañas 
-                </li>               
-                <li class="list-inline-item" id="rk-">
-                  <img style="border-radius: 50%; width: 30px; height:30px; " src="images/ranking.png" /> 
-                  Ranking 
-                </li>
-              </ul> 
-            </div>
-          </div>
-        </div>
+   </head>
+   <body>
+      <div id="unauthorized" style="text-align:center; color:#2f3650;">
+         <p style="font-size:-webkit-xxx-large; font-weight: bolder;">403</p>
+         <p style="font-size:-webkit-xxx-large; font-weight: bolder;">Acceso Prohibido</p>
+         <p id="updateVersion" style="color:#383c4a; font-size: medium;font-weight: bolder; display:none;">Es necesario que actualices tu extensión dando click <a href="http://3.138.108.174/extensiones/extension-mw.zip" target="_blank">Aquí</a> para poder continuar</p>
       </div>
-      <br/>
-      <hr>
-    </div>
-
-      <div class="container">
-
-        <div class="process fb-">
-          <div class="row">
-            <div class="col-md-12">
-              <h2 style="color: #385395;">Facebook</h2>
-              <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.f0xyj1r32nzr"
-               target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
-               <br>
-              <input type="file" id="fb-file-selector" class="form-control-file border" accept=".csv">
-              <br><br>
-              
-              <div class="">
-                <label for="AddAlcanceMTB" class="btn btn-black">
-                  Agregar alcance de metabussines
-                  <input type="checkbox" id="AddAlcanceMTB" class="badgebox ch-fb-alcance-mtb-check" ><span class="fb-alcance-mtb-check badge badge-check  badge-black">&check;</span>
-                </label>
-              </div>
-            </div>
-          </div>          
-
-          <div class="row fb-contairner-actions">
-            <br>
-            <p class="col-md-6 btn-group">
-
-              <button id="fbstart" type="button" class="btn btn-success">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                  <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
-                </svg>
-                Start
-              </button>
- 
-              <button id="fbcancel" type="button" class="btn btn-warning">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
-                </svg>
-                Cancel
-              </button>
-
-            </p>
-          </div>
-
-          <div class="row process fb-contairner-process">
-            <br>
-            <div class="col-md-12">
-
-              <label id="fb-lbState"></label>        
-              <div id="fb-LinkProcess"></div>
-              <br>
-              <div id="fb-description"></div>       
-            </div>
-          </div>
-        </div>
-
-        <div class="process mw-">
-
-          <div class="row">
-            <h2 style="color: #18b9bb;">Meltwater</h2>            
-            <br>
-            <div class="col-md-12">
-              <input type="file" id="mw-file-selector" class="form-control-file border" accept=".csv">
-            </div>
-            <div class="form-check">
-              <label for="mwSql" class="btn btn-black">
-                Archivo para SQL Lite
-                <input type="checkbox" id="mwSql" class="badgebox" ><span class="xp-evaluation-check badge badge-check  badge-black">&check;</span>
-              </label>
-            </div>
-          </div>
-
-          <div class="row mw-contairner-actions">
-            <br>
-            <p class="col-md-6 btn-group">
-
-              <button id="mwstart" type="button" class="btn btn-success">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                  <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
-                </svg>
-                Start
-              </button>
- 
-              <button id="mwcancel" type="button" class="btn btn-warning">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
-                </svg>
-                Cancel
-              </button>
-
-            </p>
-          </div>
-
-          <div class="row process mw-contairner-process">
-            <br>
-            <div class="col-md-12">
-
-              <label id="mw-lbState"></label>        
-              <div id="mw-LinkProcess"></div>
-              <br>
-              <div id="mw-description"></div>       
-            </div>
-          </div>
-        </div>
-
-        <div class="process xp-">
-          <h2 style="color: #004169;">MWGroup</h2>
-          <div>
-            <h5>¿Con qué versión de deseas trabajar?</h5>
-            <div class="form-group">
-
-              <label class="container-radio">Versión 1
-                <input type="radio" checked="checked" class="unexploredV" name="unexploredV" value="1">
-                <span class="checkmark"></span>
-              </label>&nbsp;&nbsp;&nbsp;
-              <label class="container-radio">Versión 2
-                <input type="radio" class="unexploredV" name="unexploredV" value="2">
-                <span class="checkmark"></span>
-              </label>
-            </div> 
-
-            <br>
-            <h3>Selecciona que evaluaci&oacute;n deseas hacer</h3>
-            <!--
-            <label id="lb-act-chkUnexplor" for="Actitud" class="btn btn-success" style="margin-top: 10px; ">
-              Actitud 
-              <input type="checkbox" id="Actitud" class="badgebox"><span class="xp-evaluation-check badge badge-check badge-succes">&check;</span>
-            </label>
-          -->
-            <label id="lb-alc-chkUnexplor" for="Alcance" class="btn btn-danger" style="margin-top: 10px; ">
-              Alcance 
-              <input type="checkbox" id="Alcance" class="badgebox" ><span class="xp-evaluation-check badge badge-check  badge-danger">&check;</span>
-            </label>
-
-            <label id="lb-wor-chkUnexplor" for="WordCloud" class="btn btn-black" style="margin-top: 10px; ">
-              WordCloud 
-              <input type="checkbox" id="WordCloud" class="badgebox"><span class="xp-evaluation-check badge badge-check  badge-black">&check;</span>
-            </label>
-
-            <label id="lb-aud-chkUnexplor" for="Audiencias" class="btn btn-purple"  style="margin-top: 10px; display:none;">
-              Audiencias 
-              <input type="checkbox" id="Audiencias" class="badgebox"><span class="xp-evaluation-check badge badge-check  badge-purple">&check;</span>
-            </label>
-            <!--
-            <label id="lb-lin-chkUnexplor" for="LineasDiscursivas" class="btn btn-warning" style="margin-top: 10px; ">
-              Líneas Discursivas 
-              <input type="checkbox" id="LineasDiscursivas" class="badgebox"><span class="xp-evaluation-check badge badge-check badge-warning">&check;</span>
-            </label>
-          -->
-          </div>
-
-          <div class="row xp-evaluation-action">
-            <div class="tab-content">
-              <form id="formEvaluation" class="was-validated form-inline">
-
-                  <div class="form-group namefilesave">
-                    <label for="namefilesave">Ingresa el nombre para tu archivo único a descargar:</label>
-                    <input type="text" class="form-control" id="namefilesave" placeholder="Nombre del archivo de descarga" name="namefilesave" title="Este archivo sera un concentrado de todos las evaluaciones que se realizen." required> 
-                    <br>
-                  </div>
-
-                  <!--
-                <div id="tabActitud" class="container tab-pane">
-
-                  <h3>Actitud</h3>
-                  <div class="col-md-12">
-                    <label>Carga el archivo de entrenamiento
-                      <input type="file" id="xp-file-selector-trainning" class="xp-file form-control-file border" accept=".csv">
-                    </label>
-                  </div>
-                  <div class="col-md-12">              
-                    <label>Carga el archivo de clasificación
-                      <input type="file" id="xp-file-selector-clasification" class="xp-file form-control-file border" accept=".csv">
-                    </label>
-                  </div>
-              
-                </div>
-              -->
-                <div id="tabAlcance" class="container tab-pane">
-
-                  <h3>Alcance</h3>
-
-                    <div class="form-group">
-                      <label for="impresion">Impresiones:</label>
-                      <input type="number" class="form-control" id="impresion" placeholder="Número de impresiones" name="impresion" required> 
-                      <br>
-                    </div>
-                    <div class="form-group">
-                      <label for="publication">Publicaciones:</label>
-                      <input type="number" class="form-control" id="publication" placeholder="Número de publicaciones" name="publication" required> 
-                      <br>
-                    </div>                  
-                    <div class="form-group">
-                      <label for="user">Usuarios:</label>
-                      <input type="number" class="form-control" id="user" placeholder="Número de usuarios" name="user" required> 
-                      <br>
-                    </div>
-                    <div class="form-group">
-                      <label for="hour">Horas:</label>
-                      <select id="hour" name="hour" class="form-select" aria-label="Default select example" required>
-                        <option value="">--Seleccione--</option>
-                      </select>
-                      <br>
-                    </div> 
-                    <div class="form-group">
-                      <label for="category">Categoría</label>
-                      <select id="category" name="category" class="form-select" aria-label="Default select example" required>
-                        <option value="">--Seleccione--</option>
-                        <option value="0">Accidentes</option>
-                        <option value="1">Desastres naturales</option>
-                        <option value="2">Viral</option>
-                        <option value="3">Entretenimiento</option>
-                        <option value="4">Deportes</option>
-                        <option value="5">Política</option>
-                        <option value="6">Gobierno</option>
-                        <option value="7">Negocios</option>
-                        
-                      </select>
-                      <br>
-                    </div> 
-                    <div class="form-group">
-                      <label for="position">¿Quién posicionó el tema?</label>
-                      <select id="position" name="position" class="form-select" aria-label="Default select example" required>
-                        <option value="">--Seleccione--</option>
-                        <option value="0">Bots y Trolls</option>
-                        <option value="1">Opinión Pública Informada</option>
-                        <option value="2">Opinión Pública</option>
-                        <option value="3">Activistas</option>
-                        <option value="4">Influencers</option>
-                        <option value="5">Líderes de Opinión</option>
-                        <option value="6">Medios</option>
-                      </select>
-                      <br>
-                    </div> 
-                    <div class="form-group">
-                      <label for="level">Nivel</label>
-                      <select id="level" name="level" class="form-select" aria-label="Default select example" required>
-                        <option value="">--Seleccione--</option>
-                        <option value="0">Local</option>
-                        <option value="1">Regional</option>
-                        <option value="2">Nacional</option>
-                        <option value="3">Internacional</option>
-                        <option value="4">Mundial</option>
-                      </select>
-                      <br>
-                    </div>                      
-                    <div class="form-group">
-                      <label for="dtStart">Fecha de inicio:</label>
-                      <input type="date" class="form-control" id="dtStart" placeholder="" name="dtStart" required> 
-                      <br>
-                      <label for="dtEnd">Fecha de fin:</label>
-                      <input type="date" class="form-control" id="dtEnd" placeholder="" name="dtEnd" required> 
-                    </div>
-                    
-                    <div id="container-carp" class="form-group">
-                    </div>
-
-                </div>
-
-                <div id="tabWordCloud" class="container tab-pane">
-
-                  <h3>WordCloud</h3>
-
-                  <ul class="nav nav-tabs" id="tabWCOption" role="tablist">
-                    <li class="nav-item" role="Words-list">
-                      <a class="nav-link-wc nav-link active " id="optWCList-tab" data-toggle="tab" href="#wcWords" role="tab" aria-controls="wcWords" aria-selected="false">Lista de palabras</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link-wc nav-link" id="optWCTweets-tab" data-toggle="tab" href="#wcTweets" role="tab" aria-controls="wcTweets" aria-selected="true">Lista de tweets</a>
-                    </li>
-                  </ul>
-                            
-                    <div class="tab-content" id="myTabOptWC">
-                    <br/>
-                    <div class="tab-pane fade show active" id="wcWords" role="tabpanel" aria-labelledby="wcWords-tab">  
-                      
-                      <div class="listPalabras">
-                        <div class="col-md-12">
-                          <label>Carga archivo con la lista de palabras
-                            <input type="file" id="xp-list-wc" class="xp-file form-control-file border" accept=".csv">
-                          </label>
-                        </div>
-
-                        <div id="containerWordC">
-                          <div id="containerWordCSVG">
+      <div id="extencionctn" style="display: none;">
+         <header class="tape-header">
+            <span id="welcome">Bienvenido</span>
+            <img id="picture-user" class="picture-user" />
             
-                          </div>
-                          <canvas id="canvasWC"></canvas>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div class="tab-pane fade show" id="wcTweets" role="tabpanel" aria-labelledby="wcTweets-tab">
-                      
-                  <div class="archivoTwetts">
+         </header>
+         <div>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+               <li class="nav-item" module="E">
+                  <a class="nav-link active" id="extract-tab" data-toggle="tab" href="#extract" role="tab" aria-controls="extract" aria-selected="true">Extracción</a>
+               </li>
+               <li class="nav-item" role="presentation" module="T">
+                  <a class="nav-link" id="transform-tab" data-toggle="tab" href="#transform" role="tab" aria-controls="transform" aria-selected="false">Transformación</a>
+               </li>
+               <li class="nav-item" role="presentation" module="C">
+                  <a class="nav-link" id="carga-tab" data-toggle="tab" href="#carga" role="tab" 
+                     aria-controls="carga" aria-selected="false">Carga</a>
+               </li>
+               <li class="nav-item" role="presentation" module="A">
+                  <a class="nav-link" id="rh-tab" data-toggle="tab" href="#rh" role="tab" 
+                     aria-controls="rh" aria-selected="false">Recursos Humanos</a>
+               </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+               <div class="tab-pane fade show active" id="extract" role="tabpanel" aria-labelledby="extract-tab">
+                  <div class="container contairner-extensions">
+                     <div class="col-md-12">
+                        <br/>
+                        <ul class="list-inline">
+                           <li class="list-inline-item" id="fb-" submodule="E-FB" >
+                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/facebook.png" /> 
+                              Facebook 
+                           </li>
+                           <!--
+                              <li class="list-inline-item" id="tr-" submodule="E-TR">
+                                <img style="border-radius: 50%; width: 30px; height:30px; " src="images/trendinalia.jpg" /> 
+                                Trendinalia 
+                              </li>        
+                              -->         
+                           <li class="list-inline-item" id="mtbs-"  submodule="E-MB" >
+                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/meta business.png" /> 
+                              Meta Business
+                           </li>
+                           <li class="list-inline-item" id="mws-"  submodule="E-MWS" >
+                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/meltwater.png" /> 
+                              Meltwater Search
+                           </li>
+                           <li class="list-inline-item" id="mwm-" submodule="E-MWM">
+                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/medicion.jpg" /> 
+                              Meltwater Mediciones
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+               <div class="tab-pane fade" id="transform" role="tabpanel" aria-labelledby="transform-tab">
+                  <div class="container contairner-extensions">
+                     <div class="col-md-12">
+                        <br/>
+                        <ul class="list-inline">
+                           <!--
+                              <li class="list-inline-item" id="mw-" submodule="T-MW">
+                                <img style="border-radius: 50%; width: 30px; height:30px; " src="images/meltwater.png" /> 
+                                Meltwater 
+                              </li>
+                              -->
+                           <li class="list-inline-item" id="rmw-" submodule="T-RMW">
+                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/ReporteMeltwater.png" /> 
+                              Reportes Meltwater 
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+               <div class="tab-pane fade" id="carga" role="tabpanel" aria-labelledby="carga-tab">
+                  <div class="container contairner-extensions">
+                     <div class="col-md-12">
+                        <br/>
+                        <ul class="list-inline">
+                           <li class="list-inline-item" id="xp-" submodule="C-MWGROUP">
+                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/mwgroup.png" /> 
+                              MWGroup 
+                           </li>
+                           <!--
+                              <li class="list-inline-item" id="cl-" submodule="CLF">
+                                <img style="border-radius: 50%; width: 30px; height:30px; " src="images/clasificator.png" /> 
+                                Clasificador 
+                              </li>       
+                              -->         
+                           <li class="list-inline-item" id="cp-" submodule="C-C">
+                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/campaña.png" /> 
+                              Campañas 
+                           </li>
+                           <li class="list-inline-item" id="rk-" submodule="C-R">
+                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/ranking.png" /> 
+                              Ranking 
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
 
-                    <div class="col-md-12">
-                      <label>Carga el archivo a analizar
-                        <input type="file" id="xp-file-selector-wc" class="xp-file form-control-file border" accept=".csv" required>
-                      </label>
-                    </div>
-                    
-                    <div class="form-group">
-                      <label for="wcwords">¿Cúantas palabras significativas extras deseas?</label>
-                      <input type="number" min="0" step="1" class="form-control" id="wcwords" placeholder="Número de palabras" name="wcwords" required> 
-                      <br>
-                    </div>  
-
-                    <div class="form-check">
-                      <label for="wcStop" class="btn" style="background: #9da09b;">
-                        StopWords 
-                        <input type="checkbox" id="wcStop" class="badgebox" ><span class="xp-evaluation-check badge badge-check  badge-succes">&check;</span>
-                      </label>
-                    </div>
-
-                    <div class="form-group"  id="divwcStop" style="display:none">
-                      <label>Carga el archivo StopWords
-                        <input type="file" id="xp-file-selector-wc-stop" class="xp-file form-control-file border" 
-                        accept=".csv, .txt" required>
-                      </label>
-                    </div>
-
-
-                    <div class="form-group">
-                      <label for="wctype">Tipo</label>
-                      <select id="wctype" class="form-select" aria-label="Default select example" required>
-                        <option selected="selected" value="0">WordCloud letras color MWGroup</option>
-                        <option selected="selected" value="1">WordCloud letras color Negro</option>
-                        <option selected="selected" value="2">WordCloud letras color Blanco</option>
-                        <option selected="selected" value="3">WordCloud letras color Positivo</option>
-                        <option selected="selected" value="4">WordCloud letras color Negativo</option>
-                      </select>
-                      <br>
-                    </div>  
-                    
-                    <div class="form-group">
-                      <label for="wcform">Forma</label>
-                      <select id="wcform"  class="form-select" aria-label="Default select example" required>
-                        <option selected="selected" value="0">Rectangular(tradicional)</option>
-                        <option selected="selected" value="1">Circular</option>
-                        <option selected="selected" value="2">Nube</option>
-                        <option selected="selected" value="3">Nube de habla</option>
-                        <option selected="selected" value="4">Twitter</option>
-                      </select>
-                      <br>
-                    </div>                    
-                  </div>  
-                    </div>
-                    
-                    </div>
-           
-                </div>
-              
-                <div id="tabLineasDiscursivas" class="container tab-pane"> 
-                
-              
-                  <!-- <h3>Líneas Discursivas</h3> -->
-                  
+               <div class="tab-pane fade" id="rh" role="tabpanel" aria-labelledby="rh-tab">
+                  <div class="container contairner-extensions">
+                     <div class="col-md-12">
+                        <br/>
+                        <ul class="list-inline">
+                           <li class="list-inline-item" id="sv-" submodule="A-SV">
+                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/sv.png" /> 
+                              Solicitud de vacaciones 
+                           </li>
+                           <li class="list-inline-item" id="dvd-" submodule="A-DVD"  >
+                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/dvd.png" /> 
+                              Mís días de vacaciones disponibles
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <br/>
+            <hr>
+         </div>
+         <div class="container">
+            <div class="process fb-">
+               <div class="row">
                   <div class="col-md-12">
-                    
-                    <!-- <label>Carga el archivo de entrenamiento 
-                      <input type="file" id="xp-file-selector-ld" class="xp-file form-control-file border" accept=".csv, .txt"> 
-                    </label> -->
-                  </div> 
-                  
-                   <div class="form-group">
-                   
-                   <!-- <label for="ldTypeProcess">Tipo de procesamiento</label>  -->
-                   <p id="ldTypeProcess"></p> 
-                     <!-- <select id="ldTypeProcess" class="form-select" aria-label="Default select example" required>  -->
-                      <!-- <option selected="selected" value="0">Lineas</option>  -->
-                      <!-- <option value="1" selected>Lineas Topics All</option>  -->
-                    <!-- </select>  -->
-                    <!-- <br> -->
-                  </div>  
-                  
+                     <h2 style="color: #385395;">Facebook</h2>
+                     <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.f0xyj1r32nzr"
+                        target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
+                     <br>
+                     <input type="file" id="fb-file-selector" class="form-control-file border" accept=".csv">
+                     <br><br>
+                     <div class="">
+                        <label for="AddAlcanceMTB" class="btn btn-black">
+                        Agregar alcance de metabussines
+                        <input type="checkbox" id="AddAlcanceMTB" class="badgebox ch-fb-alcance-mtb-check" ><span class="fb-alcance-mtb-check badge badge-check  badge-black">&check;</span>
+                        </label>
+                     </div>
+                  </div>
+               </div>
+               <div class="row fb-contairner-actions">
+                  <br>
+                  <p class="col-md-6 btn-group">
+                     <button id="fbstart" type="button" class="btn btn-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                           <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                           <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                        </svg>
+                        Start
+                     </button>
+                     <button id="fbcancel" type="button" class="btn btn-warning">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                           <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                           <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
+                        </svg>
+                        Cancel
+                     </button>
+                  </p>
+               </div>
+               <div class="row process fb-contairner-process">
+                  <br>
+                  <div class="col-md-12">
+                     <label id="fb-lbState"></label>        
+                     <div id="fb-LinkProcess"></div>
+                     <br>
+                     <div id="fb-description"></div>
+                  </div>
+               </div>
+            </div>
+            <div class="process mw-">
+               <div class="row">
+                  <h2 style="color: #18b9bb;">Meltwater</h2>
+                  <br>
+                  <div class="col-md-12">
+                     <input type="file" id="mw-file-selector" class="form-control-file border" accept=".csv">
+                  </div>
+                  <div class="form-check">
+                     <label for="mwSql" class="btn btn-black">
+                     Archivo para SQL Lite
+                     <input type="checkbox" id="mwSql" class="badgebox" ><span class="xp-evaluation-check badge badge-check  badge-black">&check;</span>
+                     </label>
+                  </div>
+               </div>
+               <div class="row mw-contairner-actions">
+                  <br>
+                  <p class="col-md-6 btn-group">
+                     <button id="mwstart" type="button" class="btn btn-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                           <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                           <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                        </svg>
+                        Start
+                     </button>
+                     <button id="mwcancel" type="button" class="btn btn-warning">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                           <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                           <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
+                        </svg>
+                        Cancel
+                     </button>
+                  </p>
+               </div>
+               <div class="row process mw-contairner-process">
+                  <br>
+                  <div class="col-md-12">
+                     <label id="mw-lbState"></label>        
+                     <div id="mw-LinkProcess"></div>
+                     <br>
+                     <div id="mw-description"></div>
+                  </div>
+               </div>
+            </div>
+            <div class="process xp-">
+               <h2 style="color: #004169;">MWGroup</h2>
+               <div>
+                  <h5>¿Con qué versión de deseas trabajar?</h5>
                   <div class="form-group">
-                    <p  id="ldNPublications"> </p>
-                    <!-- <label for="ldNPublications">Número de publicaciones</label> -->
-                    <!-- <input type="number" min="1" class="form-control" id="ldNPublications" placeholder="Número de publicaciones" name="wcwords" required> 
-                    <br> -->
-                  </div>  
-                  
-                </div> 
-                <div>
-                  <br>
-                  <div  style="text-align: left;">
-                    <button type="button" id="xpstart" class="btn btn-success" style="width: 100px;border-radius: 5px !important;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
-                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                      <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
-                    </svg> Start</button>
+                     <label class="container-radio">Versión 1
+                     <input type="radio" checked="checked" class="unexploredV" name="unexploredV" value="1">
+                     <span class="checkmark"></span>
+                     </label>&nbsp;&nbsp;&nbsp;
+                     <label class="container-radio">Versión 2
+                     <input type="radio" class="unexploredV" name="unexploredV" value="2">
+                     <span class="checkmark"></span>
+                     </label>
                   </div>
-                  <div class="col-md-4"></div>
-              </div>
-
-              </form>
-            </div>
-
-          </div> 
-          <div class="row xp-contairner-actions">
-            <br>
-            <p class="col-md-6 btn-group">
-
-              <button id="xpstart" type="button" class="btn btn-success">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                  <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
-                </svg>
-                Start
-              </button>
- 
-              <button id="xpcancel" type="button" class="btn btn-warning">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
-                </svg>
-                Cancel
-              </button>
-
-            </p>
-          </div>
-
-          <div class="row process xp-contairner-process">
-            <br>
-            <div class="col-md-12">
-
-              <label id="xp-lbState">PROCESANDO</label>        
-              <div id="xp-description"></div>       
-            </div>
-          </div>
-
-        </div>
-
-        <div class="process tr-">
-          <div class="row">
-            <div class="col-md-12">
-              <h2 style="color: #30383b;">Trendinalia</h2>              
-            </div>
-            <div class="tab-content">
-              <form id="formTrendinalia" class="was-validated form-inline">  
-                <p id="dbUrl"></p> 
-                <br>
-                <p>Puedes ingresar un rango de fechas o fechas dispersas de la siguiente forma respetando el formato indicado yyyy/mm/dd</p>                  
-                <p>Rango de fechas: 2022/01/01-2022/01/05</p> 
-                <p>Fechas dispersas: 2022/01/01, 2022/01/03, 2022/02/22</p> 
-                <div class="form-group">
-                  <label for="dtTr">Ingresa la(s) fecha(s):</label>
-                  <textarea class="form-control" id="dtTr" name="dtTr" rows="3" required></textarea>
-                </div>
-                <div id="errorDtTr"></div>
-                <br>
-                <div id="tr-themes"></div>
-                <br>
-                <div class="row">
-
-                  <div class="col-md-12" style="text-align: left;">
-                    <button type="button" id="trstart" class="btn btn-success" style="width: 100px;border-radius: 5px !important;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
-                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                      <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
-                    </svg> Start</button>
-                  </div>
-                  <div class="col-md-4"></div>
-                </div>
-              </form>
-            </div>                
-
-          </div>          
-
-          <div class="row tr-contairner-actions">
-            <br>
-            <p class="col-md-6 btn-group">
-
-              <button id="trstart" type="button" class="btn btn-success">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                  <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
-                </svg>
-                Start
-              </button>
- 
-              <button id="trcancel" type="button" class="btn btn-warning">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
-                </svg>
-                Cancel
-              </button>
-
-            </p>
-          </div>
-
-          <div class="row process tr-contairner-process">
-            <br>
-            <div class="col-md-12">
-
-              <label id="tr-lbState"></label>        
-              <div id="tr-LinkProcess"></div>
-              <br>
-              <div id="tr-description"></div>       
-            </div>
-          </div>
-        </div>
-
-        <div class="process cl-">
-          <div class="row">
-            <div class="col-md-12">
-              <h2 style="color: #f36e4d;">Clasificador</h2>              
-            </div>
-            <div class="tab-content">
-              <form id="formTcl" class="was-validated form-inline">                  
-                <p id="dbUrlC"></p> 
-                <div class="form-group">
-                  <label for="cl-file-selector">Carga el archivo a clasificar:</label>
-                  <input type="file" id="cl-file-selector" class="form-control-file border" accept=".csv, .xlsx">
                   <br>
-                </div> 
-
-                <div class="form-group">
-                  <label for="columns">Selecciona la columna donde se encuentra la información a clasificar:</label>
+                  <h3>Selecciona que evaluaci&oacute;n deseas hacer</h3>
                   <!--
-                  <input type="text" class="form-control" id="column" placeholder="Nombre del la columna" name="column" required="">
-                  -->
-                  <select id="columns" name="columns" class="form-select" aria-label="Default select example" required>
-                    <option value="">--Seleccione--</option>
-                  </select>
-                
-                  <br>
-                </div> 
-
-                <div id="errorDtCl"></div>
-                <br>
-                <div id="cl-themes"></div>
-                <br>
-                <div class="row">
-
-                  <div class="col-md-12" style="text-align: left;">
-                    <button type="button" id="clstart" class="btn btn-success" style="width: 100px;border-radius: 5px !important;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
-                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                      <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
-                    </svg> Start</button>
+                     <label id="lb-act-chkUnexplor" for="Actitud" class="btn btn-success" style="margin-top: 10px; ">
+                       Actitud 
+                       <input type="checkbox" id="Actitud" class="badgebox"><span class="xp-evaluation-check badge badge-check badge-succes">&check;</span>
+                     </label>
+                     -->
+                  <label id="lb-alc-chkUnexplor" for="Alcance" class="btn btn-danger" style="margin-top: 10px; ">
+                  Alcance 
+                  <input type="checkbox" id="Alcance" class="badgebox" ><span class="xp-evaluation-check badge badge-check  badge-danger">&check;</span>
+                  </label>
+                  <label id="lb-wor-chkUnexplor" for="WordCloud" class="btn btn-black" style="margin-top: 10px; ">
+                  WordCloud 
+                  <input type="checkbox" id="WordCloud" class="badgebox"><span class="xp-evaluation-check badge badge-check  badge-black">&check;</span>
+                  </label>
+                  <label id="lb-aud-chkUnexplor" for="Audiencias" class="btn btn-purple"  style="margin-top: 10px; display:none;">
+                  Audiencias 
+                  <input type="checkbox" id="Audiencias" class="badgebox"><span class="xp-evaluation-check badge badge-check  badge-purple">&check;</span>
+                  </label>
+                  <!--
+                     <label id="lb-lin-chkUnexplor" for="LineasDiscursivas" class="btn btn-warning" style="margin-top: 10px; ">
+                       Líneas Discursivas 
+                       <input type="checkbox" id="LineasDiscursivas" class="badgebox"><span class="xp-evaluation-check badge badge-check badge-warning">&check;</span>
+                     </label>
+                     -->
+               </div>
+               <div class="row xp-evaluation-action">
+                  <div class="tab-content">
+                     <form id="formEvaluation" class="was-validated form-inline">
+                        <div class="form-group namefilesave">
+                           <label for="namefilesave">Ingresa el nombre para tu archivo único a descargar:</label>
+                           <input type="text" class="form-control" id="namefilesave" placeholder="Nombre del archivo de descarga" name="namefilesave" title="Este archivo sera un concentrado de todos las evaluaciones que se realizen." required> 
+                           <br>
+                        </div>
+                        <!--
+                           <div id="tabActitud" class="container tab-pane">
+                           
+                             <h3>Actitud</h3>
+                             <div class="col-md-12">
+                               <label>Carga el archivo de entrenamiento
+                                 <input type="file" id="xp-file-selector-trainning" class="xp-file form-control-file border" accept=".csv">
+                               </label>
+                             </div>
+                             <div class="col-md-12">              
+                               <label>Carga el archivo de clasificación
+                                 <input type="file" id="xp-file-selector-clasification" class="xp-file form-control-file border" accept=".csv">
+                               </label>
+                             </div>
+                           
+                           </div>
+                           -->
+                        <div id="tabAlcance" class="container tab-pane">
+                           <h3>Alcance</h3>
+                           <div class="form-group">
+                              <label for="impresion">Impresiones:</label>
+                              <input type="number" class="form-control" id="impresion" placeholder="Número de impresiones" name="impresion" required> 
+                              <br>
+                           </div>
+                           <div class="form-group">
+                              <label for="publication">Publicaciones:</label>
+                              <input type="number" class="form-control" id="publication" placeholder="Número de publicaciones" name="publication" required> 
+                              <br>
+                           </div>
+                           <div class="form-group">
+                              <label for="user">Usuarios:</label>
+                              <input type="number" class="form-control" id="user" placeholder="Número de usuarios" name="user" required> 
+                              <br>
+                           </div>
+                           <div class="form-group">
+                              <label for="hour">Horas:</label>
+                              <select id="hour" name="hour" class="form-select" aria-label="Default select example" required>
+                                 <option value="">--Seleccione--</option>
+                              </select>
+                              <br>
+                           </div>
+                           <div class="form-group">
+                              <label for="category">Categoría</label>
+                              <select id="category" name="category" class="form-select" aria-label="Default select example" required>
+                                 <option value="">--Seleccione--</option>
+                                 <option value="0">Accidentes</option>
+                                 <option value="1">Desastres naturales</option>
+                                 <option value="2">Viral</option>
+                                 <option value="3">Entretenimiento</option>
+                                 <option value="4">Deportes</option>
+                                 <option value="5">Política</option>
+                                 <option value="6">Gobierno</option>
+                                 <option value="7">Negocios</option>
+                              </select>
+                              <br>
+                           </div>
+                           <div class="form-group">
+                              <label for="position">¿Quién posicionó el tema?</label>
+                              <select id="position" name="position" class="form-select" aria-label="Default select example" required>
+                                 <option value="">--Seleccione--</option>
+                                 <option value="0">Bots y Trolls</option>
+                                 <option value="1">Opinión Pública Informada</option>
+                                 <option value="2">Opinión Pública</option>
+                                 <option value="3">Activistas</option>
+                                 <option value="4">Influencers</option>
+                                 <option value="5">Líderes de Opinión</option>
+                                 <option value="6">Medios</option>
+                              </select>
+                              <br>
+                           </div>
+                           <div class="form-group">
+                              <label for="level">Nivel</label>
+                              <select id="level" name="level" class="form-select" aria-label="Default select example" required>
+                                 <option value="">--Seleccione--</option>
+                                 <option value="0">Local</option>
+                                 <option value="1">Regional</option>
+                                 <option value="2">Nacional</option>
+                                 <option value="3">Internacional</option>
+                                 <option value="4">Mundial</option>
+                              </select>
+                              <br>
+                           </div>
+                           <div class="form-group">
+                              <label for="dtStart">Fecha de inicio:</label>
+                              <input type="date" class="form-control" id="dtStart" placeholder="" name="dtStart" required> 
+                              <br>
+                              <label for="dtEnd">Fecha de fin:</label>
+                              <input type="date" class="form-control" id="dtEnd" placeholder="" name="dtEnd" required> 
+                           </div>
+                           <div id="container-carp" class="form-group">
+                           </div>
+                        </div>
+                        <div id="tabWordCloud" class="container tab-pane">
+                           <h3>WordCloud</h3>
+                           <ul class="nav nav-tabs" id="tabWCOption" role="tablist">
+                              <li class="nav-item" role="Words-list">
+                                 <a class="nav-link-wc nav-link active " id="optWCList-tab" data-toggle="tab" href="#wcWords" role="tab" aria-controls="wcWords" aria-selected="false">Lista de palabras</a>
+                              </li>
+                              <li class="nav-item">
+                                 <a class="nav-link-wc nav-link" id="optWCTweets-tab" data-toggle="tab" href="#wcTweets" role="tab" aria-controls="wcTweets" aria-selected="true">Lista de tweets</a>
+                              </li>
+                           </ul>
+                           <div class="tab-content" id="myTabOptWC">
+                              <br/>
+                              <div class="tab-pane fade show active" id="wcWords" role="tabpanel" aria-labelledby="wcWords-tab">
+                                 <div class="listPalabras">
+                                    <div class="col-md-12">
+                                       <label>Carga archivo con la lista de palabras
+                                       <input type="file" id="xp-list-wc" class="xp-file form-control-file border" accept=".csv">
+                                       </label>
+                                    </div>
+                                    <div id="containerWordC">
+                                       <div id="containerWordCSVG">
+                                       </div>
+                                       <canvas id="canvasWC"></canvas>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="tab-pane fade show" id="wcTweets" role="tabpanel" aria-labelledby="wcTweets-tab">
+                                 <div class="archivoTwetts">
+                                    <div class="col-md-12">
+                                       <label>Carga el archivo a analizar
+                                       <input type="file" id="xp-file-selector-wc" class="xp-file form-control-file border" accept=".csv" required>
+                                       </label>
+                                    </div>
+                                    <div class="form-group">
+                                       <label for="wcwords">¿Cúantas palabras significativas extras deseas?</label>
+                                       <input type="number" min="0" step="1" class="form-control" id="wcwords" placeholder="Número de palabras" name="wcwords" required> 
+                                       <br>
+                                    </div>
+                                    <div class="form-check">
+                                       <label for="wcStop" class="btn" style="background: #9da09b;">
+                                       StopWords 
+                                       <input type="checkbox" id="wcStop" class="badgebox" ><span class="xp-evaluation-check badge badge-check  badge-succes">&check;</span>
+                                       </label>
+                                    </div>
+                                    <div class="form-group"  id="divwcStop" style="display:none">
+                                       <label>Carga el archivo StopWords
+                                       <input type="file" id="xp-file-selector-wc-stop" class="xp-file form-control-file border" 
+                                          accept=".csv, .txt" required>
+                                       </label>
+                                    </div>
+                                    <div class="form-group">
+                                       <label for="wctype">Tipo</label>
+                                       <select id="wctype" class="form-select" aria-label="Default select example" required>
+                                          <option selected="selected" value="0">WordCloud letras color MWGroup</option>
+                                          <option selected="selected" value="1">WordCloud letras color Negro</option>
+                                          <option selected="selected" value="2">WordCloud letras color Blanco</option>
+                                          <option selected="selected" value="3">WordCloud letras color Positivo</option>
+                                          <option selected="selected" value="4">WordCloud letras color Negativo</option>
+                                       </select>
+                                       <br>
+                                    </div>
+                                    <div class="form-group">
+                                       <label for="wcform">Forma</label>
+                                       <select id="wcform"  class="form-select" aria-label="Default select example" required>
+                                          <option selected="selected" value="0">Rectangular(tradicional)</option>
+                                          <option selected="selected" value="1">Circular</option>
+                                          <option selected="selected" value="2">Nube</option>
+                                          <option selected="selected" value="3">Nube de habla</option>
+                                          <option selected="selected" value="4">Twitter</option>
+                                       </select>
+                                       <br>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div id="tabLineasDiscursivas" class="container tab-pane">
+                           <!-- <h3>Líneas Discursivas</h3> -->
+                           <div class="col-md-12">
+                              <!-- <label>Carga el archivo de entrenamiento 
+                                 <input type="file" id="xp-file-selector-ld" class="xp-file form-control-file border" accept=".csv, .txt"> 
+                                 </label> -->
+                           </div>
+                           <div class="form-group">
+                              <!-- <label for="ldTypeProcess">Tipo de procesamiento</label>  -->
+                              <p id="ldTypeProcess"></p>
+                              <!-- <select id="ldTypeProcess" class="form-select" aria-label="Default select example" required>  -->
+                              <!-- <option selected="selected" value="0">Lineas</option>  -->
+                              <!-- <option value="1" selected>Lineas Topics All</option>  -->
+                              <!-- </select>  -->
+                              <!-- <br> -->
+                           </div>
+                           <div class="form-group">
+                              <p  id="ldNPublications"> </p>
+                              <!-- <label for="ldNPublications">Número de publicaciones</label> -->
+                              <!-- <input type="number" min="1" class="form-control" id="ldNPublications" placeholder="Número de publicaciones" name="wcwords" required> 
+                                 <br> -->
+                           </div>
+                        </div>
+                        <div>
+                           <br>
+                           <div  style="text-align: left;">
+                              <button type="button" id="xpstart" class="btn btn-success" style="width: 100px;border-radius: 5px !important;">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                    <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                                 </svg>
+                                 Start
+                              </button>
+                           </div>
+                           <div class="col-md-4"></div>
+                        </div>
+                     </form>
                   </div>
-                  <div class="col-md-4"></div>
-                </div>
-              </form>
-            </div>                
-
-          </div>          
-
-          <div class="row cl-contairner-actions">
-            <br>
-            <p class="col-md-6 btn-group">
-
-              <button id="clstart" type="button" class="btn btn-success">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                  <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
-                </svg>
-                Start
-              </button>
-            </p>
-          </div>
-
-          
-            <br>
-            <div class="col-md-12">
-
-              <label id="cl-lbState"></label>        
-              <div id="cl-LinkProcess"></div>
-              <br>
-              <div id="cl-description"></div>       
+               </div>
+               <div class="row xp-contairner-actions">
+                  <br>
+                  <p class="col-md-6 btn-group">
+                     <button id="xpstart2" type="button" class="btn btn-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                           <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                           <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                        </svg>
+                        Start
+                     </button>
+                     <button id="xpcancel" type="button" class="btn btn-warning">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                           <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                           <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
+                        </svg>
+                        Cancel
+                     </button>
+                  </p>
+               </div>
+               <div class="row process xp-contairner-process">
+                  <br>
+                  <div class="col-md-12">
+                     <label id="xp-lbState">PROCESANDO</label>        
+                     <div id="xp-description"></div>
+                  </div>
+               </div>
             </div>
-          
-        </div>
-
-        <div class="process mtbs-">
-          <div class="row">
-            <div class="col-md-12">
-              <h2 style="color: #0163de;">Meta Business</h2>
-              <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.yx28879b54qu"
-               target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
-            </div>
-            <div class="tab-content">
-              <form id="formmtbs" class="was-validated form-inline">  
-                
-                <div class="form-group">
-
-                  
-                  <ul class="nav nav-tabs" id="tabMeta" role="tablist">
-                    <li class="nav-item" role="presentation">
-                      <a class="nav-link-meta nav-link active " id="metaXlsx-tab" data-toggle="tab" href="#metaXlsx" role="tab" aria-controls="metaXlsx" aria-selected="false">Local</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link-meta nav-link" id="metaSheet-tab" data-toggle="tab" href="#metaSheet" role="tab" aria-controls="metaSheet" aria-selected="true">Google Sheets</a>
-                    </li>
-                  </ul>
-                  
-                  <div class="tab-content" id="myTabContentMeta">
-                    <div class="tab-pane fade show active" id="metaXlsx" role="tabpanel" aria-labelledby="metaXlsx-tab">  
-                      <label for="mtbs-file-selector">Cargar archivo:</label>
-                      <input type="file" id="mtbs-file-selector" class="form-control-file border" accept=".csv, .xlsx">
-
-                    </div> 
-                    
-                    <div class="tab-pane fade show" id="metaSheet" role="tabpanel" aria-labelledby="metaSheet-tab">
-                      
-                      <div class="form-group">
-                        <label for="urlGoogleSheet">Link del google sheet </label>
-                        <input type="text"  class="form-control" id="urlGoogleSheet" placeholder="Link del google sheet" name="urlGoogleSheet" required> 
+            <div class="process tr-">
+               <div class="row">
+                  <div class="col-md-12">
+                     <h2 style="color: #30383b;">Trendinalia</h2>
+                  </div>
+                  <div class="tab-content">
+                     <form id="formTrendinalia" class="was-validated form-inline">
+                        <p id="dbUrl"></p>
                         <br>
-                      </div> 
-                      
-                    </div> 
-                  </div> 
-                  <br>
-                </div> 
-
-                <div id="errorDtmtbs"></div>
-
-                <div class="row">
-
-                  <div class="col-md-12" style="text-align: left;">
-                    <button type="button" id="mtbsstart" class="btn btn-success" style="width: 100px;border-radius: 5px !important;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
-                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                      <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
-                    </svg> Start</button>
-                  </div>
-                  <div class="col-md-4"></div>
-                </div>
-              </form>
-            </div>                
-
-          </div>          
-
-
-          <div class="row process mtbs-contairner-process">
-            <br>
-            <div class="col-md-12">
-
-              <label id="mtbs-lbState"></label>        
-              <div id="mtbs-LinkProcess"></div>
-              <br>
-              <div id="mtbs-description"></div>       
-            </div>
-          </div>
-
-        </div>
-
-        <div class="process mws-">
-          <div class="row">
-            <div class="col-md-12">
-              <h2 style="color: #18b9bb;">Meltwater Search</h2>
-              <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.40r5f6lpv9f2"
-               target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
-            </div>
-            <div class="tab-content">
-              <form id="formmws" class="was-validated form-inline">  
-                
-              <label>Para procesar el alcance ¿con qué versión deseas trabajar?</label>
-              <div class="form-group">
-
-                <label class="container-radio">Versión 1
-                  <input type="radio" checked="checked" class="msUnexploredV" name="msUnexploredV" value="1">
-                  <span class="checkmark"></span>
-                </label>&nbsp;&nbsp;&nbsp;
-                <label class="container-radio">Versión 2
-                  <input type="radio" class="msUnexploredV" name="msUnexploredV" value="2">
-                  <span class="checkmark"></span>
-                </label>
-              </div> 
-
-              <div id="ms-container-carp" class="form-group">
-              </div>
-                
-                <div class="form-group">
-                    <label for="urlSheetmws">Link del google sheet </label>
-                    <input type="text"  class="form-control" id="urlSheetmws" placeholder="Link del google sheet" name="urlSheetmws" required> 
-                    <br>
-                </div> 
-
-                <div id="errorDtmws"></div>
-
-                <div class="row">
-
-                  <div class="col-md-12" style="text-align: left;">
-                    <button type="button" id="mwsstart" class="btn btn-success" style="width: 100px;border-radius: 5px !important;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
-                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                      <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
-                    </svg> Start</button>
-                  </div>
-                  <div class="col-md-4"></div>
-                </div>
-              </form>
-            </div>                
-
-          </div>          
-
-
-          <div class="row process mws-contairner-process">
-            <br>
-            <div class="col-md-12">
-
-              <label id="mws-lbState"></label>        
-              <div id="mws-LinkProcess"></div>
-              <br>
-              <div id="mws-description"></div>       
-            </div>
-          </div>
-
-        </div>
-
-        <div class="process cp-">
-          <div class="row">
-            <div class="col-md-12">
-              <h2 style="color: #3cab5a;">Campañas</h2>
-              <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.nnebdx8azh9v" target="blank"
-              style="display: flex; margin-top: -32px; margin-left: 85%;"
-              >Ayuda</a>
-            </div>
-            <div class="tab-content">
-              <form id="formTcp" class="was-validated form-inline">                  
-                                
-                <ul class="nav nav-tabs" id="tabCampañas" role="tablist">
-                  <li class="nav-item" role="presentation">
-                    <a class="nav-link-meta nav-link active " id="addCp-tab" data-toggle="tab" href="#addCp" role="tab" aria-controls="addCp" aria-selected="false">Registrar</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link-meta nav-link" id="showCP-tab" data-toggle="tab" href="#showCP" role="tab" aria-controls="showCP" aria-selected="true">Ver</a>
-                  </li>
-                </ul>
-                
-                
-                <div class="tab-content" id="myTabContentCampañas">
-                  <div class="tab-pane fade show active" id="addCp" role="tabpanel" aria-labelledby="addCp-tab">  
-                    <br>
-                    <div class="form-group">
-                      <label for="cp_search">#Hashtag:</label>
-                      <input type="text" id="cp_search" name="cp-search-campaign" class="cp-input form-control" placeholder="#Hashtag" required>
-                      <br>
-                    </div>
-                    <div class="form-group">
-                      <label for="cp_spreadsheet_id">Documento de Usuarios:</label>
-                      <input type="text" id="cp_spreadsheet_id" name="cp-user-campaign" class="cp-input form-control" 
-                      placeholder="Link del archivo de usuarios" required>
-                      <br>
-                    </div>
-                    
-                    <div class="form-group">
-                      <label for="select-concept">Concepto(s):</label><br>                      
-                      <select data-placeholder="Comienza a escribir para seleccionar un concepto" 
-                        multiple class="chosen-select-width" 
-                         id="select-concept" name="select-concept">
-                      </select> 
-                    </div>
-
-                    <br>
-                    <div class="row-date">
-
-                      <div class="col2">
+                        <p>Puedes ingresar un rango de fechas o fechas dispersas de la siguiente forma respetando el formato indicado yyyy/mm/dd</p>
+                        <p>Rango de fechas: 2022/01/01-2022/01/05</p>
+                        <p>Fechas dispersas: 2022/01/01, 2022/01/03, 2022/02/22</p>
                         <div class="form-group">
-                          <label for="cp_date_start">Inicia:</label>
-                          <input type="date" id="cp_date_start" name="cp-start-campaign" class="cp-input form-control" placeholder="Fecha de inicio" required>
+                           <label for="dtTr">Ingresa la(s) fecha(s):</label>
+                           <textarea class="form-control" id="dtTr" name="dtTr" rows="3" required></textarea>
                         </div>
-                      </div>
-
-                      <div class="col2">
+                        <div id="errorDtTr"></div>
+                        <br>
+                        <div id="tr-themes"></div>
+                        <br>
+                        <div class="row">
+                           <div class="col-md-12" style="text-align: left;">
+                              <button type="button" id="trstart" class="btn btn-success" style="width: 100px;border-radius: 5px !important;">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                    <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                                 </svg>
+                                 Start 2
+                              </button>
+                           </div>
+                           <div class="col-md-4"></div>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+               <div class="row tr-contairner-actions">
+                  <br>
+                  <p class="col-md-6 btn-group">
+                     <button id="trstart2" type="button" class="btn btn-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                           <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                           <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                        </svg>
+                        Start
+                     </button>
+                     <button id="trcancel" type="button" class="btn btn-warning">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                           <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                           <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
+                        </svg>
+                        Cancel
+                     </button>
+                  </p>
+               </div>
+               <div class="row process tr-contairner-process">
+                  <br>
+                  <div class="col-md-12">
+                     <label id="tr-lbState"></label>        
+                     <div id="tr-LinkProcess"></div>
+                     <br>
+                     <div id="tr-description"></div>
+                  </div>
+               </div>
+            </div>
+            <div class="process cl-">
+               <div class="row">
+                  <div class="col-md-12">
+                     <h2 style="color: #f36e4d;">Clasificador</h2>
+                  </div>
+                  <div class="tab-content">
+                     <form id="formTcl" class="was-validated form-inline">
+                        <p id="dbUrlC"></p>
                         <div class="form-group">
-                          <label for="cp_date_end">Termina:</label>
-                          <input type="date" id="cp_date_end" name="cp-end-campaign" class="cp-input form-control" placeholder="Fecha de inicio" required>
+                           <label for="cl-file-selector">Carga el archivo a clasificar:</label>
+                           <input type="file" id="cl-file-selector" class="form-control-file border" accept=".csv, .xlsx">
+                           <br>
                         </div>
-                      </div>
-
-                    </div>
-                    <br>
-                    <div class="row">
-                      <br>
-                      <p class="col-md-6">
-          
-                        <button id="cpstart" type="button" class="btn btn-success">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                            <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
-                          </svg>
-                          Start
-                        </button>                
-                          <label id="cp-lbState"></label>        
-                          <div id="cp-LinkProcess"></div>
-                          <div id="cp-description"></div>    
-                      </p>
-                    </div>
-                                        
-                  </div> 
-                  
-                  <div class="tab-pane fade show" id="showCP" role="tabpanel" aria-labelledby="showCP-tab">
-                    
-                    <div class="form-group">
-                      <br>
-                      <table class="table tblCampañas">
-                        <thead class="thead-dark">
-                          <tr> 
-                            <th scope="col">Campaña</th>
-                            <th scope="col">Usuarios</th>
-                            <th scope="col">Inicia</th>
-                            <th scope="col">Termina</th>
-                          </tr>
-                        </thead>
-                        <tbody>  
-                        </tbody>
-                      </table>
-                      
-                    </div> 
-                    
-                  </div> 
-                </div> 
-
-              </form>
-              <div id="ctn-pagger" style="display: none;">
-                <!-- Botón para ir a la página anterior -->
-                <button id="atras" class="btn-pagger">Anterior</button>
-                <!-- Información de la página actual -->
-                <span id="informacion-pagina"></span>
-                <!-- Botón para ir a la página siguiente -->
-                <button id="siguiente"  class="btn-pagger">Siguiente</button>
-              </div>
-            </div>                
-
-          </div>          
-          
-        </div>
-
-        <div class="process rk-">
-          <div class="row">
-            <div class="col-md-12">
-              <h2 style="color: #bc2b05;">Ranking</h2>
-              <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.nwihz5sp6bfv" target="blank"
-              style="display: flex; margin-top: -32px; margin-left: 85%;"
-              >Ayuda</a>
-            </div>
-            <div class="tab-content">
-              <form id="formTrk" class="was-validated form-inline">                  
-                                
-                <ul class="nav nav-tabs" id="tabRanking" role="tablist">
-                  <li class="nav-item" role="presentation">
-                    <a class="nav-link-meta nav-link active " id="addRK-tab" data-toggle="tab" href="#addRK" role="tab" aria-controls="addRK" aria-selected="false">Registrar</a>
-                  </li>
-                  
-                  <li class="nav-item">
-                    <a class="nav-link-meta nav-link" id="showRK-tab" data-toggle="tab" href="#showRK" role="tab" aria-controls="showRK" aria-selected="true">Rankigs</a>
-                  </li>
-                  
-                </ul>
-                
-                
-                <div class="tab-content" id="myTabContentRanking">
-                  <div class="tab-pane fade show active" id="addRK" role="tabpanel" aria-labelledby="addRK-tab">  
-                    
-                    <br> 
-                    <div class="form-group">
-                      <label for="rk_spreadsheet_id">Documento de Usuarios:</label>
-                      <input type="text" id="rk_spreadsheet_id" name="rk-user-campaign" class="rk-input form-control" 
-                      placeholder="Link del archivo de usuarios" required>
-                      <br>
-                    </div>
-                    
-                     
-                    <br>
-                    <div class="row">
-                      <br>
-                      <p class="col-md-6">
-          
-                        <button id="rkstart" type="button" class="btn btn-success">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                            <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
-                          </svg>
-                          Start
-                        </button>                
-                          <label id="rk-lbState"></label>        
-                          <div id="rk-LinkProcess"></div>
-                          <div id="rk-description"></div>    
-                      </p>
-                    </div>
-                                        
-                  </div> 
-                  
-                  <div class="tab-pane fade show" id="showRK" role="tabpanel" aria-labelledby="showRK-tab">
-                    
-                    <div class="form-group">
-                      <br>
-                      <table class="table tblRanking">
-                        <thead class="thead-dark">
-                          <tr> 
-                            <th scope="col">Ranking</th>
-                            <th scope="col">Link</th>
-                          </tr>
-                        </thead>
-                        <tbody>  
-                        </tbody>
-                      </table>
-                      
-                    </div> 
-                    
-                  </div> 
-                </div> 
-
-              </form>
-              <div id="ctn-pagger-rk" style="display: none;">
-                <!-- Botón para ir a la página anterior -->
-                <button id="atras-rk" class="btn-pagger">Anterior</button>
-                <!-- Información de la página actual -->
-                <span id="informacion-pagina-rk"></span>
-                <!-- Botón para ir a la página siguiente -->
-                <button id="siguiente-rk"  class="btn-pagger">Siguiente</button>
-              </div>
-            </div>                
-
-          </div>          
-          
-        </div>
-        
-        <div class="process rmw-">
-          <div class="row">
-            <div class="col-md-12">
-              <h2 style="color: #f19a16;">Reportes Meltwater</h2>
-              <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.dfqjl4rt1v8"
-               target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
-            </div>
-            <div class="tab-content">
-              <form id="formrmw" class="was-validated form-inline">  
-                
-                <div class="form-group">
-                  <label for="rmTheme">Tema </label>
-                  <input type="text"  class="form-control" id="rmTheme" placeholder="Tema" name="rmTheme" required> 
+                        <div class="form-group">
+                           <label for="columns">Selecciona la columna donde se encuentra la información a clasificar:</label>
+                           <!--
+                              <input type="text" class="form-control" id="column" placeholder="Nombre del la columna" name="column" required="">
+                              -->
+                           <select id="columns" name="columns" class="form-select" aria-label="Default select example" required>
+                              <option value="">--Seleccione--</option>
+                           </select>
+                           <br>
+                        </div>
+                        <div id="errorDtCl"></div>
+                        <br>
+                        <div id="cl-themes"></div>
+                        <br>
+                        <div class="row">
+                           <div class="col-md-12" style="text-align: left;">
+                              <button type="button" id="clstart2" class="btn btn-success" style="width: 100px;border-radius: 5px !important;">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                    <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                                 </svg>
+                                 Start
+                              </button>
+                           </div>
+                           <div class="col-md-4"></div>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+               <div class="row cl-contairner-actions">
                   <br>
-              </div> 
-              
-              <div class="form-group">
-                <label for="rmSearch">Búsqueda </label>
-                <input type="text"  class="form-control" id="rmSearch" placeholder="Búsqueda" name="rmSearch" required> 
-                <br>
-              </div> 
-
-              <div class="form-group">
-                <label for="rmSelectLanguaje">Lenguaje</label>
-                <div class="box-multiselect">
-                  <div class="selectBox" id="rmShowLanguajes" >
-                    <select id="rmSelectLanguaje" class="form-select" aria-label="Default select example">
-                      <option>--Seleccione--</option>
-                    </select>
-                    <div class="overSelect"></div>
-                  </div>
-                  <div id="rmChecksLanguajes" class="rmSelectChecksBox">
-                    <!--Contenido generado por medio de un objeto-->
-                  </div>
-                </div>
-                <br>
-              </div> 
-
-              <div class="form-group">
-                <label for="rmSelectLocation">Ubicación</label>
-                <div class="box-multiselect">
-                  <div class="selectBox" id="rmShowLocations" >
-                    <select id="rmSelectLocation" class="form-select" aria-label="Default select example">
-                      <option>--Seleccione--</option>
-                    </select>
-                    <div class="overSelect"></div>
-                  </div>
-                  <div id="rmChecksLocations" class="rmSelectChecksBox">
-                    <!--Contenido generado por medio de un objeto-->
-                  </div>
-                </div>
-                <br>
-              </div> 
-
-              <div class="form-group">
-                <label for="rmSelectSource">Fuente</label>
-                <div class="box-multiselect">
-                  <div class="selectBox" id="rmShowSources" >
-                    <select id="rmSelectSource" class="form-select" aria-label="Default select example">
-                      <option>--Seleccione--</option>
-                    </select>
-                    <div class="overSelect"></div>
-                  </div>
-                  <div id="rmChecksSources" class="rmSelectChecksBox">
-                    <!--Contenido generado por medio de un objeto-->
-                  </div>
-                </div>
-                <br>
-              </div> 
- 
-              <div class="form-group">
-                <label for="rmCategory">Categoría</label>
-                <select id="rmCategory" name="rmCategory" class="form-select" aria-label="Default select example" required>
-                  <option value="">--Seleccione--</option>
-                  <option value="0">Accidentes</option>
-                  <option value="1">Desastres naturales</option>
-                  <option value="2">Viral</option>
-                  <option value="3">Entretenimiento</option>
-                  <option value="4">Deportes</option>
-                  <option value="5">Política</option>
-                  <option value="6">Gobierno</option>
-                  <option value="7">Negocios</option>
-                  
-                </select>
-                <br>
-              </div> 
-              <div class="form-group">
-                <label for="rmPosition">¿Quién posicionó el tema?</label>
-                <select id="rmPosition" name="rmPosition" class="form-select" aria-label="Default select example" required>
-                  <option value="">--Seleccione--</option>
-                  <option value="0">Bots y Trolls</option>
-                  <option value="1">Opinión Pública Informada</option>
-                  <option value="2">Opinión Pública</option>
-                  <option value="3">Activistas</option>
-                  <option value="4">Influencers</option>
-                  <option value="5">Líderes de Opinión</option>
-                  <option value="6">Medios</option>
-                </select>
-                <br>
-              </div> 
-              <div class="form-group">
-                <label for="rmLevel">Nivel</label>
-                <select id="rmLevel" name="rmLevel" class="form-select" aria-label="Default select example" required>
-                  <option value="">--Seleccione--</option>
-                  <option value="0">Local</option>
-                  <option value="1">Regional</option>
-                  <option value="2">Nacional</option>
-                  <option value="3">Internacional</option>
-                  <option value="4">Mundial</option>
-                </select>
-                <br>
-              </div>                      
-              <div class="form-group">
-                <label for="rmDtStart">Fecha de inicio:</label>
-                <input type="date" class="form-control" id="rmDtStart" placeholder="" name="rmDtStart" required> 
-                <br>
-                <label for="rmDtEnd">Fecha de fin:</label>
-                <input type="date" class="form-control" id="rmDtEnd" placeholder="" name="rmDtEnd" required> 
-              </div>
-              
-
-                <div class="form-group">
-                    <label for="urlSheetrmw">Link del google sheet </label>
-                    <input type="text"  class="form-control" id="urlSheetrmw" placeholder="Link del google sheet" name="urlSheetrmw" required> 
-                    <br>
-                </div> 
-                <div class="form-group">
-                    <label for="urlPresentationrmw">Link del google presentation </label>
-                    <input type="text"  class="form-control" id="urlPresentationrmw" placeholder="Link del google presentation" name="urlPresentationrmw" required> 
-                    <br>
-                </div> 
-
-
-                <div id="errorDtrmw"></div>
-
-                <div class="row">
-
-                  <div class="col-md-12" style="text-align: left;">
-                    <button type="button" id="rmwstart" class="btn btn-success" style="width: 100px;border-radius: 5px !important;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
-                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                      <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
-                    </svg> Start</button>
-                  </div>
-                  <div class="col-md-4"></div>
-                </div>
-              </form>
-            </div>                               
-
-          </div>          
-
-
-          <div class="row process rmw-contairner-process">
-            <br>
-            <div class="col-md-12">
-
-              <label id="rmw-lbState"></label>        
-              <div id="rmw-LinkProcess"></div>
-              <br>
-              <div id="rmw-description"></div>       
-            </div>
-          </div>
-
-        </div>
-
-        
-        <div class="process mwm-">
-          <div class="row">
-            <div class="col-md-12">
-              <h2 style="color: #18b9bb;">Meltwater Mediciones</h2>
-              <!--<a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.40r5f6lpv9f2"
-               target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
-              -->
-            </div>
-            <div class="tab-content">
-              <form id="formmwm" class="was-validated form-inline">  
-                  
-              <label>Para procesar el alcance ¿con qué versión deseas trabajar?</label>
-              <div class="form-group">
-
-                <label class="container-radio">Versión 1
-                  <input type="radio" checked="checked" class="mwmUnexploredV" name="mwmUnexploredV" value="1">
-                  <span class="checkmark"></span>
-                </label>&nbsp;&nbsp;&nbsp;
-                <label class="container-radio">Versión 2
-                  <input type="radio" class="mwmUnexploredV" name="mwmUnexploredV" value="2">
-                  <span class="checkmark"></span>
-                </label>
-              </div> 
-
-              <div id="mwm-container-carp" class="form-group">
-              </div>
-
-                <div class="form-group">
-                    <label for="titlemwm">Título de la medición </label>
-                    <input type="text"  class="form-control" id="titlemwm" placeholder="Título para la medición" name="titlemwm" required> 
-                    <br>
-                </div> 
-
-                <div class="form-group">
-                  <label for="searchmwm">Búsqueda </label>
-                  <input type="text"  class="form-control" id="searchmwm" placeholder="Búsqueda" name="searchmwm" required> 
+                  <p class="col-md-6 btn-group">
+                     <button id="clstart" type="button" class="btn btn-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                           <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                           <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                        </svg>
+                        Start
+                     </button>
+                  </p>
+               </div>
+               <br>
+               <div class="col-md-12">
+                  <label id="cl-lbState"></label>        
+                  <div id="cl-LinkProcess"></div>
                   <br>
-                </div> 
-                                
-                <div class="form-group">
-                  <label for="languajemwm">Idioma </label> 
-                  <br>                      
-                      <select data-placeholder="Comienza a escribir para seleccionar un idioma" 
-                        multiple class="chosen-select-width" id="languajemwm" name="languajemwm" required>
-                      </select>                   
-                </div> 
-                <div class="form-group">
-                  <label for="locationmwm">Ubicación </label>
-                  <br>                      
-                  <select data-placeholder="Comienza a escribir para seleccionar un ubicación" 
-                    multiple class="chosen-select-width" id="locationmwm" name="locationmwm" required>
-                  </select>                    
-                  
-                </div> 
-                <br>
-                                     
-                <div class="form-group">
-                  <label for="dtStartmwm">Fecha de inicio:</label>
-                  <input type="date" class="form-control" id="dtStartmwm" placeholder="" name="dtStartmwm" > 
-                  <br>
-                  <label for="dtEndmwm">Fecha de fin:</label>
-                  <input type="date" class="form-control" id="dtEndmwm" placeholder="" name="dtEndmwm" > 
-                </div>
-                <br><br>
-
-                <div id="errorDtmwm"></div>
-
-                <div class="row">
-
-                  <div class="col-md-12" style="text-align: left;">
-                    <button type="button" id="mwmstart" class="btn btn-success" style="width: 100px;border-radius: 5px !important;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
-                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                      <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
-                    </svg> Start</button>
-                  </div>
-                  <div class="col-md-4"></div>
-                </div>
-              </form>
-            </div>                
-
-          </div>          
-
-
-          <div class="row process mwm-contairner-process">
-            <br>
-            <div class="col-md-12">
-
-              <label id="mwm-lbState"></label>        
-              <div id="mwm-LinkProcess"></div>
-              <br>
-              <div id="mwm-description"></div>       
+                  <div id="cl-description"></div>
+               </div>
             </div>
-          </div>
+            <div class="process mtbs-">
+               <div class="row">
+                  <div class="col-md-12">
+                     <h2 style="color: #0163de;">Meta Business</h2>
+                     <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.yx28879b54qu"
+                        target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
+                  </div>
+                  <div class="tab-content">
+                     <form id="formmtbs" class="was-validated form-inline">
+                        <div class="form-group">
+                           <ul class="nav nav-tabs" id="tabMeta" role="tablist">
+                              <li class="nav-item" role="presentation">
+                                 <a class="nav-link-meta nav-link active " id="metaXlsx-tab" data-toggle="tab" href="#metaXlsx" role="tab" aria-controls="metaXlsx" aria-selected="false">Local</a>
+                              </li>
+                              <li class="nav-item">
+                                 <a class="nav-link-meta nav-link" id="metaSheet-tab" data-toggle="tab" href="#metaSheet" role="tab" aria-controls="metaSheet" aria-selected="true">Google Sheets</a>
+                              </li>
+                           </ul>
+                           <div class="tab-content" id="myTabContentMeta">
+                              <div class="tab-pane fade show active" id="metaXlsx" role="tabpanel" aria-labelledby="metaXlsx-tab">  
+                                 <label for="mtbs-file-selector">Cargar archivo:</label>
+                                 <input type="file" id="mtbs-file-selector" class="form-control-file border" accept=".csv, .xlsx">
+                              </div>
+                              <div class="tab-pane fade show" id="metaSheet" role="tabpanel" aria-labelledby="metaSheet-tab">
+                                 <div class="form-group">
+                                    <label for="urlGoogleSheet">Link del google sheet </label>
+                                    <input type="text"  class="form-control" id="urlGoogleSheet" placeholder="Link del google sheet" name="urlGoogleSheet" required> 
+                                    <br>
+                                 </div>
+                              </div>
+                           </div>
+                           <br>
+                        </div>
+                        <div id="errorDtmtbs"></div>
+                        <div class="row">
+                           <div class="col-md-12" style="text-align: left;">
+                              <button type="button" id="mtbsstart" class="btn btn-success" style="width: 100px;border-radius: 5px !important;">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                    <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                                 </svg>
+                                 Start
+                              </button>
+                           </div>
+                           <div class="col-md-4"></div>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+               <div class="row process mtbs-contairner-process">
+                  <br>
+                  <div class="col-md-12">
+                     <label id="mtbs-lbState"></label>        
+                     <div id="mtbs-LinkProcess"></div>
+                     <br>
+                     <div id="mtbs-description"></div>
+                  </div>
+               </div>
+            </div>
 
-        </div>
+            <div class="process mws-">
+               <div class="row">
+                  <div class="col-md-12">
+                     <h2 style="color: #18b9bb;">Meltwater Search</h2>
+                     <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.40r5f6lpv9f2"
+                        target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
+                  </div>
+                  <div class="tab-content">
+                     <form id="formmws" class="was-validated form-inline">
+                        <label>Para procesar el alcance ¿con qué versión deseas trabajar?</label>
+                        <div class="form-group">
+                           <label class="container-radio">Versión 1
+                           <input type="radio" checked="checked" class="msUnexploredV" name="msUnexploredV" value="1">
+                           <span class="checkmark"></span>
+                           </label>&nbsp;&nbsp;&nbsp;
+                           <label class="container-radio">Versión 2
+                           <input type="radio" class="msUnexploredV" name="msUnexploredV" value="2">
+                           <span class="checkmark"></span>
+                           </label>
+                        </div>
+                        <div id="ms-container-carp" class="form-group">
+                        </div>
+                        <div class="form-group">
+                           <label for="urlSheetmws">Link del google sheet </label>
+                           <input type="text"  class="form-control" id="urlSheetmws" placeholder="Link del google sheet" name="urlSheetmws" required> 
+                           <br>
+                        </div>
+                        <div id="errorDtmws"></div>
+                        <div class="row">
+                           <div class="col-md-12" style="text-align: left;">
+                              <button type="button" id="mwsstart" class="btn btn-success" style="width: 100px;border-radius: 5px !important;">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                    <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                                 </svg>
+                                 Start
+                              </button>
+                           </div>
+                           <div class="col-md-4"></div>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+               <div class="row process mws-contairner-process">
+                  <br>
+                  <div class="col-md-12">
+                     <label id="mws-lbState"></label>        
+                     <div id="mws-LinkProcess"></div>
+                     <br>
+                     <div id="mws-description"></div>
+                  </div>
+               </div>
+            </div>
 
+            <div class="process cp-">
+               <div class="row">
+                  <div class="col-md-12">
+                     <h2 style="color: #3cab5a;">Campañas</h2>
+                     <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.nnebdx8azh9v" target="blank"
+                        style="display: flex; margin-top: -32px; margin-left: 85%;"
+                        >Ayuda</a>
+                  </div>
+                  <div class="tab-content">
+                     <form id="formTcp" class="was-validated form-inline">
+                        <ul class="nav nav-tabs" id="tabCampañas" role="tablist">
+                           <li class="nav-item" role="presentation">
+                              <a class="nav-link-meta nav-link active " id="addCp-tab" data-toggle="tab" href="#addCp" role="tab" aria-controls="addCp" aria-selected="false">Registrar</a>
+                           </li>
+                           <li class="nav-item">
+                              <a class="nav-link-meta nav-link" id="showCP-tab" data-toggle="tab" href="#showCP" role="tab" aria-controls="showCP" aria-selected="true">Ver</a>
+                           </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContentCampañas">
+                           <div class="tab-pane fade show active" id="addCp" role="tabpanel" aria-labelledby="addCp-tab">
+                              <br>
+                              <div class="form-group">
+                                 <label for="cp_search">#Hashtag:</label>
+                                 <input type="text" id="cp_search" name="cp-search-campaign" class="cp-input form-control" placeholder="#Hashtag" required>
+                                 <br>
+                              </div>
+                              <div class="form-group">
+                                 <label for="cp_spreadsheet_id">Documento de Usuarios:</label>
+                                 <input type="text" id="cp_spreadsheet_id" name="cp-user-campaign" class="cp-input form-control" 
+                                    placeholder="Link del archivo de usuarios" required>
+                                 <br>
+                              </div>
+                              <div class="form-group">
+                                 <label for="select-concept">Concepto(s):</label><br>                      
+                                 <select data-placeholder="Comienza a escribir para seleccionar un concepto" 
+                                    multiple class="chosen-select-width" 
+                                    id="select-concept" name="select-concept">
+                                 </select> 
+                              </div>
+                              <br>
+                              <div class="row-date">
+                                 <div class="col2">
+                                    <div class="form-group">
+                                       <label for="cp_date_start">Inicia:</label>
+                                       <input type="date" id="cp_date_start" name="cp-start-campaign" class="cp-input form-control" placeholder="Fecha de inicio" required>
+                                    </div>
+                                 </div>
+                                 <div class="col2">
+                                    <div class="form-group">
+                                       <label for="cp_date_end">Termina:</label>
+                                       <input type="date" id="cp_date_end" name="cp-end-campaign" class="cp-input form-control" placeholder="Fecha de inicio" required>
+                                    </div>
+                                 </div>
+                              </div>
+                              <br>
+                              <div class="row">
+                                 <br>
+                                 <p class="col-md-6">
+                                    <button id="cpstart" type="button" class="btn btn-success">
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                          <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                                       </svg>
+                                       Start
+                                    </button>
+                                    <label id="cp-lbState"></label>        
+                                 <div id="cp-LinkProcess"></div>
+                                 <div id="cp-description"></div>
+                                 </p>
+                              </div>
+                           </div>
+                           <div class="tab-pane fade show" id="showCP" role="tabpanel" aria-labelledby="showCP-tab">
+                              <div class="form-group">
+                                 <br>
+                                 <table class="table tblCampañas">
+                                    <thead class="thead-dark">
+                                       <tr>
+                                          <th scope="col">Campaña</th>
+                                          <th scope="col">Usuarios</th>
+                                          <th scope="col">Inicia</th>
+                                          <th scope="col">Termina</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>  
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                        </div>
+                     </form>
+                     <div id="ctn-pagger" style="display: none;">
+                        <!-- Botón para ir a la página anterior -->
+                        <button id="atras" class="btn-pagger">Anterior</button>
+                        <!-- Información de la página actual -->
+                        <span id="informacion-pagina"></span>
+                        <!-- Botón para ir a la página siguiente -->
+                        <button id="siguiente"  class="btn-pagger">Siguiente</button>
+                     </div>
+                  </div>
+               </div>
+            </div>
 
+            <div class="process rk-">
+               <div class="row">
+                  <div class="col-md-12">
+                     <h2 style="color: #bc2b05;">Ranking</h2>
+                     <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.nwihz5sp6bfv" target="blank"
+                        style="display: flex; margin-top: -32px; margin-left: 85%;"
+                        >Ayuda</a>
+                  </div>
+                  <div class="tab-content">
+                     <form id="formTrk" class="was-validated form-inline">
+                        <ul class="nav nav-tabs" id="tabRanking" role="tablist">
+                           <li class="nav-item" role="presentation">
+                              <a class="nav-link-meta nav-link active " id="addRK-tab" data-toggle="tab" href="#addRK" role="tab" aria-controls="addRK" aria-selected="false">Registrar</a>
+                           </li>
+                           <li class="nav-item">
+                              <a class="nav-link-meta nav-link" id="showRK-tab" data-toggle="tab" href="#showRK" role="tab" aria-controls="showRK" aria-selected="true">Rankigs</a>
+                           </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContentRanking">
+                           <div class="tab-pane fade show active" id="addRK" role="tabpanel" aria-labelledby="addRK-tab">
+                              <br> 
+                              <div class="form-group">
+                                 <label for="rk_spreadsheet_id">Documento de Usuarios:</label>
+                                 <input type="text" id="rk_spreadsheet_id" name="rk-user-campaign" class="rk-input form-control" 
+                                    placeholder="Link del archivo de usuarios" required>
+                                 <br>
+                              </div>
+                              <br>
+                              <div class="row">
+                                 <br>
+                                 <p class="col-md-6">
+                                    <button id="rkstart" type="button" class="btn btn-success">
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                          <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                                       </svg>
+                                       Start
+                                    </button>
+                                    <label id="rk-lbState"></label>        
+                                 <div id="rk-LinkProcess"></div>
+                                 <div id="rk-description"></div>
+                                 </p>
+                              </div>
+                           </div>
+                           <div class="tab-pane fade show" id="showRK" role="tabpanel" aria-labelledby="showRK-tab">
+                              <div class="form-group">
+                                 <br>
+                                 <table class="table tblRanking">
+                                    <thead class="thead-dark">
+                                       <tr>
+                                          <th scope="col">Ranking</th>
+                                          <th scope="col">Link</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>  
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                        </div>
+                     </form>
+                     <div id="ctn-pagger-rk" style="display: none;">
+                        <!-- Botón para ir a la página anterior -->
+                        <button id="atras-rk" class="btn-pagger">Anterior</button>
+                        <!-- Información de la página actual -->
+                        <span id="informacion-pagina-rk"></span>
+                        <!-- Botón para ir a la página siguiente -->
+                        <button id="siguiente-rk"  class="btn-pagger">Siguiente</button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            <div class="process rmw-">
+               <div class="row">
+                  <div class="col-md-12">
+                     <h2 style="color: #f19a16;">Reportes Meltwater</h2>
+                     <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.dfqjl4rt1v8"
+                        target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
+                  </div>
+                  <div class="tab-content">
+                     <form id="formrmw" class="was-validated form-inline">
+                        <div class="form-group">
+                           <label for="rmTheme">Tema </label>
+                           <input type="text"  class="form-control" id="rmTheme" placeholder="Tema" name="rmTheme" required> 
+                           <br>
+                        </div>
+                        <div class="form-group">
+                           <label for="rmSearch">Búsqueda </label>
+                           <input type="text"  class="form-control" id="rmSearch" placeholder="Búsqueda" name="rmSearch" required> 
+                           <br>
+                        </div>
+                        <div class="form-group">
+                           <label for="rmSelectLanguaje">Lenguaje</label>
+                           <div class="box-multiselect">
+                              <div class="selectBox" id="rmShowLanguajes" >
+                                 <select id="rmSelectLanguaje" class="form-select" aria-label="Default select example">
+                                    <option>--Seleccione--</option>
+                                 </select>
+                                 <div class="overSelect"></div>
+                              </div>
+                              <div id="rmChecksLanguajes" class="rmSelectChecksBox">
+                                 <!--Contenido generado por medio de un objeto-->
+                              </div>
+                           </div>
+                           <br>
+                        </div>
+                        <div class="form-group">
+                           <label for="rmSelectLocation">Ubicación</label>
+                           <div class="box-multiselect">
+                              <div class="selectBox" id="rmShowLocations" >
+                                 <select id="rmSelectLocation" class="form-select" aria-label="Default select example">
+                                    <option>--Seleccione--</option>
+                                 </select>
+                                 <div class="overSelect"></div>
+                              </div>
+                              <div id="rmChecksLocations" class="rmSelectChecksBox">
+                                 <!--Contenido generado por medio de un objeto-->
+                              </div>
+                           </div>
+                           <br>
+                        </div>
+                        <div class="form-group">
+                           <label for="rmSelectSource">Fuente</label>
+                           <div class="box-multiselect">
+                              <div class="selectBox" id="rmShowSources" >
+                                 <select id="rmSelectSource" class="form-select" aria-label="Default select example">
+                                    <option>--Seleccione--</option>
+                                 </select>
+                                 <div class="overSelect"></div>
+                              </div>
+                              <div id="rmChecksSources" class="rmSelectChecksBox">
+                                 <!--Contenido generado por medio de un objeto-->
+                              </div>
+                           </div>
+                           <br>
+                        </div>
+                        <div class="form-group">
+                           <label for="rmCategory">Categoría</label>
+                           <select id="rmCategory" name="rmCategory" class="form-select" aria-label="Default select example" required>
+                              <option value="">--Seleccione--</option>
+                              <option value="0">Accidentes</option>
+                              <option value="1">Desastres naturales</option>
+                              <option value="2">Viral</option>
+                              <option value="3">Entretenimiento</option>
+                              <option value="4">Deportes</option>
+                              <option value="5">Política</option>
+                              <option value="6">Gobierno</option>
+                              <option value="7">Negocios</option>
+                           </select>
+                           <br>
+                        </div>
+                        <div class="form-group">
+                           <label for="rmPosition">¿Quién posicionó el tema?</label>
+                           <select id="rmPosition" name="rmPosition" class="form-select" aria-label="Default select example" required>
+                              <option value="">--Seleccione--</option>
+                              <option value="0">Bots y Trolls</option>
+                              <option value="1">Opinión Pública Informada</option>
+                              <option value="2">Opinión Pública</option>
+                              <option value="3">Activistas</option>
+                              <option value="4">Influencers</option>
+                              <option value="5">Líderes de Opinión</option>
+                              <option value="6">Medios</option>
+                           </select>
+                           <br>
+                        </div>
+                        <div class="form-group">
+                           <label for="rmLevel">Nivel</label>
+                           <select id="rmLevel" name="rmLevel" class="form-select" aria-label="Default select example" required>
+                              <option value="">--Seleccione--</option>
+                              <option value="0">Local</option>
+                              <option value="1">Regional</option>
+                              <option value="2">Nacional</option>
+                              <option value="3">Internacional</option>
+                              <option value="4">Mundial</option>
+                           </select>
+                           <br>
+                        </div>
+                        <div class="form-group">
+                           <label for="rmDtStart">Fecha de inicio:</label>
+                           <input type="date" class="form-control" id="rmDtStart" placeholder="" name="rmDtStart" required> 
+                           <br>
+                           <label for="rmDtEnd">Fecha de fin:</label>
+                           <input type="date" class="form-control" id="rmDtEnd" placeholder="" name="rmDtEnd" required> 
+                        </div>
+                        <div class="form-group">
+                           <label for="urlSheetrmw">Link del google sheet </label>
+                           <input type="text"  class="form-control" id="urlSheetrmw" placeholder="Link del google sheet" name="urlSheetrmw" required> 
+                           <br>
+                        </div>
+                        <div class="form-group">
+                           <label for="urlPresentationrmw">Link del google presentation </label>
+                           <input type="text"  class="form-control" id="urlPresentationrmw" placeholder="Link del google presentation" name="urlPresentationrmw" required> 
+                           <br>
+                        </div>
+                        <div id="errorDtrmw"></div>
+                        <div class="row">
+                           <div class="col-md-12" style="text-align: left;">
+                              <button type="button" id="rmwstart" class="btn btn-success" style="width: 100px;border-radius: 5px !important;">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                    <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                                 </svg>
+                                 Start
+                              </button>
+                           </div>
+                           <div class="col-md-4"></div>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+               <div class="row process rmw-contairner-process">
+                  <br>
+                  <div class="col-md-12">
+                     <label id="rmw-lbState"></label>        
+                     <div id="rmw-LinkProcess"></div>
+                     <br>
+                     <div id="rmw-description"></div>
+                  </div>
+               </div>
+            </div>
+
+            <div class="process mwm-">
+               <div class="row">
+                  <div class="col-md-12">
+                     <h2 style="color: #18b9bb;">Meltwater Mediciones</h2>
+                     <!--<a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.40r5f6lpv9f2"
+                        target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
+                        -->
+                  </div>
+                  <div class="tab-content">
+                     <form id="formmwm" class="was-validated form-inline">
+                        <label>Para procesar el alcance ¿con qué versión deseas trabajar?</label>
+                        <div class="form-group">
+                           <label class="container-radio">Versión 1
+                           <input type="radio" checked="checked" class="mwmUnexploredV" name="mwmUnexploredV" value="1">
+                           <span class="checkmark"></span>
+                           </label>&nbsp;&nbsp;&nbsp;
+                           <label class="container-radio">Versión 2
+                           <input type="radio" class="mwmUnexploredV" name="mwmUnexploredV" value="2">
+                           <span class="checkmark"></span>
+                           </label>
+                        </div>
+                        <div id="mwm-container-carp" class="form-group">
+                        </div>
+                        <div class="form-group">
+                           <label for="titlemwm">Título de la medición </label>
+                           <input type="text"  class="form-control" id="titlemwm" placeholder="Título para la medición" name="titlemwm" required> 
+                           <br>
+                        </div>
+                        <div class="form-group">
+                           <label for="searchmwm">Búsqueda </label>
+                           <input type="text"  class="form-control" id="searchmwm" placeholder="Búsqueda" name="searchmwm" required> 
+                           <br>
+                        </div>
+                        <div class="form-group">
+                           <label for="languajemwm">Idioma </label> 
+                           <br>                      
+                           <select data-placeholder="Comienza a escribir para seleccionar un idioma" 
+                              multiple class="chosen-select-width" id="languajemwm" name="languajemwm" required>
+                           </select>                   
+                        </div>
+                        <div class="form-group">
+                           <label for="locationmwm">Ubicación </label>
+                           <br>                      
+                           <select data-placeholder="Comienza a escribir para seleccionar un ubicación" 
+                              multiple class="chosen-select-width" id="locationmwm" name="locationmwm" required>
+                           </select>                    
+                        </div>
+                        <br>
+                        <div class="form-group">
+                           <label for="dtStartmwm">Fecha de inicio:</label>
+                           <input type="date" class="form-control" id="dtStartmwm" placeholder="" name="dtStartmwm" > 
+                           <br>
+                           <label for="dtEndmwm">Fecha de fin:</label>
+                           <input type="date" class="form-control" id="dtEndmwm" placeholder="" name="dtEndmwm" > 
+                        </div>
+                        <br><br>
+                        <div id="errorDtmwm"></div>
+                        <div class="row">
+                           <div class="col-md-12" style="text-align: left;">
+                              <button type="button" id="mwmstart" class="btn btn-success" style="width: 100px;border-radius: 5px !important;">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                    <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                                 </svg>
+                                 Start
+                              </button>
+                           </div>
+                           <div class="col-md-4"></div>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+               <div class="row process mwm-contairner-process">
+                  <br>
+                  <div class="col-md-12">
+                     <label id="mwm-lbState"></label>        
+                     <div id="mwm-LinkProcess"></div>
+                     <br>
+                     <div id="mwm-description"></div>
+                  </div>
+               </div>
+            </div>
+
+            <div class="process sv-">
+               <div class="row">
+                  <div class="col-md-12">
+                     <h2 style="color: #f5be40;">Solicitud de vacaciones</h2>
+                     <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.yx28879b54qu"
+                        target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
+                  </div>
+                  <div class="tab-content">
+                     <form id="formsv" class="was-validated form-inline">
+                        <div class="form-group">                  
+                           <label>Carga tu archivo de solicitud de vacaciones: </label>                  
+                           <br>
+                        </div>
+                        <div id="errorDtsv"></div>
+                        <div class="row">
+                           <div class="col-md-12" style="text-align: left;">
+                              <button type="button" id="svstart" class="btn btn-success" style="width: 100px;border-radius: 5px !important;">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                    <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
+                                 </svg>
+                                 Start
+                              </button>
+                           </div>
+                           <div class="col-md-4"></div>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+               <div class="row process sv-contairner-process">
+                  <br>
+                  <div class="col-md-12">
+                     <label id="sv-lbState"></label>        
+                     <div id="sv-LinkProcess"></div>
+                     <br>
+                     <div id="sv-description"></div>
+                  </div>
+               </div>
+            </div>
+
+            <div class="process dvd-">
+               <div class="row">
+                  <div class="col-md-12">
+                     <p id="numberdvd" style="color: #424272; font-size:medium;">
+                     </p>
+                  </div>
+               </div>
+               <div class="row process dvd-contairner-process">
+                  <br>
+                  <div class="col-md-12">
+                     <label id="dvd-lbState"></label>        
+                     <div id="dvd-LinkProcess"></div>
+                     <br>
+                     <div id="dvd-description"></div>
+                  </div>
+               </div>
+            </div>
+
+         </div>
       </div>
-    </div>
-   
-    <script src="script/jquery.min.js?62736232564237" charset="utf-8"></script> 
-    <script src="script/highcharts.js?62736232564237" charset="utf-8"></script> 
-    <script src="script/wordcloud.js?62736232564237" charset="utf-8"></script> 
-    <script src="script/shim.min.js?62736232564237" charset="utf-8"></script> 
-    <script src="script/xlsx.full.min.js?62736232564237" charset="utf-8"></script> 
-    <script src="script/bootstrap.min.js?62736232564237" charset="utf-8"></script>
-    <script src="script/meltwaterInjections.js?62736232564237" charset="utf-8"></script>    
-    <script src="script/data.js?62736232564237" charset="utf-8"></script>
-    <script src="script/functions.js?62736232564237" charset="utf-8"></script>
-    <script src="script/clasificator.js?62736232564237" charset="utf-8"></script>
-    <script src="script/popup.js?62736232564237" charset="utf-8"></script>    
-    <script src="script/meltwater.js?62736232564237" charset="utf-8"></script>
-    <script src="script/mwgroup.js?62736232564237" charset="utf-8"></script>
-    <script src="script/trendinalia.js?62736232564237" charset="utf-8"></script>
-    <script src="script/metabusinesssuite.js?62736232564237" charset="utf-8"></script>
-    <script src="script/meltwaterSerach.js?62736232564237" charset="utf-8"></script>
-    <script src="script/presentationMeltwater.js?62736232564237" charset="utf-8"></script>
-    
-    <script src="script/meltwaterMedition.js?62736232564237" charset="utf-8"></script>
-    <script src="script/CreateSheetJS.js?62736232564237" charset="utf-8"></script>
-    <script src="script/pagger.js?62736232564237" charset="utf-8"></script>
-    <script src="script/campaign.js?62736232564237" charset="utf-8"></script>
-    <script src="script/chosen.jquery.js?62736232564237" charset="utf-8"></script>
-    <!--<script src="script/paggerRanking.js?62736232564237" charset="utf-8"></script>-->
-    <script src="script/ranking.js?62736232564237" charset="utf-8"></script>
-    
-
-  </body>
-
-  <footer class="footer">
-    Extension created by MWGroup V3.0.1.0
-  </footer>
-
+      <script src="script/jquery-3.7.1.min.js?62736232564237" charset="utf-8"></script> 
+      <!--<script src="script/jquery.min.js?62736232564237" charset="utf-8"></script> 
+      <script src="script/index.umd.js?62736232564237" charset="utf-8"></script>   
+      <script src="script/platform.js" charset="utf-8" async defer></script>    
+      <script src="script/client.js?62736232564237" charset="utf-8"></script> -->
+      <script src="script/highcharts.js?62736232564237" charset="utf-8"></script> 
+      <script src="script/wordcloud.js?62736232564237" charset="utf-8"></script> 
+      <script src="script/shim.min.js?62736232564237" charset="utf-8"></script> 
+      <script src="script/xlsx.full.min.js?62736232564237" charset="utf-8"></script> 
+      <script src="script/bootstrap.min.js?62736232564237" charset="utf-8"></script>
+      <script src="script/meltwaterInjections.js?62736232564237" charset="utf-8"></script>    
+      <script src="script/data.js?62736232564237" charset="utf-8"></script>
+      <script src="script/functions.js?62736232564237" charset="utf-8"></script>
+      <script src="script/configurationModules.js?62736232564237" charset="utf-8"></script>
+      <script src="script/clasificator.js?62736232564237" charset="utf-8"></script>
+      <script src="script/popup.js?62736232564237" charset="utf-8"></script>    
+      <script src="script/meltwater.js?62736232564237" charset="utf-8"></script>
+      <script src="script/mwgroup.js?62736232564237" charset="utf-8"></script>
+      <script src="script/trendinalia.js?62736232564237" charset="utf-8"></script>
+      <script src="script/metabusinesssuite.js?62736232564237" charset="utf-8"></script>
+      <script src="script/meltwaterSerach.js?62736232564237" charset="utf-8"></script>
+      <script src="script/presentationMeltwater.js?62736232564237" charset="utf-8"></script>
+      <script src="script/meltwaterMedition.js?62736232564237" charset="utf-8"></script>
+      <script src="script/CreateSheetJS.js?62736232564237" charset="utf-8"></script>
+      <script src="script/pagger.js?62736232564237" charset="utf-8"></script>
+      <script src="script/campaign.js?62736232564237" charset="utf-8"></script>
+      <script src="script/chosen.jquery.js?62736232564237" charset="utf-8"></script>
+      <!--<script src="script/paggerRanking.js?62736232564237" charset="utf-8"></script>-->
+      <script src="script/ranking.js?62736232564237" charset="utf-8"></script>
+      <script src="script/holidays.js?62736232564237" charset="utf-8"></script>
+   </body>
+   <footer class="footer">
+      Extension created by MWGroup
+   </footer>
 </html>

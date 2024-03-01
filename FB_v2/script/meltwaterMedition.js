@@ -408,13 +408,14 @@ async function goToPagemwm(url,tab_id,max_authors) {
                 dataApisMelt.mw_api_users = xpathUrl["mw_api_users"][0];
                 dataApisMelt.XClientName = xpathUrl["XClientName"];
                 
-
+                PARAMETERS_API_MELT.includeUsers= true;
                 chrome.scripting.executeScript({
                     target: {tabId: tab_id},
                     func: meltInject,
                     args:[
                         JSON.stringify(dataApisMelt),
-                        JSON.stringify(_filters)
+                        JSON.stringify(_filters),
+                        JSON.stringify(PARAMETERS_API_MELT)
                     ]
                     /*
                     func: injectScriptMWM,

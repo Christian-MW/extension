@@ -252,7 +252,7 @@ div.process{
 
 .contairner-extensions{
    height: auto !important;
-   min-height: 80px;
+   display: flex !important;
 }
 
 .tblCampañas{

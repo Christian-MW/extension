@@ -1,5 +1,6 @@
 'use strict';
 console.log("Cargando archivo functions");
+var PARAMETERS_API_MELT={visualizationIds:[],includeUsers:false,emailUser:""}
 var modules = [];
 var users = [];
 var userDVD = [];
@@ -1032,7 +1033,7 @@ chrome.identity.launchWebAuthFlow(
 
             jQuery("#unauthorized").hide();
             jQuery("#extencionctn").show();
-
+            PARAMETERS_API_MELT.emailUser = userInfo.email;
             let u = users.filter((u) => u["Correo"]==userInfo.email);
             
             document.getElementById("welcome").innerHTML="Bienvenido "+u[0].Usuario;
@@ -1226,4 +1227,22 @@ function processSubmodules(){
     });
 }
 
+let sm = document.querySelectorAll('*[submodule]');
+let m = document.querySelectorAll('*[module]');
+let contenedoresSubmodulos = document.getElementsByClassName('ctn-submodule');
+$(sm).click(function(e){
+    for (let index = 0; index < contenedoresSubmodulos.length; index++) {
+        $(contenedoresSubmodulos[index]).hide();
+        
+    }
+    $("."+e.target.id).show();
+})
+$(m).click(function(e){
+    for (let index = 0; index < contenedoresSubmodulos.length; index++) {
+        $(contenedoresSubmodulos[index]).hide();
+        
+    }
+})
 
+var MONTHS = {"1":"Enero","2":"Febrero","3":"Marzo","4":"Abril","5":"Mayo","6":"Junio","7":"Julio"
+,"8":"Agosto","9":"Septiembre","10":"Octubre","11":"Noviembre","12":"Diciembre"}

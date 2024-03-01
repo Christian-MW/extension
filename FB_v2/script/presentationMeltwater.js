@@ -263,13 +263,15 @@ async function goToPageRmw(url,tab_id,max_authors) {
                     }
                     
                 );  
+                PARAMETERS_API_MELT.includeUsers= true;
                 chrome.scripting.executeScript({
                     target: {tabId: tab_id},
                     
                     func: meltInject,
                     args:[
                         JSON.stringify(dataApisMelt),
-                        JSON.stringify(objectToInject)
+                        JSON.stringify(objectToInject),
+                        JSON.stringify(PARAMETERS_API_MELT)
                     ]
                   }, 
                   function () { 

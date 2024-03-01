@@ -1,6 +1,4 @@
 let isGet = true;
-let sm = document.querySelectorAll('*[submodule]');
-let m = document.querySelectorAll('*[module]');
 $(sm).click(function(e){
     $('#numberdvd').hide();
 })
@@ -15,7 +13,7 @@ $("#dvd-").click(function(e){
         listControlsExecuted.push({control:"BTN-START",module:"Días de vacaciones disponibles"});
         saveLog();
         getHolidays();
-        isGet = false;
+        //isGet = false;
     }else{
         isGet = true;
         $('#numberdvd').hide();
@@ -42,13 +40,27 @@ function getHolidays(){
      .then(function(resp){ 
         console.log("getHolidays response");
         console.log(resp);
-        if(resp.code == 200 && resp.message=="OK"){
-            let name = users.filter((u) => u["Correo"]==userInfo.email);
-            let message = "<b>"+name[0].Usuario+"</b> tienes <b>"+resp.days+"</b> días de vacaciones";
-            document.getElementById("numberdvd").innerHTML=message;
-        }else{
-            document.getElementById("numberdvd").innerHTML="Hay un problema con el servicio favor de reportarlo a Tecnologia";
+        try {
+            if(resp.code == 200 && resp.message=="OK"){
+                let name = users.filter((u) => u["Correo"]==userInfo.email);
+                let message ="";
+                if(resp.days > 0){
+                    let dt = resp.endDate.split("-");
+                     message = "<b>"+name[0].Usuario+"</b> tienes <b>"+resp.availableDays+"</b> días de vacaciones, usalos antes del "
+                     +dt[0]+" de "+MONTHS[parseInt(dt[1]).toString()]+" del "+dt[2];
+                }else{
+                    message = "<b>"+name[0].Usuario+"</b> ya no tienes días de vacaciones disponibles";
+                }
+                
+                document.getElementById("numberdvd").innerHTML=message;
+            }else{
+                document.getElementById("numberdvd").innerHTML="Hay un problema con el servicio favor de intentar más tarde";
+            }
+        } catch (error) {
+            document.getElementById("numberdvd").innerHTML="Hay un problema con el servicio favor de intentar más tarde";
+            SendMessage("Mís días de vacaciones",urlApiSheet+endponit,JSON.stringify(rq),JSON.stringify(resp));                               
         }
+        
         
         
      })

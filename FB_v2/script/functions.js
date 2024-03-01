@@ -1,5 +1,9 @@
 'use strict';
 console.log("Cargando archivo functions");
+const storeKey = 'mwgroup-ext';
+const storeValueBase = {userLog:{},userInfo:{}};
+let storeValue = storeValueBase;
+
 var PARAMETERS_API_MELT={visualizationIds:[],includeUsers:false,emailUser:""}
 var modules = [];
 var users = [];
@@ -987,69 +991,115 @@ function getDateLog() {
 var userInfo = {};
 jQuery(document).ready(function() {    
 
-    let clientId = '428036121573-la2tbalqbsp7v884up6dupf9hibhlnc2.apps.googleusercontent.com'
-let redirectUri = `https://${chrome.runtime.id}.chromiumapp.org/`
-let nonce = Math.random().toString(36).substring(2, 15)
+    chrome.storage.local.get([storeKey], (result) => {
+        if(JSON.stringify(result[storeKey])!== undefined && result[storeKey].userInfo.email !== undefined){
+            console.log(storeKey+': ' + JSON.stringify(result[storeKey]));
+            storeValue = result[storeKey];
+            userLog = storeValue.userLog;
+            userInfo = storeValue.userInfo;
 
-const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
+            let vRegister = parseFloat(xpathUrl["version_extension"][0]);
+            console.log("vRegister: "+ vRegister)
+            if(versionExtension<vRegister){
+                jQuery("#unauthorized").show();
+                jQuery("#updateVersion").show();
+            }else{
 
-authUrl.searchParams.set('client_id', clientId);
-authUrl.searchParams.set('response_type', 'id_token');
-//authUrl.searchParams.set('response_type', 'id_token');
-authUrl.searchParams.set('redirect_uri', redirectUri);
-// Add the OpenID scope. Scopes allow you to access the user’s information.
-authUrl.searchParams.set('scope', 'openid profile email','https://www.googleapis.com/auth/cloud-platform','https://www.googleapis.com/auth/gmail.modify');
-authUrl.searchParams.set('nonce', nonce);
-// Show the consent screen after login.
-authUrl.searchParams.set('prompt', 'consent');
-chrome.identity.launchWebAuthFlow(
-    {
-      url: authUrl.href,
-      interactive: true,
-    },
-    (redirectUrl) => {
-      if (redirectUrl) {
-        // The ID token is in the URL hash
-        const urlHash = redirectUrl.split('#')[1];
-        const params = new URLSearchParams(urlHash);
-        const jwt = params.get('id_token');
+                jQuery("#unauthorized").hide();
+                jQuery("#extencionctn").show();
+                PARAMETERS_API_MELT.emailUser = userInfo.email;
+                let u = users.filter((u) => u["Correo"]==userInfo.email);
+                
+                document.getElementById("welcome").innerHTML="Bienvenido "+u[0].Usuario;
+                document.getElementById("picture-user").src=userInfo.picture;
+                
+                
+                console.log("Asignando los modulos a userInfo");
+                console.log(u);
+                userInfo["modules"] = u[0].Modulos;
+                serveModules();
+            }
 
-        // Parse the JSON Web Token
-        const base64Url = jwt.split('.')[1];
-        const base64 = base64Url.replace('-', '+').replace('_', '/');
-        const token = JSON.parse(atob(base64));
-        userInfo = token;
-        userInfo["id_token"] = jwt;
-        userLog.email = token.email;
+          }else{
+            //No existe en el localstorage
+            console.log("Se agregara la info obtenida al storage");
+            let clientId = '428036121573-la2tbalqbsp7v884up6dupf9hibhlnc2.apps.googleusercontent.com'
+            let redirectUri = `https://${chrome.runtime.id}.chromiumapp.org/`
+            let nonce = Math.random().toString(36).substring(2, 15)
 
-        console.log('userLog', userLog);
-        
+            const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
 
-        let vRegister = parseFloat(xpathUrl["version_extension"][0]);
-        console.log("vRegister: "+ vRegister)
-        if(versionExtension<vRegister){
-            jQuery("#updateVersion").show();
-        }else{
+            authUrl.searchParams.set('client_id', clientId);
+            authUrl.searchParams.set('response_type', 'id_token');
+            //authUrl.searchParams.set('response_type', 'id_token');
+            authUrl.searchParams.set('redirect_uri', redirectUri);
+            // Add the OpenID scope. Scopes allow you to access the user’s information.
+            authUrl.searchParams.set('scope', 'openid profile email','https://www.googleapis.com/auth/cloud-platform','https://www.googleapis.com/auth/gmail.modify');
+            authUrl.searchParams.set('nonce', nonce);
+            // Show the consent screen after login.
+            authUrl.searchParams.set('prompt', 'consent');
+            chrome.identity.launchWebAuthFlow(
+                {
+                url: authUrl.href,
+                interactive: true,
+                },
+                (redirectUrl) => {
+                if (redirectUrl) {
+                    // The ID token is in the URL hash
+                    const urlHash = redirectUrl.split('#')[1];
+                    const params = new URLSearchParams(urlHash);
+                    const jwt = params.get('id_token');
 
-            jQuery("#unauthorized").hide();
-            jQuery("#extencionctn").show();
-            PARAMETERS_API_MELT.emailUser = userInfo.email;
-            let u = users.filter((u) => u["Correo"]==userInfo.email);
-            
-            document.getElementById("welcome").innerHTML="Bienvenido "+u[0].Usuario;
-            document.getElementById("picture-user").src=userInfo.picture;
-            
-            
-            console.log("Asignando los modulos a userInfo");
-            console.log(u);
-            userInfo["modules"] = u[0].Modulos;
-            serveModules();
-        }
-    
-        
-      }
-    },
-  );
+                    // Parse the JSON Web Token
+                    const base64Url = jwt.split('.')[1];
+                    const base64 = base64Url.replace('-', '+').replace('_', '/');
+                    const token = JSON.parse(atob(base64));
+                    userInfo = token;
+                    userInfo["id_token"] = jwt;
+                    userLog.email = token.email;
+
+                    console.log('userLog', userLog);
+                    
+                    storeValueBase.userInfo = userInfo;
+                    storeValueBase.userLog = userLog;
+
+                    chrome.storage.local.set({[storeKey]: storeValueBase },()=>{
+                        storeValue = storeValueBase;            
+                    }); 
+
+                    let vRegister = parseFloat(xpathUrl["version_extension"][0]);
+                    console.log("vRegister: "+ vRegister)
+                    if(versionExtension<vRegister){
+                        jQuery("#unauthorized").show();
+                        jQuery("#updateVersion").show();
+                    }else{
+
+                        jQuery("#unauthorized").hide();
+                        jQuery("#extencionctn").show();
+                        PARAMETERS_API_MELT.emailUser = userInfo.email;
+                        let u = users.filter((u) => u["Correo"]==userInfo.email);
+                        
+                        document.getElementById("welcome").innerHTML="Bienvenido "+u[0].Usuario;
+                        document.getElementById("picture-user").src=userInfo.picture;
+                        
+                        
+                        console.log("Asignando los modulos a userInfo");
+                        console.log(u);
+                        userInfo["modules"] = u[0].Modulos;
+                        serveModules();
+                    }
+                
+                    
+                }else{
+                    jQuery("#unauthorized").show();
+                }
+                },
+            );
+          }
+
+    });
+     
+
 
 });
 

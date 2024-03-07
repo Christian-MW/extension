@@ -7,14 +7,16 @@
       <link rel="stylesheet" href="style/bootstrap.css?62736232564237">
       <link rel="stylesheet" href="style/bootstrap-icons.css?62736232564237">
       <link rel="stylesheet" href="style/chosen.css?62736232564237">
+      <link rel="stylesheet" href="style/all.min.css?62736232564237">
       <title>MWGroup</title>
       
    </head>
    <body>
+    
       <div id="unauthorized"  style="text-align:center; color:#2f3650; display: none;">
          <p style="font-size:-webkit-xxx-large; font-weight: bolder;">403</p>
          <p style="font-size:-webkit-xxx-large; font-weight: bolder;">Acceso Prohibido</p>
-         <p id="updateVersion" style="color:#383c4a; font-size: medium;font-weight: bolder; display:none;">Es necesario que actualices tu extensión dando click <a href="http://3.138.108.174/extensiones/extension-mw.zip" target="_blank">Aquí</a> para poder continuar</p>
+         <p id="updateVersion" style="color:#383c4a; font-size: medium;font-weight: bolder; display:none;">Es necesario que actualices tu extensión dando click <a href="https://drive.google.com/file/d/1092PY8gXHGJzsGCnAJYgtshBnXToQBNa/view?usp=drive_link" target="_blank">Aquí</a> para poder continuar</p>
       </div>
       <div id="extencionctn" style="display: none;">
          <header class="tape-header">
@@ -23,134 +25,60 @@
             
          </header>
          <div>
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-               <li class="nav-item" module="E">
-                  <a class="nav-link active" id="extract-tab" data-toggle="tab" href="#extract" role="tab" aria-controls="extract" aria-selected="true">Extracción</a>
-               </li>
-               <li class="nav-item" role="presentation" module="T">
-                  <a class="nav-link" id="transform-tab" data-toggle="tab" href="#transform" role="tab" aria-controls="transform" aria-selected="false">Transformación</a>
-               </li>
-               <li class="nav-item" role="presentation" module="C">
-                  <a class="nav-link" id="carga-tab" data-toggle="tab" href="#carga" role="tab" 
-                     aria-controls="carga" aria-selected="false">Carga</a>
-               </li>
-               <li class="nav-item" role="presentation" module="A">
-                  <a class="nav-link" id="rh-tab" data-toggle="tab" href="#rh" role="tab" 
-                     aria-controls="rh" aria-selected="false">Recursos Humanos</a>
-               </li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
-               <div class="tab-pane fade show active" id="extract" role="tabpanel" aria-labelledby="extract-tab">
-                  <div class="container contairner-extensions">
-                     <div class="col-md-12">
-                        <br/>
-                        <ul class="list-inline">
-                           <li class="list-inline-item" id="fb-" submodule="E-FB" >
-                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/facebook.png" /> 
-                              Facebook 
-                           </li>
-                           <!--
-                              <li class="list-inline-item" id="tr-" submodule="E-TR">
-                                <img style="border-radius: 50%; width: 30px; height:30px; " src="images/trendinalia.jpg" /> 
-                                Trendinalia 
-                              </li>        
-                              -->         
-                           <li class="list-inline-item" id="mtbs-"  submodule="E-MB" >
-                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/meta business.png" /> 
-                              Meta Business
-                           </li>
-                           <li class="list-inline-item" id="mws-"  submodule="E-MWS" >
-                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/meltwater.png" /> 
-                              Meltwater Search
-                           </li>
-                           <li class="list-inline-item" id="mwm-" submodule="E-MWM">
-                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/medicion.jpg" /> 
-                              Meltwater Mediciones
-                           </li>                           
-                           <li class="list-inline-item" id="mwc-" submodule="E-MWC">
-                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/campaña.png" /> 
-                              Meltwater Campañas
-                           </li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-               <div class="tab-pane fade" id="transform" role="tabpanel" aria-labelledby="transform-tab">
-                  <div class="container contairner-extensions">
-                     <div class="col-md-12">
-                        <br/>
-                        <ul class="list-inline">
-                           <!--
-                              <li class="list-inline-item" id="mw-" submodule="T-MW">
-                                <img style="border-radius: 50%; width: 30px; height:30px; " src="images/meltwater.png" /> 
-                                Meltwater 
-                              </li>
-                              -->
-                           <li class="list-inline-item" id="rmw-" submodule="T-RMW">
-                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/ReporteMeltwater.png" /> 
-                              Reportes Meltwater 
-                           </li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-               <div class="tab-pane fade" id="carga" role="tabpanel" aria-labelledby="carga-tab">
-                  <div class="container contairner-extensions">
-                     <div class="col-md-12">
-                        <br/>
-                        <ul class="list-inline">
-                           <li class="list-inline-item" id="xp-" submodule="C-MWGROUP">
-                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/mwgroup.png" /> 
-                              MWGroup 
-                           </li>
-                           <!--
-                              <li class="list-inline-item" id="cl-" submodule="CLF">
-                                <img style="border-radius: 50%; width: 30px; height:30px; " src="images/clasificator.png" /> 
-                                Clasificador 
-                              </li>       
-                              -->         
-                           <li class="list-inline-item" id="cp-" submodule="C-C">
-                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/campaña.png" /> 
-                              Campañas 
-                           </li>
-                           <li class="list-inline-item" id="rk-" submodule="C-R">
-                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/ranking.png" /> 
-                              Ranking 
-                           </li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
 
-               <div class="tab-pane fade" id="rh" role="tabpanel" aria-labelledby="rh-tab">
-                  <div class="container contairner-extensions">
-                     <div class="col-md-12">
-                        <br/>
-                        <ul class="list-inline">
-                           <li class="list-inline-item" id="sv-" submodule="A-SV">
-                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/sv.png" /> 
-                              Solicitud de vacaciones 
-                           </li>
-                           <li class="list-inline-item" id="dvd-" submodule="A-DVD"  >
-                              <img style="border-radius: 50%; width: 30px; height:30px; " src="images/dvd.png" /> 
-                              Mís días de vacaciones disponibles
-                           </li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <hr>
+            <nav class="menu-nav">
+               <ul class="groups">
+                   <li group="GA"><a class="title-group" >Análisis 2</a>
+                   <ul class="modules">
+                      <li module="E"> <a class="title-module" >Extraccion</a><hr>
+                         <ul class="submodules">
+                            <li id="fb-" submodule="E-FB" ><a href="#">FB_Númeralia POST 1</a> <hr></li>
+                            <li id="mtbs-" submodule="E-MB" ><a href="#">FB_Númeralia Pauta 1</a><hr></li>
+                            <li id="mws-" submodule="E-MWS" ><a href="#">MW_Búsqueda extendida 1</a><hr></li>
+                            <li id="mwc-" submodule="E-MWC" ><a href="#">MW_Busquedas múltiples 1</a><hr></li>
+                            <li id="xp-" submodule="E-MWGROUP" ><a href="#">MW_Alcance 1</a><hr></li>
+                         </ul>
+                      </li>
+                      <li module="R"> <a class="title-module">Reportes </a><hr>
+                         <ul class="submodules">
+                            <li id="mwm-" submodule="R-MWM" ><a href="#">Página, html medición 1</a><hr></li>
+                            <li id="rmw-" submodule="R-RMW" ><a href="#">Presentación búsqueda 1</a><hr></li>
+                         </ul>
+                      </li>
+                
+                      
+                      
+                   </ul>
+                </li>
+                   <li group="GRH"><a class="title-group">RH 2</a>
+                   <ul class="modules">
+                      <li module="P"> <a class="title-module">Personal </a>
+                         <ul class="submodules">
+                            <li id="dvd-" submodule="P-DVD" ><a href="#">Días restantes de vacaciones 1</a><hr></li>
+                            <li id="sv-" submodule="P-SV" ><a href="#">Solicitud de vacaciones 1</a><hr></li>
+                         </ul>
+                      </li>
+                      
+                   </ul>
+                </li>
+               </ul>
+          </nav>
+
          </div>
          <div class="container">
             <div class="ctn-submodule process fb-">
                <div class="row">
                   <div class="col-md-12">
-                     <h2 style="color: #385395;">Facebook</h2>
+                     
+                     <h2 style="color: #385395;" class="title-submodule"></h2>
                      <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.f0xyj1r32nzr"
                         target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
                      <br>
-                     <input type="file" id="fb-file-selector" class="form-control-file border" accept=".csv">
+                     <input type="file" id="fb-file-selector" class="custom-file-input" accept=".csv">
+                     <label for="fb-file-selector" class="custom-file-label" id="fb-label-file">
+                        <i class="fas fa-cloud-upload-alt"></i> Seleccionar Archivo
+                     </label>
+                     
                      <br><br>
                      <div class="">
                         <label for="AddAlcanceMTB" class="btn btn-black">
@@ -168,14 +96,14 @@
                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                            <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
                         </svg>
-                        Start
+                        Iniciar
                      </button>
                      <button id="fbcancel" type="button" class="btn btn-warning">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
                         </svg>
-                        Cancel
+                        Cancelar
                      </button>
                   </p>
                </div>
@@ -191,10 +119,14 @@
             </div>
             <div class="ctn-submodule process mw-">
                <div class="row">
-                  <h2 style="color: #18b9bb;">Meltwater</h2>
+                  <h2 style="color: #18b9bb;" class="title-submodule">Meltwater</h2>
                   <br>
                   <div class="col-md-12">
-                     <input type="file" id="mw-file-selector" class="form-control-file border" accept=".csv">
+                     <input type="file" id="mw-file-selector" class="custom-file-input" accept=".csv">
+                     <label for="mw-file-selector" class="custom-file-label" id="mw-label-file">
+                        <i class="fas fa-cloud-upload-alt"></i> Seleccionar Archivo
+                     </label>
+                     <!--<input type="file" id="mw-file-selector" class="form-control-file border" accept=".csv">-->
                   </div>
                   <div class="form-check">
                      <label for="mwSql" class="btn btn-black">
@@ -211,14 +143,14 @@
                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                            <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
                         </svg>
-                        Start
+                        Iniciar
                      </button>
                      <button id="mwcancel" type="button" class="btn btn-warning">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
                         </svg>
-                        Cancel
+                        Cancelar
                      </button>
                   </p>
                </div>
@@ -233,9 +165,9 @@
                </div>
             </div>
             <div class="ctn-submodule process xp-">
-               <h2 style="color: #004169;">MWGroup</h2>
+               <h2 style="color: #004169;" class="title-submodule">MWGroup</h2>
                <div>
-                  <h5>¿Con qué versión de deseas trabajar?</h5>
+                  <h5>¿Con qué versión deseas trabajar?</h5>
                   <div class="form-group">
                      <label class="container-radio">Versión 1
                      <input type="radio" checked="checked" class="unexploredV" name="unexploredV" value="1">
@@ -389,7 +321,12 @@
                                  <div class="listPalabras">
                                     <div class="col-md-12">
                                        <label>Carga archivo con la lista de palabras
-                                       <input type="file" id="xp-list-wc" class="xp-file form-control-file border" accept=".csv">
+                                          
+                                       <input type="file" id="xp-list-wc" class="xp-file custom-file-input" accept=".csv">
+                                       <label for="xp-list-wc" class="custom-file-label" id="xp-list-wc-label-file">
+                                          <i class="fas fa-cloud-upload-alt"></i> Seleccionar Archivo
+                                       </label>
+                                       <!--<input type="file" id="xp-list-wc" class="xp-file form-control-file border" accept=".csv">-->
                                        </label>
                                     </div>
                                     <div id="containerWordC">
@@ -403,7 +340,12 @@
                                  <div class="archivoTwetts">
                                     <div class="col-md-12">
                                        <label>Carga el archivo a analizar
-                                       <input type="file" id="xp-file-selector-wc" class="xp-file form-control-file border" accept=".csv" required>
+                                          <br>
+                                          <input type="file" id="xp-file-selector-wc" class="xp-file custom-file-input" accept=".csv">
+                                       <label for="xp-file-selector-wc" class="custom-file-label" id="xp-file-selector-wc-label-file">
+                                          <i class="fas fa-cloud-upload-alt"></i> Seleccionar Archivo
+                                       </label>
+                                       <!--<input type="file" id="xp-file-selector-wc" class="xp-file form-control-file border" accept=".csv" required>-->
                                        </label>
                                     </div>
                                     <div class="form-group">
@@ -419,8 +361,12 @@
                                     </div>
                                     <div class="form-group"  id="divwcStop" style="display:none">
                                        <label>Carga el archivo StopWords
-                                       <input type="file" id="xp-file-selector-wc-stop" class="xp-file form-control-file border" 
-                                          accept=".csv, .txt" required>
+                                          <input type="file" id="xp-file-selector-wc-stop" class="xp-file custom-file-input" accept=".csv, .txt">
+                                          <label for="xp-file-selector-wc-stop" class="custom-file-label" id="xp-file-selector-wc-stop-label-file">
+                                             <i class="fas fa-cloud-upload-alt"></i> Seleccionar Archivo
+                                          </label>
+                                       <!--<input type="file" id="xp-file-selector-wc-stop" class="xp-file form-control-file border" 
+                                          accept=".csv, .txt" required>-->
                                        </label>
                                     </div>
                                     <div class="form-group">
@@ -480,7 +426,7 @@
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                                     <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
                                  </svg>
-                                 Start
+                                 Iniciar
                               </button>
                            </div>
                            <div class="col-md-4"></div>
@@ -496,14 +442,14 @@
                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                            <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
                         </svg>
-                        Start
+                        Iniciar
                      </button>
                      <button id="xpcancel" type="button" class="btn btn-warning">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
                         </svg>
-                        Cancel
+                        Cancelar
                      </button>
                   </p>
                </div>
@@ -518,7 +464,7 @@
             <div class="ctn-submodule process tr-">
                <div class="row">
                   <div class="col-md-12">
-                     <h2 style="color: #30383b;">Trendinalia</h2>
+                     <h2 style="color: #30383b;" class="title-submodule">Trendinalia</h2>
                   </div>
                   <div class="tab-content">
                      <form id="formTrendinalia" class="was-validated form-inline">
@@ -542,7 +488,7 @@
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                                     <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
                                  </svg>
-                                 Start 2
+                                 Iniciar 2
                               </button>
                            </div>
                            <div class="col-md-4"></div>
@@ -558,14 +504,14 @@
                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                            <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
                         </svg>
-                        Start
+                        Iniciar
                      </button>
                      <button id="trcancel" type="button" class="btn btn-warning">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
                         </svg>
-                        Cancel
+                        Cancelar
                      </button>
                   </p>
                </div>
@@ -582,14 +528,20 @@
             <div class="ctn-submodule process cl-">
                <div class="row">
                   <div class="col-md-12">
-                     <h2 style="color: #f36e4d;">Clasificador</h2>
+                     <h2 style="color: #f36e4d;" class="title-submodule">Clasificador</h2>
                   </div>
                   <div class="tab-content">
                      <form id="formTcl" class="was-validated form-inline">
                         <p id="dbUrlC"></p>
                         <div class="form-group">
+                           <!--
                            <label for="cl-file-selector">Carga el archivo a clasificar:</label>
                            <input type="file" id="cl-file-selector" class="form-control-file border" accept=".csv, .xlsx">
+                        -->
+                           <input type="file" id="cl-file-selector" class="custom-file-input" accept=".csv, .xlsx">
+                           <label for="cl-file-selector" class="custom-file-label" id="cl-label-file">
+                              <i class="fas fa-cloud-upload-alt"></i> Carga el archivo a clasificar
+                           </label>
                            <br>
                         </div>
                         <div class="form-group">
@@ -613,7 +565,7 @@
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                                     <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
                                  </svg>
-                                 Start
+                                 Iniciar
                               </button>
                            </div>
                            <div class="col-md-4"></div>
@@ -629,7 +581,7 @@
                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                            <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
                         </svg>
-                        Start
+                        Iniciar
                      </button>
                   </p>
                </div>
@@ -644,7 +596,7 @@
             <div class="ctn-submodule process mtbs-">
                <div class="row">
                   <div class="col-md-12">
-                     <h2 style="color: #0163de;">Meta Business</h2>
+                     <h2 style="color: #0163de;" class="title-submodule">Meta Business</h2>
                      <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.yx28879b54qu"
                         target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
                   </div>
@@ -661,8 +613,15 @@
                            </ul>
                            <div class="tab-content" id="myTabContentMeta">
                               <div class="tab-pane fade show active" id="metaXlsx" role="tabpanel" aria-labelledby="metaXlsx-tab">  
+                                 <!--
                                  <label for="mtbs-file-selector">Cargar archivo:</label>
                                  <input type="file" id="mtbs-file-selector" class="form-control-file border" accept=".csv, .xlsx">
+                                 -->
+                                 <input type="file" id="mtbs-file-selector" class="custom-file-input" accept=".csv, .xlsx">
+                                 <label for="mtbs-file-selector" class="custom-file-label" id="mtbs-label-file">
+                                    <i class="fas fa-cloud-upload-alt"></i> Seleccionar archivo
+                                 </label>
+
                               </div>
                               <div class="tab-pane fade show" id="metaSheet" role="tabpanel" aria-labelledby="metaSheet-tab">
                                  <div class="form-group">
@@ -682,7 +641,7 @@
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                                     <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
                                  </svg>
-                                 Start
+                                 Iniciar
                               </button>
                            </div>
                            <div class="col-md-4"></div>
@@ -704,7 +663,7 @@
             <div class="ctn-submodule process mws-">
                <div class="row">
                   <div class="col-md-12">
-                     <h2 style="color: #18b9bb;">Meltwater Search</h2>
+                     <h2 style="color: #18b9bb;" class="title-submodule">Meltwater Search</h2>
                      <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.40r5f6lpv9f2"
                         target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
                   </div>
@@ -736,7 +695,7 @@
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                                     <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
                                  </svg>
-                                 Start
+                                 Iniciar
                               </button>
                            </div>
                            <div class="col-md-4"></div>
@@ -758,7 +717,7 @@
             <div class="ctn-submodule process cp-">
                <div class="row">
                   <div class="col-md-12">
-                     <h2 style="color: #3cab5a;">Campañas</h2>
+                     <h2 style="color: #3cab5a;" class="title-submodule">Campañas</h2>
                      <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.nnebdx8azh9v" target="blank"
                         style="display: flex; margin-top: -32px; margin-left: 85%;"
                         >Ayuda</a>
@@ -818,7 +777,7 @@
                                           <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                                           <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
                                        </svg>
-                                       Start
+                                       Iniciar
                                     </button>
                                     <label id="cp-lbState"></label>        
                                  <div id="cp-LinkProcess"></div>
@@ -860,7 +819,7 @@
             <div class="ctn-submodule process rk-">
                <div class="row">
                   <div class="col-md-12">
-                     <h2 style="color: #bc2b05;">Ranking</h2>
+                     <h2 style="color: #bc2b05;" class="title-submodule">Ranking</h2>
                      <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.nwihz5sp6bfv" target="blank"
                         style="display: flex; margin-top: -32px; margin-left: 85%;"
                         >Ayuda</a>
@@ -893,7 +852,7 @@
                                           <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                                           <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
                                        </svg>
-                                       Start
+                                       Iniciar
                                     </button>
                                     <label id="rk-lbState"></label>        
                                  <div id="rk-LinkProcess"></div>
@@ -933,7 +892,7 @@
             <div class="ctn-submodule process rmw-">
                <div class="row">
                   <div class="col-md-12">
-                     <h2 style="color: #f19a16;">Reportes Meltwater</h2>
+                     <h2 style="color: #f19a16;" class="title-submodule">Reportes Meltwater</h2>
                      <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.dfqjl4rt1v8"
                         target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
                   </div>
@@ -1060,7 +1019,7 @@
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                                     <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
                                  </svg>
-                                 Start
+                                 Iniciar
                               </button>
                            </div>
                            <div class="col-md-4"></div>
@@ -1082,7 +1041,7 @@
             <div class="process mwm-">
                <div class="row">
                   <div class="col-md-12">
-                     <h2 style="color: #18b9bb;">Meltwater Mediciones</h2>
+                     <h2 style="color: #18b9bb;" class="title-submodule">Meltwater Mediciones</h2>
                      <!--<a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.40r5f6lpv9f2"
                         target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
                         -->
@@ -1143,7 +1102,7 @@
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                                     <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
                                  </svg>
-                                 Start
+                                 Iniciar
                               </button>
                            </div>
                            <div class="col-md-4"></div>
@@ -1165,7 +1124,7 @@
             <div class="process sv-">
                <div class="row">
                   <div class="col-md-12">
-                     <h2 style="color: #f5be40;">Solicitud de vacaciones</h2>
+                     <h2 style="color: #f5be40;" class="title-submodule">Solicitud de vacaciones</h2>
                      <a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.yx28879b54qu"
                         target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
                   </div>
@@ -1183,7 +1142,7 @@
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                                     <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
                                  </svg>
-                                 Start
+                                 Iniciar
                               </button>
                            </div>
                            <div class="col-md-4"></div>
@@ -1223,7 +1182,7 @@
             <div class="process mwc-">
                <div class="row">
                   <div class="col-md-12">
-                     <h2 style="color: #18b9bb;">Meltwater Campañas</h2>
+                     <h2 style="color: #18b9bb;" class="title-submodule">Meltwater Campañas</h2>
                      <!--<a href="https://docs.google.com/document/d/1k8VOCw6k0w5F71f9oXKRF3xXyC0zkfimLmqDf-UlInU/edit#heading=h.40r5f6lpv9f2"
                         target="blank" style="display: flex; margin-top: -32px; margin-left: 85%;">Ayuda</a>
                         -->
@@ -1244,7 +1203,7 @@
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                                     <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"></path>
                                  </svg>
-                                 Start
+                                 Iniciar
                               </button>
                            </div>
                            <div class="col-md-4"></div>
@@ -1264,6 +1223,8 @@
 
          </div>
       </div>
+      <br/>
+      
       <script src="script/jquery-3.7.1.min.js?62736232564237" charset="utf-8"></script> 
       <script src="script/Telegram.js?62736232564237" charset="utf-8"></script> 
       <!--<script src="script/jquery.min.js?62736232564237" charset="utf-8"></script> 
@@ -1298,6 +1259,8 @@
       <script src="script/meltwaterCampaing.js?62736232564237" charset="utf-8"></script>
    </body>
    <footer class="footer">
-      Extension created by MWGroup
+      Extensión creada por MWGROUP
    </footer>
+
+   
 </html>

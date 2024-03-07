@@ -143,7 +143,7 @@ $("#clstart").click(function(event){
                     
                     let sh = themsEval[s];
                     console.log("Obteniendo el contenido de la Hoja "+ sh.desc);
-                    listControlsExecuted.push({control:"CHK-"+sh.desc.toUpperCase(),module:"CLASIFICADOR"});
+                    listControlsExecuted.push({control:"CHK-"+sh.desc.toUpperCase(),module:mapOption[option.replace("-","")]});
                     document.getElementById(option+"LinkProcess").innerHTML = "Obteniendo  "+sh.desc;
                     let waitData = true;                
 
@@ -165,7 +165,7 @@ $("#clstart").click(function(event){
 
                 }
                 
-                listControlsExecuted.push({control:"BTN-START",module:"CLASIFICADOR"});
+                listControlsExecuted.push({control:"BTN-START",module:mapOption[option.replace("-","")]});
                 saveLog();
 
                 document.getElementById(option+"LinkProcess").innerHTML = "Clasificando los items";

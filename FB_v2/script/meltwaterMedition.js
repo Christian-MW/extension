@@ -34,8 +34,8 @@ fetch(xpathUrl["mws_filters"][0]+"?refresh="+mtextRefres, {
         mdataFilters=resp;
 
          Object.keys(resp.location).forEach(tag => {
-            console.log("en el ciclo de location");
-            console.log(resp.location[tag]);
+            //console.log("en el ciclo de location");
+            //console.log(resp.location[tag]);
             $('#locationmwm').append("<option value='"+tag+"'> "+resp.location[tag]+"</option>")
         });
 
@@ -266,11 +266,11 @@ let reqMeltSearchmwm = {
     if(mwmunexploredVersion == "2"){
         if($('#mwm-file-selector-carp')[0].files.length > 0){
             fileOK = true;
-            listControlsExecuted.push({control:"RB-ALCANCE-V2",module:"MELTWATER MEDICIONES"});
+            listControlsExecuted.push({control:"RB-ALCANCE-V2",module:mapOption[option.replace("-","")]});
         }
     }else{
         fileOK = true;
-        listControlsExecuted.push({control:"RB-ALCANCE-V1",module:"MELTWATER MEDICIONES"});
+        listControlsExecuted.push({control:"RB-ALCANCE-V1",module:mapOption[option.replace("-","")]});
     }
 
     if(!fileOK){
@@ -333,7 +333,7 @@ let reqMeltSearchmwm = {
                 document.getElementById(option+"description").innerHTML = "Obteniendo las búsquedas...";
                 
                 $("#mwmstart").hide();
-                listControlsExecuted.push({control:"BTN-START",module:"MELTWATER MEDICIONES"});
+                listControlsExecuted.push({control:"BTN-START",module:mapOption[option.replace("-","")]});
                 saveLog();
                 try {
         
@@ -678,8 +678,11 @@ function clearmwm(){
       $("#titlemwm").val(""); 	  
 	  $("#searchmwm").val(""); 
 
-      if(mwmunexploredVersion =="2"){      
-        $('#mwm-container-carp').html('<label for="mwm-file-selector-carp">Carp:</label><input type="file" id="mwm-file-selector-carp" name="mwm-file-selector-carp" class="form-control-file border" accept=".csv" required>');        
+      if(mwmunexploredVersion =="2"){  
+        
+        
+        //</input>$('#mwm-container-carp').html('<label for="mwm-file-selector-carp">Carp:</label><input type="file" id="mwm-file-selector-carp" name="mwm-file-selector-carp" class="form-control-file border" accept=".csv" required>');        
+        $('#mwm-container-carp').html('<input name="mwm-file-selector-carp" type="file" id="mwm-file-selector-carp" class="custom-file-input" accept=".csv"><label for="mwm-file-selector-carp" class="custom-file-label" id="mwm-label-file"><i class="fas fa-cloud-upload-alt"></i> Seleccionar Archivo CARP</label>');        
       }else{
         $('#mwm-container-carp').html('');
       }
@@ -689,7 +692,22 @@ function clearmwm(){
 $(".mwmUnexploredV").click(function(e){ 
     mwmunexploredVersion = e.currentTarget.defaultValue;
     if(mwmunexploredVersion =="2"){
-        $('#mwm-container-carp').html('<label for="mwm-file-selector-carp">Carp:</label><input type="file" id="mwm-file-selector-carp" name="mwm-file-selector-carp" class="form-control-file border" accept=".csv" required> <br><br>');        
+        //$('#mwm-container-carp').html('<label for="mwm-file-selector-carp">Carp:</label><input type="file" id="mwm-file-selector-carp" name="mwm-file-selector-carp" class="form-control-file border" accept=".csv" required> <br><br>');        
+        $('#mwm-container-carp').html('<input name="mwm-file-selector-carp" type="file" id="mwm-file-selector-carp" class="custom-file-input" accept=".csv"><label for="mwm-file-selector-carp" class="custom-file-label" id="mwm-label-file"><i class="fas fa-cloud-upload-alt"></i> Seleccionar Archivo CARP</label><br><br>');        
+        setTimeout(function(){
+            let fileSelector = document.getElementById("mwm-file-selector-carp");
+            if(fileSelector !== null){
+                fileSelector.addEventListener('change', (event) => {
+                    console.log('Archivo cargado!!!');
+                    let fileList = event.target.files;
+                    let fileName = fileList[0].name;
+        
+                    document.getElementById(option.replace("-","")+'-label-file').innerHTML = '<i class="fas fa-file"></i> Archivo seleccionado: ' + fileName;
+                    
+                });
+            }
+        }, 1500)
+        
     }
     if(mwmunexploredVersion =="1"){
         $('#mwm-container-carp').html('');
@@ -2162,3 +2180,5 @@ function injectScriptMWM(_search, _mctrlsToFind, _mctrlLanguajeFilter, _mctrlLoc
     }, 5000);
 
   }
+
+ 

@@ -142,7 +142,7 @@ function getEvaluation(evaluacion ="", token=""){
   switch(evaluacion){
     case "Actitud":
       listControlsExecuted = [];
-      listControlsExecuted.push({control:"BTN-START",module:"MWGROUP-ACTITUD"});
+      listControlsExecuted.push({control:"BTN-START",module:mapOption[option.replace("-","")]+"-ACTITUD"});
       saveLog();
       endponit = xpathUrl["api_actitud"][0];
         request.append('id', 'christian.garcia');
@@ -187,11 +187,11 @@ function getEvaluation(evaluacion ="", token=""){
         listControlsExecuted = [];
         if(unexploredVersion == "2"){
           request.append('carp', $('#'+option+'file-selector-carp')[0].files[0]);
-          listControlsExecuted.push({control:"RB-ALCANCE-V2",module:"MWGROUP-ALCANCE"});
+          listControlsExecuted.push({control:"RB-ALCANCE-V2",module:mapOption[option.replace("-","")]+"-ALCANCE"});
         }else{
-          listControlsExecuted.push({control:"RB-ALCANCE-V1",module:"MWGROUP-ALCANCE"});
+          listControlsExecuted.push({control:"RB-ALCANCE-V1",module:mapOption[option.replace("-","")]+"-ALCANCE"});
         }
-        listControlsExecuted.push({control:"BTN-START",module:"MWGROUP-ALCANCE"});
+        listControlsExecuted.push({control:"BTN-START",module:mapOption[option.replace("-","")]+"-ALCANCE"});
         saveLog();
         
       break;
@@ -213,7 +213,7 @@ function getEvaluation(evaluacion ="", token=""){
         request.append('color', color);
 
         listControlsExecuted =[];
-        listControlsExecuted.push({control:"BTN-START",module:"MWGROUP-WORDCLOUD"});
+        listControlsExecuted.push({control:"BTN-START",module:mapOption[option.replace("-","")]+"-WORDCLOUD"});
         saveLog();
 
       break;
@@ -236,7 +236,7 @@ function getEvaluation(evaluacion ="", token=""){
         }
 
         listControlsExecuted =[];
-        listControlsExecuted.push({control:"BTN-START",module:"MWGROUP-LINEAS-DISCURSIVAS"});
+        listControlsExecuted.push({control:"BTN-START",module:mapOption[option.replace("-","")]+"-LINEAS-DISCURSIVAS"});
         saveLog();
       break;
 
@@ -266,7 +266,7 @@ function getActitude(){
         console.log("Token obtenido correctamente!!!");
         */
 
-        listControlsExecuted.push({control:"BTN-START",module:"MWGROUP-ALCANCE"});
+        listControlsExecuted.push({control:"BTN-START",module:mapOption[option.replace("-","")]+"-ALCANCE"});
         saveLog();
 
         msgActitud += " <br> Actitud...";
@@ -1376,7 +1376,7 @@ function handleFileSelectWCList(e) {
     }
 
    }
-   
+   document.getElementById(this.id+'-label-file').innerHTML = '<i class="fas fa-file"></i> Archivo seleccionado: ' + this.files[0].name;
    fileReader.readAsText(this.files[0]);
 
 };

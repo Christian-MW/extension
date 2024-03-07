@@ -1,5 +1,46 @@
 'use strict';
+
+/*
+//Sirve para crear una ventana dedicada para la extension
+chrome.windows.getCurrent((tabWindow) => { // https://developer.chrome.com/docs/extensions/reference/windows/#type-Window
+    const targetURL = 'popup.html'
+    chrome.windows.getAll({populate : true, windowTypes:['popup']}, (windowArray)=>{
+      const queryURL = `chrome-extension://${chrome.runtime.id}/${targetURL}`
+      const target = windowArray.find(item=>item.tabs[0].url === queryURL) // ❗ make sure manifest.json => permissions including "tabs"
+      if (windowArray.length > 0 && target !== undefined) {
+        // Show the window that you made before.
+        chrome.windows.update(target.id, {focused: true}) // https://developer.chrome.com/docs/extensions/reference/windows/#method-update
+        return
+      }
+  
+      // Otherwise, Create
+      const width = Math.round(tabWindow.width * 0.5)
+      const height = Math.round(tabWindow.height * 0.75)
+      const left = Math.round((tabWindow.width - width) * 0.5 + tabWindow.left)
+      const top = Math.round((tabWindow.height - height) * 0.5 + tabWindow.top)
+  
+      chrome.windows.create( // https://developer.chrome.com/docs/extensions/reference/windows/#method-create
+        {
+          focused: true,
+          url: targetURL,
+          type: 'popup', // https://developer.chrome.com/docs/extensions/reference/windows/#type-WindowType
+          width, height,
+          left, top
+        },
+        (subWindow) => {
+
+        }
+      )
+    })
+  })
+
+*/
+
 console.log("Cargando archivo functions");
+//Sheet productivo
+//const sheetBase = "1yQ41kTP39D9y7Eh3pM7yDQyLxhI-5H6-3YjbgbfD98I";
+//Sheet desarrollo
+const sheetBase = "1cJZL1MMT5RT-VE3_YJ1dNKzqhsnOJw7zDMe59LpkLck";
 const storeKey = 'mwgroup-ext';
 const storeValueBase = {userLog:{},userInfo:{}};
 let storeValue = storeValueBase;
@@ -21,12 +62,12 @@ let myTimeout;
 let contentCSVLoaded ="";
 
 var urlComunidadesMeta = "https://docs.google.com/spreadsheets/d/1ckVUJYoQyWztgfxC0lO09NyrWmBoMnsQ_9O1AJGIMPQ/gviz/tq?&sheet={{sheetN}}&tq=Select *"
-var urlComunidades = "https://docs.google.com/spreadsheets/d/1yQ41kTP39D9y7Eh3pM7yDQyLxhI-5H6-3YjbgbfD98I/gviz/tq?&sheet={{sheetN}}&tq=Select *"
+var urlComunidades = "https://docs.google.com/spreadsheets/d/"+sheetBase+"/gviz/tq?&sheet={{sheetN}}&tq=Select *"
 var xpathUrl={};
 var urlBase= ""//"http://3.129.70.158:8100/V1/api";
 
 
-let mapOption={fb:"Facebook", mw:"Meltwater", xp:"MWGroup", tr:"Trendinalia",cl:"Clasificador", mtbs:"Meta Business Suite", mws:"Meltwater Search", cp:"Campañas",rmw:"Reportes Meltwater",mwm:"Mediciones Meltwater"}
+var mapOption={fb:"Facebook", mw:"Meltwater", xp:"MWGroup", tr:"Trendinalia",cl:"Clasificador", mtbs:"Meta Business Suite", mws:"Meltwater Search", cp:"Campañas",rmw:"Reportes Meltwater",mwm:"Mediciones Meltwater",mwc:"Campañas Meltwater"}
 
 console.log("Archivo functions");
 pathname = window.location.pathname.slice(1).replace("popup.html","").replaceAll("/","\\");
@@ -307,6 +348,9 @@ function loadFile(idFileS){
             var fileName = fileList[0].name;
             console.log('fileName :' + fileName);
             switchBlock("action");
+
+            document.getElementById(option.replace("-","")+'-label-file').innerHTML = '<i class="fas fa-file"></i> Archivo seleccionado: ' + fileName;
+            
             var date = new Date();
             var stringDate = date.getFullYear().toString() + pad2(date.getMonth() + 1) + pad2(date.getDate()) + pad2(date.getHours()) + pad2(date.getMinutes()) + pad2(date.getSeconds());
             nameFileLoaded = fileName.split(".")[0]+stringDate+".csv";
@@ -450,7 +494,7 @@ function hiddenProcess(){
 
 function showProcess(evt){
     console.log(evt);
-    hiddenProcess();
+    //hiddenProcess();
     if(option!=""){
         switch(option) {
           case "xp-":
@@ -467,8 +511,10 @@ function showProcess(evt){
         }
 
     }
-
-    option = evt.target.id;
+    console.log("show proces  ==>  evt.currentTarget.id")
+    console.log(evt)
+    //console.log(evt.target.id)
+    option = evt.currentTarget.id;
     currentDirectory = mapOption[option.replace("-","")];
     console.log(currentDirectory);
      switch(option) {
@@ -493,7 +539,7 @@ function showProcess(evt){
         }
 
     
-    const containers = document.getElementsByClassName(evt.target.id);
+    const containers = document.getElementsByClassName(evt.currentTarget.id);
     for (let i = 0; i < containers.length; i++) {
         containers[i].style.display = "block";
     }
@@ -503,16 +549,17 @@ function showProcess(evt){
         collection[i].classList.remove("active");
     }
 
-    evt.target.classList.add("active");
+    evt.currentTarget.classList.add("active");
 
     switchBlock("extencion");
 }
 
-const li = document.querySelectorAll('li.list-inline-item');
+//const li = document.querySelectorAll('li.list-inline-item');
+const li = document.querySelectorAll('[submodule]');
 console.log(li);
 
 for (let x = 0; x < li.length; x++) {
-        li[x].addEventListener('click' , showProcess , false ) ; 
+        //li[x].addEventListener('click' , showProcess , false ) ; 
     }
 
 
@@ -633,7 +680,7 @@ function switchBlock(block){
     try{
         document.getElementById(option.replace("-","")+"start").style.display = "block";
     }catch(error){
-        console.log(switchBlock);
+        console.log("switchBlock");
         console.log(error);
     }
     
@@ -768,7 +815,7 @@ function loadSheet(sheetN){
         success: function(data) {
           console.log("loadSheet: "+sheetN)
           getDataSheet(JSON.parse(data.substr(47).slice(0,-2)));
-          //urlBase = xpathUrl["api_unexplored"][0];
+          urlBase = xpathUrl["api_unexplored"][0];
         }
    });
   }
@@ -972,7 +1019,7 @@ var userLog =
     date:"",//"06/08/2023 10:29",
     module:"",//"Meltwater Search",
     control:"",//"Alcance V1",
-    spreadsheet_id:"1yQ41kTP39D9y7Eh3pM7yDQyLxhI-5H6-3YjbgbfD98I"
+    spreadsheet_id:sheetBase
 }
 function getDateLog() {
     let d = new Date(),
@@ -1149,7 +1196,30 @@ function serveModules(){
     processSubmodules();
 
     //activar modulos completos
-    processModules();
+    //processModules();
+    jQuery('[module]').hide(); 
+    jQuery('[group]').hide(); 
+    
+    try {
+        console.log("Procesando modulos y grupos!!!")
+        console.log(activateSubmodules)
+        activateSubmodules.forEach(as => {
+            try {
+                jQuery('[module='+as.code_module+']').show(); 
+            } catch (error) {
+                console.log(error);
+            }
+            try {
+                jQuery('[group='+as.code_group+']').show(); 
+            } catch (error) {
+                console.log(error);
+            }
+        });
+    } catch (error) {
+        console.log(error);
+    }
+    
+    
 
   }
 
@@ -1198,12 +1268,15 @@ function processModules(){
             
         }
     });
-
+    //Desactivando todos los grupos
+    //jQuery('[group]').hide();
     activateModules.forEach(a =>{
         try {
-            let existesubmodule = activateSubmodules.filter(s=>(s.startsWith(a+"-")||s==a));
-            if(existesubmodule.length > 0)
-                jQuery('[module='+a+']').show();    
+            let existesubmodule = activateSubmodules.filter(s=>(s.code.startsWith(a+"-")||s.code==a));
+            if(existesubmodule.length > 0){
+                jQuery('[module='+a+']').show(); 
+                jQuery('[group='+a+']').hide(); 
+            }  
         } catch (error) {
             
         }
@@ -1213,7 +1286,25 @@ function processModules(){
 
 function processSubmodules(){
     let myModules = userInfo.modules.split(",");    
-    let htmlModules = document.querySelectorAll('*[submodule]');    
+    let htmlModules = document.querySelectorAll('*[submodule]'); 
+    
+    console.log("mapOption Inicial");
+    console.log(mapOption);
+    mapOption={}
+    htmlModules.forEach(h=>{
+        try {
+            console.log("h.attributes['id'].value");
+            console.log(h.attributes["id"].value);
+            let v = modules.filter((f)=> ((f.code_module+"-"+f.code_submodule)==h.attributes["submodule"].value))[0];
+            console.log(v);
+            mapOption[h.attributes["id"].value.replace("-","")]=v.submodule;
+        } catch (error) {
+            
+        }
+    });
+    console.log("mapOption actualizado!!!")
+    console.log(mapOption);
+
     for (let index = 0; index < myModules.length; index++) {
         let mdl = myModules[index];
         let allSubmodulesByModule = !mdl.includes("-");
@@ -1233,7 +1324,9 @@ function processSubmodules(){
                     submodulebase.forEach(sb =>{
                         
                         if(sb.status.toLowerCase()=="activo"){
-                            activateSubmodules.push(sb.code_module+"-"+sb.code_submodule);
+                            //activateSubmodules.push({code:sb.code_module+"-"+sb.code_submodule, module:sb.module, submodule:sb.submodule, group:sb.group });
+                            sb.code = sb.code_module+"-"+sb.code_submodule;
+                            activateSubmodules.push(sb);
                         }else{
                             try {
                                 jQuery('[submodule='+sb.code_module+"-"+sb.code_submodule+']').hide();
@@ -1253,7 +1346,9 @@ function processSubmodules(){
                     //modulos unicos
                     let isActive = submodulebase.filter((f)=> f.status.toLowerCase()=="activo");
                     if(isActive.length>0){
-                        activateSubmodules.push(mdl);
+                        isActive[0].code = mdl;
+                        activateSubmodules.push(isActive[0]);
+                        //activateSubmodules.push({code:mdl, module:isActive[0].module, submodule:isActive[0].submodule, group:isActive[0].group });
                     }
                     asigned = true;
                 }
@@ -1269,9 +1364,23 @@ function processSubmodules(){
     });
     activateSubmodules.forEach(a =>{
         try {
-            jQuery('[submodule='+a+']').show();    
-        } catch (error) {
+            let htmlTagLink = jQuery('[submodule='+a.code+']');
+            htmlTagLink.show();
+            console.log("Asignando el nombre al submodulo: "+a.submodule);
+            console.log(a);
+            console.log(htmlTagLink[0]);
+            console.log(htmlTagLink[0].id);
+            console.log("FIN!!!");
+            jQuery('[submodule='+a.code+']').find('a').first().text(a.submodule);
+            //jQuery('[submodule='+a.code+']').text(+a.submodule);
+            jQuery('.'+htmlTagLink[0].id).find(".title-submodule").text(a.submodule);
+            jQuery('[group='+a.code_group+']').find("a").first().text(a.group);
             
+            let tm = jQuery('[module='+ a.code_module+']').find('a').first();
+            
+            jQuery(tm).text(a.module);
+        } catch (error) {
+            console.log(error);
         }
         
     });
@@ -1281,15 +1390,25 @@ let sm = document.querySelectorAll('*[submodule]');
 let m = document.querySelectorAll('*[module]');
 let contenedoresSubmodulos = document.getElementsByClassName('ctn-submodule');
 $(sm).click(function(e){
+    console.log("Click desde functions en #"+e.currentTarget.id);
     for (let index = 0; index < contenedoresSubmodulos.length; index++) {
-        $(contenedoresSubmodulos[index]).hide();
+        console.log("desactivando el contenedor del submodulo");
+        console.log(contenedoresSubmodulos[index]);
+        //$(contenedoresSubmodulos[index]).hide();
         
     }
-    $("."+e.target.id).show();
+    hiddenProcess();
+    console.log("Se a dado click en el modulo")
+    console.log(e.currentTarget.attributes)
+    console.log(e.currentTarget.id)
+    $("."+e.currentTarget.id).show();
+    //$('#numberdvd').hide();
+
+    showProcess(e);
 })
 $(m).click(function(e){
     for (let index = 0; index < contenedoresSubmodulos.length; index++) {
-        $(contenedoresSubmodulos[index]).hide();
+        //$(contenedoresSubmodulos[index]).hide();
         
     }
 })

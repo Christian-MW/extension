@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 let clientId = '428036121573-la2tbalqbsp7v884up6dupf9hibhlnc2.apps.googleusercontent.com'
 let redirectUri = `https://${chrome.runtime.id}.chromiumapp.org/`
 let nonce = Math.random().toString(36).substring(2, 15)

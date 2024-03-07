@@ -12,7 +12,7 @@ $("#rkstart").click(function(event){
         sheetid = sheetid.split('/')[0];
         $("#rkstart").hide();
         
-        listControlsExecuted.push({control:"BTN-START",module:"RANKING"});
+        listControlsExecuted.push({control:"BTN-START",module:mapOption[option.replace("-","")]});
         saveLog();
 
         let url = xpathUrl["api_java_sheet"][0]+xpathUrl["addRanking"][0];

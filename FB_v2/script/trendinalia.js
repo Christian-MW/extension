@@ -167,7 +167,7 @@ window.setTimeout(function(){
             
             let sh = themsEval[s];
             console.log("Obteniendo el contenido de la Hojo "+ sh.desc);
-            listControlsExecuted.push({control:"CHK-"+sh.desc.toUpperCase(),module:"TRENDINALIA"});
+            listControlsExecuted.push({control:"CHK-"+sh.desc.toUpperCase(),module:mapOption[option.replace("-","")]});
             let waitData = true;                
 
             let url = urlBySheet.replace('{{sheetName}}',sh.desc);
@@ -188,7 +188,7 @@ window.setTimeout(function(){
 
         }
         console.log("themsEval ==> "+themsEval);
-        listControlsExecuted.push({control:"BTN-START",module:"TRENDINALIA"});
+        listControlsExecuted.push({control:"BTN-START",module:mapOption[option.replace("-","")]});
         saveLog();
         //loadThems(data);
 

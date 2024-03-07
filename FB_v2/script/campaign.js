@@ -266,7 +266,7 @@ $(document).on('click','.btnUpdateCP', function(){
         if(_continue){
 
             listControlsExecuted = [];
-            listControlsExecuted.push({control:"BTN-START",module:"CAMPAÑAS"});
+            listControlsExecuted.push({control:"BTN-START",module:mapOption[option.replace("-","")]});
             saveLog();
             
             console.log("Datos en el $('#select-concept')"); 

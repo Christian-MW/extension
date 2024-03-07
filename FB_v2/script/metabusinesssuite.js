@@ -326,16 +326,16 @@ $("#mtbsstart").click(function(event){
     
 
     if(getIsActiveMetaLink()== "local"){
-      listControlsExecuted.push({control:"LOCAL",module:"META BUSINESS"});
-      listControlsExecuted.push({control:"BTN-START",module:"META BUSINESS"});
+      listControlsExecuted.push({control:"LOCAL",module:mapOption[option.replace("-","")]});
+      listControlsExecuted.push({control:"BTN-START",module:mapOption[option.replace("-","")]});
       saveLog();
       intMetaProcess();
     }else{
       //Consumir 
       let url = $("#urlGoogleSheet").val();
       if(url != "" && url.startsWith("https://docs.google.com/spreadsheets/d/")){
-        listControlsExecuted.push({control:"GOOGLE SHEET",module:"META BUSINESS"});
-        listControlsExecuted.push({control:"BTN-START",module:"META BUSINESS"});
+        listControlsExecuted.push({control:"GOOGLE SHEET",module:mapOption[option.replace("-","")]});
+        listControlsExecuted.push({control:"BTN-START",module:mapOption[option.replace("-","")]});
         saveLog();
 
         url = url.replace("https://docs.google.com/spreadsheets/d/","");

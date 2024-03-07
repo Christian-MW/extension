@@ -100,7 +100,7 @@ fbstart.onclick = function(element) {
     urls_processed=[];
 
     listControlsExecuted=[];
-    listControlsExecuted.push({control:"BTN-START",module:"FACEBOOK"});
+    listControlsExecuted.push({control:"BTN-START",module:mapOption[option.replace("-","")]});
     saveLog();
     //element.target.hidden = true;
     chrome.tabs.query({active: true, currentWindow: true}, async function(tabs) {

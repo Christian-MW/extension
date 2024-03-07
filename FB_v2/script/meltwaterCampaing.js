@@ -242,7 +242,7 @@ $("#mwcstart").click(function(event){
             clearMws();
         });
 
-    listControlsExecuted.push({control:"BTN-START",module:"MELTWATER CAMPAÑAS"});
+    listControlsExecuted.push({control:"BTN-START",module:mapOption[option.replace("-","")]});
     saveLog();
     }else{
         document.getElementById(option+"LinkProcess").innerHTML = "Ingresa una url valida de google sheets";

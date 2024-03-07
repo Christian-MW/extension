@@ -7,6 +7,7 @@ body {
    max-width: 500px !important;
    width: auto !important;
    height: auto !important;
+   min-height: 400px;
 }
 #fb-LinkProcess{
 	overflow-x:auto;
@@ -22,6 +23,9 @@ body {
    padding-left: 20px;
    color: white;
    height: 42px;
+   position: sticky;
+    top: 0px;
+    z-index: 1234;
 }
 
 .tape-header #welcome{
@@ -41,6 +45,9 @@ body {
    padding-bottom: 5px;
    padding-right: 20px;
    color: white; 
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
 }
 
 .container {
@@ -135,7 +142,8 @@ bold {
 
 .contairner-extensions ul.list-inline li{
    float: left !important;
-   margin: 5px;
+   margin: 3px;
+   font-size: small;
 }
 
 
@@ -421,3 +429,101 @@ div.process{
    width: 30px;
    border-radius: 50%;
  }
+
+ .title-submodule{
+   vertical-align: middle;
+    padding-left: 0px;
+ }
+
+ .navbar-nav-menu {
+   flex-direction: row !important;
+ }
+ .navbar-nav-menu a {
+   text-decoration: none;
+ }
+ 
+ hr{
+   margin: 0px !important;
+ }
+ .groups{
+   width: 100%;
+ }
+ .menu-nav li a{
+
+   list-style-type:none;
+   position:relative;
+   width:auto;
+   min-width: 120px;
+   }
+               
+   .menu-nav li {
+   padding: 3px 30px 5px 0px;
+   height:auto;
+   width:auto;
+   min-width: 120px;
+   color:#000000;	
+   
+   font-weight: 300;
+   }
+   .menu-nav li a{
+      text-decoration:none;
+      display:inline-block;
+      height:auto;
+      width:auto;
+      color:#000000;	
+   }
+           
+   .menu-nav li:hover{
+      color:#000000;
+      font-weight: 400;
+   }
+   
+  
+   .menu-nav .groups li .modules{
+      display:none;
+      position:absolute;
+      top:auto;  
+      left:auto;		
+   }
+  .menu-nav .modules li .submodules{
+       display:none;
+       position:absolute;
+       top:0px;
+       left:100%;
+       z-index:12;
+   }
+  
+  .menu-nav ul{
+       display:flex;
+       background-color: #efefef;
+       list-style: none;
+       font-size: small;
+   }
+   
+   .menu-nav .groups li:hover .modules{display:block;}
+  .menu-nav .modules li:hover .submodules {display:block;}
+ .submodules{
+   max-height: 300px;
+   overflow-y: auto;
+   max-width: 200px !important;
+   width: auto !important;
+ }
+
+
+  .custom-file-input {
+   display: none; /* Oculta el input file por defecto */
+}
+
+.custom-file-label {
+   display: inline-block;
+   padding: 10px;
+   background-color: #545559;
+   color: #fff;
+   border-radius: 5px;
+   cursor: pointer;
+}
+
+/* Agrega espacio entre el icono y el texto */
+.custom-file-label i {
+   margin-right: 5px;
+}

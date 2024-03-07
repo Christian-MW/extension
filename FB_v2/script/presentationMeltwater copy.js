@@ -213,7 +213,7 @@ let reqMeltSearchrmw = {
 			document.getElementById(option+"description").innerHTML = "Obteniendo las búsquedas...";
 			urlApiSheet = xpathUrl["api_java_sheet"][0];
 			$("#rmwstart").hide();
-            listControlsExecuted.push({control:"BTN-START",module:"REPORTES MELTWATER"});
+            listControlsExecuted.push({control:"BTN-START",module:mapOption[option.replace("-","")]});
             saveLog();
 			reqMeltSearchrmw.columns = xpathUrl["ms_columnsbase"].join();
 			reqMeltSearchrmw.range = xpathUrl["rm_sheetname"][0];

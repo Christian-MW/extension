@@ -9,6 +9,15 @@ let ctrlLanguajeFilter = [];
 let dataFilters ={};
 let ctrlsFilterDate = [];
 
+let _filters={
+    search:"",
+    dateStart:1696143600000,
+    dateEnd:1699599599999,
+    locations:[],
+    languaje:[],
+    sourcetypes:[]
+}
+
 console.log("Consultando los controlsToFind");
 
 let textRefres = (Math.random() + 1).toString(36).substring(7);
@@ -138,6 +147,19 @@ let reqMeltSearch = {
                     objSearch.text_search = searchs[pos].BUSQUEDA;
                     objSearchResult.search = searchs[pos].NOMBRE;
                     
+                    _filters.dateStart = new Date(parseInt(searchs[pos].FECHA_INICIO.split("/")[2]),parseInt(searchs[pos].FECHA_INICIO.split("/")[1])-1, parseInt(searchs[pos].FECHA_INICIO.split("/")[0]) , 1, 0, 0, 0).getTime();
+                    _filters.dateEnd = new Date(parseInt(searchs[pos].FECHA_FIN.split("/")[2]),parseInt(searchs[pos].FECHA_FIN.split("/")[1])-1, parseInt(searchs[pos].FECHA_FIN.split("/")[0]) , 23, 59, 59, 0).getTime();
+                    _filters.search = searchs[pos].BUSQUEDA;
+                    if(searchs[pos].FILTRO != ''){
+                        try {
+                            _filters.locations.push(searchs[pos].FILTRO.split('_')[0].toLowerCase());
+                            _filters.languaje.push(searchs[pos].FILTRO.split('_')[1].toLowerCase());                        
+                        } catch (error) {
+                            
+                        }
+                    }
+                   
+
                     chrome.tabs.query({active: true, currentWindow: true}, async function(tabs) {
            
                         goToPageMws(xpathUrl["ms_link_serach"][0], tabs[0].id,xpathUrl["ms_max_authors"][0]); 
@@ -309,8 +331,25 @@ async function goToPageMws(url,tab_id,max_authors) {
                     
                 );  
 
+                dataApisMelt.tokenAuthMelt = xpathUrl["tokenAuthMelt"][0];
+                dataApisMelt.mw_api_search = xpathUrl["mw_api_search"][0];
+                dataApisMelt.mw_api_grapql = xpathUrl["mw_api_grapql"][0];
+                dataApisMelt.mw_api_runes = xpathUrl["mw_api_runes"][0];
+                dataApisMelt.mw_api_users = xpathUrl["mw_api_users"][0];
+                dataApisMelt.XClientName = xpathUrl["XClientName"];
+                PARAMETERS_API_MELT.includeUsers= true;
+                
+                
+
                 chrome.scripting.executeScript({
                     target: {tabId: tab_id},
+                    func: meltInject,
+                    args:[
+                        JSON.stringify(dataApisMelt),
+                        JSON.stringify(_filters),
+                        JSON.stringify(PARAMETERS_API_MELT)
+                    ]
+                    /*
                     func: injectScript,
                     args: [JSON.stringify(searchs[pos]),
                         JSON.stringify(ctrlsToFind),
@@ -320,6 +359,7 @@ async function goToPageMws(url,tab_id,max_authors) {
                         JSON.stringify(ctrlsFilterDate),
                         max_authors                        
                     ],
+                    */
                   }, 
                   function () { 
                     resolve(); 
@@ -337,12 +377,24 @@ async function goToPageMws(url,tab_id,max_authors) {
                         chrome.runtime.onMessage.removeListener(getDOMInfo);
                         // save data from message to a JSON file and download                        
                         //console.log("save data from message to a JSON file and download..");
-                        let json_data = JSON.parse(message);  
+                        let _json_data = JSON.parse(message);  
                         console.log("Respuesta de la funcion injectada");
                         console.log(message);
                         console.log("Obteniendo el dato de la descarga");
-                        resultReadFile ="";                        
+                        resultReadFile ="";     
+                        let rt = getTotals(_json_data.searchResponse);                   
                         //readTextFile();
+                        let json_data ={
+                            "search": searchs[pos].NOMBRE,
+                            "usuarios": rt.a.toString(),
+                            "menciones": rt.m.toString(),
+                            "impresiones": rt.i.toString(),
+                            "alcance": rt.v.toString(),
+                            "valuesFile": getValuesFile(_json_data.searchResponse["AF-mentionsStatsTrendBySource"].compoundWidgetData["AF-latestActivityBySource"]),
+                            //"authors": getAuthors(_json_data.usersResponse)
+                        }
+                        getAlcanceToMWS(json_data);  
+                        /*
                         getFiles()
                         setTimeout(function(){ 
                             console.log("Termino la espera!!!");
@@ -356,6 +408,7 @@ async function goToPageMws(url,tab_id,max_authors) {
 
                             getAlcanceToMWS(json_data);                                                        
                         }, 3000);
+                        */
                                             
                     }catch(err){
                          console.log(err);

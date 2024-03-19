@@ -33,7 +33,7 @@ function meltInject(_dataApis={}, _filters={}, _parametersMelt={}){
                         "sentiment": [],
                         "authorList": [],
                         "newsSource": [],
-                        "sourceType": [],
+                        "sourceType": filters.sourcetypes,
                         "customCategory": [],
                         "newsOutletTypes": [],
                         "newsMediaFormats": [],
@@ -400,23 +400,54 @@ function getValuesFile(data){
     return sources;
 }
 
+//Recibe un lista de objetos {key:"epoch",value:0} 
+//retorna una lista de objetos {date:"yyyy-mm-dd HH:mm:ss",value:0} 
+function getValuesByDate(data){
+    let newData = [];
+   
+    for(let s = 0; s<data.length; s++){  
+        newData.push(
+            {date:formatDate(new Date(parseInt(data[s].key)),"yyyy-mm-dd HH:mm:ss"),
+            value:data[s].value
+        });
+    
+    }
+
+    return newData;
+}
+
 function getTotals(searchResponse){
     let data = searchResponse;
     let m = data["AF-mentionsStatsTrend"].compoundWidgetData["AF-totalMentions"].number;
-    let a = data["AF-usersCountTrend"].compoundWidgetData["AF-twitterUniqueAuthors"].number;
+    let md = getValuesByDate(data["AF-mentionsStatsTrend"].compoundWidgetData["AF-mentionsTrend"].data);
+
+    let a = data["AF-usersCountTrend"].compoundWidgetData["AF-totalMentions"].number;
+    let ad = getValuesByDate(data["AF-usersCountTrend"].compoundWidgetData["AF-mentionsTrend"].data);
+
     let v = data["AF-viewsCountTrend"].compoundWidgetData["AF-twitterViews"].number;
+    let vd = getValuesByDate(data["AF-viewsCountTrend"].compoundWidgetData["AF-twitterViewsByDate"].data);
+
     let r = data["AF-reachCountTrend"].compoundWidgetData["AF-twitterReach"].number;
+    let rd = getValuesByDate(data["AF-reachCountTrend"].compoundWidgetData["AF-twitterReachByDate"].data);
+
     let i = data["AF-impressionsStatsTrend"].compoundWidgetData["AF-twitterImpressions"].number;
+    let id = getValuesByDate(data["AF-impressionsStatsTrend"].compoundWidgetData["AF-twitterImpressionsByDate"].data);
     let rTotals =
     {
         a: a,
+        ad:ad,
         m: m,
+        md:md,
         i: i,
+        id:id,
         v: v,
-        r: r
+        vd:vd,
+        r: r,
+        rd:rd
     }
     return rTotals;
 }
+
 
 function getVizualizationNumber(searchResponse, visualizationIds){
     let data = searchResponse;

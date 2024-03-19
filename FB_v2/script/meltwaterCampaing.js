@@ -10,7 +10,8 @@ let _filtersMeltC={
     dateStart:1696143600000,
     dateEnd:1699599599999,
     locations:[],
-    languaje:[]
+    languaje:[],
+    sourcetypes:[]
 }
 
 flagMWC.onChange(function(v){
@@ -21,9 +22,9 @@ flagMWC.onChange(function(v){
             //Procesar la busqueda
             posMWC++;
             if(posMWC < searchsC.length ){
-                //procesando la campaña searchsC[posMWC]
-                document.getElementById(option+"lbState").innerHTML = "Procesando "+(posMWC+1)+" de " +searchsC.length + " campaña(s)";
-                document.getElementById(option+"description").innerHTML ="Campaña "+searchsC[posMWC].NOMBRE;
+                //procesando la Búsqueda searchsC[posMWC]
+                document.getElementById(option+"lbState").innerHTML = "Procesando "+(posMWC+1)+" de " +searchsC.length + " búsqueda(s)";
+                document.getElementById(option+"description").innerHTML ="Búsqueda "+searchsC[posMWC].NOMBRE;
                 searchsCUpdate.push({ name: searchsC[posMWC].NOMBRE, search: searchsC[posMWC].BUSQUEDA,
                 mentions: 0,authors: 0,views: 0,impressions: 0});
 
@@ -33,17 +34,74 @@ flagMWC.onChange(function(v){
                     _filtersMeltC.search = searchsC[posMWC].BUSQUEDA;
                     _filtersMeltC.dateStart = new Date(parseInt(searchsC[posMWC].FECHA_INICIO.split("/")[2]),parseInt(searchsC[posMWC].FECHA_INICIO.split("/")[1])-1, parseInt(searchsC[posMWC].FECHA_INICIO.split("/")[0]) , 1, 0, 0, 0).getTime();
                     _filtersMeltC.dateEnd = new Date(parseInt(searchsC[posMWC].FECHA_FIN.split("/")[2]),parseInt(searchsC[posMWC].FECHA_FIN.split("/")[1])-1, parseInt(searchsC[posMWC].FECHA_FIN.split("/")[0]) , 23, 59, 59, 0).getTime();
+                    try {
+                        _filtersMeltC.languaje=[];
+                        let langs = searchsC[posMWC].IDIOMA.split(',');
+                        for (let l = 0; l < langs.length; l++) {
+                            Object.keys(DataFiltersMelt.languaje).forEach(function(item){
+                                let v = removeSpecialCharacters(DataFiltersMelt.languaje[item]);
+                                let vl = removeSpecialCharacters(langs[l]);
+                                if( v.toLowerCase().trim().replaceAll(" ","") == vl.toLowerCase().trim().replaceAll(" ","")){                                     
+                                    _filtersMeltC.languaje.push(item.toLowerCase());
+                                }                    
+                            });          
+                        }
+                        
+                    } catch (error) {
+                        console.log(error);
+                    }
+                    try {
+                        _filtersMeltC.locations=[];
+                        let locs = searchsC[posMWC].UBICACIÓN.split(',');
+                        for (let l = 0; l < locs.length; l++) {
+                            Object.keys(DataFiltersMelt.location).forEach(function(item){
+                                let v = removeSpecialCharacters(DataFiltersMelt.location[item]);
+                                if(v.toLowerCase().trim().replaceAll(" ","") == removeSpecialCharacters(locs[l]).toLowerCase().trim().replaceAll(" ","")){
+                                     
+                                    _filtersMeltC.locations.push(item.toLowerCase());
+                              }                    
+                            });          
+                        }
+                        
+                    } catch (error) {
+                        console.log(error);
+                    }
+                    try {
+                        _filtersMeltC.sourcetypes=[];
+                        let sourcs = searchsC[posMWC]["FUENTE(SOURCE TYPE)"].split(',');
+                        for (let l = 0; l < sourcs.length; l++) {
+                            Object.keys(DataFiltersMelt.sourcetype).forEach(function(item){
+                                if(removeSpecialCharacters(DataFiltersMelt.sourcetype[item]).toLowerCase().trim().replaceAll(" ","") == removeSpecialCharacters(sourcs[l]).toLowerCase().trim().replaceAll(" ","")){
+                                     _filtersMeltC.sourcetypes.push(item.toLowerCase());
+                              }                    
+                            });          
+                        }
+                        
+                    } catch (error) {
+                        console.log(error);
+                    }
+                    
                     goToPagemwc(xpathUrl["ms_link_serach"][0], tabs[0].id); 
                     
                 });
                 
             }
             else{
-                //no hay más campañas por procesar
-                document.getElementById(option+"description").innerHTML ="Guardando la información en el google sheet";
+                //no hay más búsquedas por procesar
+                alert("Las búsquedas han sido procesadas, el resultado se puede ver en el archivo sheet procesado.");
+                flagMWC.setValue(0);
+                clearMwc();                
+            }
+        }
+    }
+});
+
+function saveResultSearch(){
+    document.getElementById(option+"description").innerHTML ="Guardando la información en el google sheet";
+    let searchsCUpdateTemp = [searchsCUpdate[posMWC]];
                 let rq = {
                     spreadsheet_id: spreadsheet_id,
-                    objectResult: searchsCUpdate
+                    objectResult: searchsCUpdateTemp
                 }
                 
                 let urlApiSheet = xpathUrl["api_java_sheet"][0];
@@ -68,30 +126,28 @@ flagMWC.onChange(function(v){
                         else{
                             msg ="Hay un problema en el api de google intente mas tarde";                                
                         }
-                        alert(msg);
-                        console.log("Finalizado en")
-                        console.timeEnd();
+                        //alert(msg);
+                        //console.log("Finalizado en")
+                        //console.timeEnd();
                     } catch (error) {
                         
-                        console.log("Finalizado en")
-                        console.timeEnd();
-                        alert("Hay un problema en el api de google intente mas tarde"); 
-                        SendMessage("Meltwater Campañas",urlApiSheet+endponit,"",JSON.stringify(resp));                               
+                        //console.log("Finalizado en")
+                        //console.timeEnd();
+                        //alert("Hay un problema en el api de google intente mas tarde"); 
+                        SendMessage("Meltwater búsquedas",urlApiSheet+endponit,"",JSON.stringify(resp));                               
                     }
-                    clearMwc();
+                    flagMWC.setValue(0);
+                    //clearMwc();
                 })                
                 .catch(function(error){
                     console.log(error);          
-                    document.getElementById(option+"LinkProcess").innerHTML = "Problemas al obtener las campañas";
-                    alert("Problemas al actualizar las campañas");
-                    clearMws();
-                    SendMessage("Meltwater Campañas",urlApiSheet+endponit,"",(error));
+                    //document.getElementById(option+"LinkProcess").innerHTML = "Problemas al obtener las búsquedas";
+                    //alert("Problemas al actualizar las búsquedas");
+                    //clearMwc();
+                    SendMessage("Meltwater búsquedas",urlApiSheet+endponit,"",(error));
+                    flagMWC.setValue(0);
                 });
-            }
-        }
-    }
-});
-
+}
 async function goToPagemwc(url,tab_id) {
     return new Promise(function(resolve, reject) {
         // update current tab with new url
@@ -162,9 +218,34 @@ async function goToPagemwc(url,tab_id) {
                             searchsCUpdate[posMWC].views = rt.v;
                             searchsCUpdate[posMWC].reach = rt.r;
                             searchsCUpdate[posMWC].impressions = rt.i;
+                            searchsCUpdate[posMWC].downloads = {};
+                            let downloads=[];
+                            if(searchsC[posMWC].DESCARGAS.includes("*")){
+                                downloads = ["i","a","v","m"];
+                            }else{
+                                downloads = searchsC[posMWC].DESCARGAS.toLowerCase().replaceAll(" ","").split(",");
+                            }
+                            
+                            if(downloads.length > 0){
+                                let codeDownloads = {i:'impressions',a:'authors',r:'reach',v:'views',m:'mentions'};
+                                           
+                                for (let index = 0; index < downloads.length; index++) {
+                                    try {
+                                        if(downloads[0].length > 0 ){ 
+                                            let cd = codeDownloads[downloads[index]];
+                                            let cdv = rt[downloads[index]+"d"];
+                                            searchsCUpdate[posMWC].downloads[cd] = cdv; 
+                                        }                                           
+                                    } catch (error) {
+                                        console.log(error);
+                                    }                                        
+                                }                                    
+                                
+                            }
 
-                            //revisamos si hay algun otra campaña por procesar
-                            flagMWC.setValue(0);
+                            //revisamos si hay algun otra Búsqueda por procesar
+                            //flagMWC.setValue(0);
+                            saveResultSearch();
                         }
                     }catch(err){
                         console.log(err);
@@ -195,7 +276,7 @@ $("#mwcstart").click(function(event){
         $(".mwc-contairner-process").show();
 
         document.getElementById(option+"lbState").innerHTML = "Procesando...";
-        document.getElementById(option+"description").innerHTML = "Obteniendo las campañas...";
+        document.getElementById(option+"description").innerHTML = "Obteniendo las búsquedas...";
 
         urlApiSheet = xpathUrl["api_java_sheet"][0];
         $("#mwcstart").hide();
@@ -216,7 +297,7 @@ $("#mwcstart").click(function(event){
             console.log(resp);
             try {
                 if(resp.code == 200){     
-                    document.getElementById(option+"description").innerHTML = "Campañas obtenidas";
+                    document.getElementById(option+"description").innerHTML = "Búsquedas obtenidas";
                     searchsC = mwcconvertData(resp.objectResult);
                     flagMWC.setValue(0);
                 }else if(resp.code == 409){
@@ -229,17 +310,17 @@ $("#mwcstart").click(function(event){
                     clearMwc();
                 }
             } catch (error) {
-                document.getElementById(option+"LinkProcess").innerHTML = "Problemas al obtener las campañas";
-                alert("Problemas al obtener las campañas");
+                document.getElementById(option+"LinkProcess").innerHTML = "Problemas al obtener las búsquedas";
+                alert("Problemas al obtener las búsquedas");
                 clearMwc();
-                SendMessage("Meltwater Campañas",urlApiSheet+endponit,"",JSON.stringify(resp));
+                SendMessage("Meltwater búsquedas",urlApiSheet+endponit,"",JSON.stringify(resp));
             }
         })
         .catch(function(error){
             console.log(error);          
-            document.getElementById(option+"LinkProcess").innerHTML = "Problemas al obtener las campañas";
-            alert("Problemas al obtener las campañas");
-            clearMws();
+            document.getElementById(option+"LinkProcess").innerHTML = "Problemas al obtener las búsquedas";
+            alert("Problemas al obtener las búsquedas");
+            clearMwc();
         });
 
     listControlsExecuted.push({control:"BTN-START",module:mapOption[option.replace("-","")]});

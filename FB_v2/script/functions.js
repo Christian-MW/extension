@@ -1415,3 +1415,32 @@ $(m).click(function(e){
 
 var MONTHS = {"1":"Enero","2":"Febrero","3":"Marzo","4":"Abril","5":"Mayo","6":"Junio","7":"Julio"
 ,"8":"Agosto","9":"Septiembre","10":"Octubre","11":"Noviembre","12":"Diciembre"}
+
+var DataFiltersMelt = {};
+let mtextRefres = (Math.random() + 1).toString(36).substring(7);
+console.log(xpathUrl["mws_filters"][0]);
+fetch(xpathUrl["mws_filters"][0]+"?refresh="+mtextRefres, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json',  }
+})
+.then((resp) => resp.json())
+.then(function(resp){ 
+    try {
+        DataFiltersMelt = resp;
+    } catch (error) {
+        
+    }
+})
+.catch(function(error){
+    console.log(error);   
+    });
+
+function removeSpecialCharacters(text){
+    try {
+     text = text.replaceAll("á","a").replaceAll("é","e").replaceAll("í","i").replaceAll("ó","o").replaceAll("ú","u");   
+     text = text.replaceAll("Á","A").replaceAll("É","E").replaceAll("Í","I").replaceAll("Ó","O").replaceAll("Ú","U");   
+    } catch (error) {
+        
+    }
+    return text;
+}

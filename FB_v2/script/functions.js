@@ -38,9 +38,9 @@ chrome.windows.getCurrent((tabWindow) => { // https://developer.chrome.com/docs/
 
 console.log("Cargando archivo functions");
 //Sheet productivo
-//const sheetBase = "1yQ41kTP39D9y7Eh3pM7yDQyLxhI-5H6-3YjbgbfD98I";
+const sheetBase = "1yQ41kTP39D9y7Eh3pM7yDQyLxhI-5H6-3YjbgbfD98I";
 //Sheet desarrollo
-const sheetBase = "1cJZL1MMT5RT-VE3_YJ1dNKzqhsnOJw7zDMe59LpkLck";
+//const sheetBase = "1cJZL1MMT5RT-VE3_YJ1dNKzqhsnOJw7zDMe59LpkLck";
 const storeKey = 'mwgroup-ext';
 const storeValueBase = {userLog:{},userInfo:{}};
 let storeValue = storeValueBase;
@@ -49,7 +49,7 @@ var PARAMETERS_API_MELT={visualizationIds:[],includeUsers:false,emailUser:""}
 var modules = [];
 var users = [];
 var userDVD = [];
-var versionExtension = 2.0002;
+var versionExtension = 2.0005;
 var pathname ="";
 var option="";
 var domain ="https://";

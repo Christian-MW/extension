@@ -8,7 +8,7 @@ let mctrlLanguajeFilter = [];
 let mdataFilters ={};
 let mctrlsFilterDate = [];
 
-let _filters={
+_filters={
     search:"",
     dateStart:1696143600000,
     dateEnd:1699599599999,
@@ -18,7 +18,7 @@ let _filters={
 
 console.log("Consultando los controlsToFind");
 
-let mtextRefres = (Math.random() + 1).toString(36).substring(7);
+mtextRefres = (Math.random() + 1).toString(36).substring(7);
 console.log(xpathUrl["mws_filters"][0]);
 fetch(xpathUrl["mws_filters"][0]+"?refresh="+mtextRefres, {
     method: 'GET',
